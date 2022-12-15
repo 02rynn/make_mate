@@ -13,7 +13,6 @@ build/
 .settings
 .springBeans
 .sts4-cache
-.propertise
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
@@ -36,4 +35,3 @@ out/
 
 ### VS Code ###
 .vscode/
-node_modules/
