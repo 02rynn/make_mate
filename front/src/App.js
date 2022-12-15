@@ -2,6 +2,10 @@
 
 import React, {useEffect, useState} from "react";
 import axios from "axios";
+import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
+import Home from "./home";
+import About from "./about";
+import Profile from "./profile";
 
 function App() {
   const [hello, setHello] = useState("");
@@ -13,7 +17,24 @@ function App() {
       .catch((error) => console.log(error));
   }, []);
 
-  return <div>백엔드에서 가져온 데이터입니다 : {hello}</div>;
+  return (
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home{hello}</Link>
+        <br />
+        <Link to="/about">About</Link>
+        <br />
+        <Link to="/profile">Profile</Link>
+      </nav>
+      <header>----------------------------------</header>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+      <footer>----------------------------------</footer>
+    </BrowserRouter>
+  );
 }
 
 export default App;
