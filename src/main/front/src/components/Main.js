@@ -23,7 +23,7 @@ function Main() {
     
             if (count >= completionWord.length) {
                 setCount(0);
-                setTitle('');
+                setTitle(''); 
             }
     
             return result;
