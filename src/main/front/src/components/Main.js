@@ -1,5 +1,7 @@
 import React from 'react';
 import { Layout, theme, Card } from 'antd';
+import { useState, useEffect } from 'react';
+
 
 function Main() {
     
@@ -9,8 +11,34 @@ function Main() {
         } = theme.useToken();
     const { Meta } = Card;
 
+    const [Title, setTitle] = useState('');
+    const [count, setCount] = useState(0);
+    const completionWord =`A friend is a second self, Make Mate!`;
+
+    useEffect(() => {
+        const typingInterval = setInterval(() => {
+        setTitle((prevTitleValue) => {
+            let result = prevTitleValue ? prevTitleValue + completionWord[count] : completionWord[0];
+            setCount(count + 1);
+    
+            if (count >= completionWord.length) {
+                setCount(0);
+                setTitle('');
+            }
+    
+            return result;
+        });
+        }, 190);
+    
+        return () => {
+            clearInterval(typingInterval);
+        };
+        });
+
     
     return(
+
+        
         <div className='mainContainer'>
             <div className='sideBar'>
                 <Layout>
@@ -37,7 +65,7 @@ function Main() {
                             style={{
                             padding: 0,
                             background: colorBgContainer,
-                            }}><div style={{textAlign:'center'}}>대충 멋있는말</div> </Header>
+                            }}><div className='mainTitle' style={{textAlign:'center',fontSize:'22px'}}>{Title}</div></Header>
                                 <Content
                                     style={{
                                     margin: '24px 16px 0',
