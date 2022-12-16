@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, theme, Card } from 'antd';
 import { useState, useEffect } from 'react';
-
+import MapContainer from './MapContainer';
 
 function Main() {
     
@@ -76,7 +76,7 @@ function Main() {
                                     padding: 24,
                                     minHeight: 1600,
                                     background: colorBgContainer,
-                                    }}>content
+                                    }}>내용 <MapContainer/>
                                 </div>
                                 </Content>
                                 <Footer
