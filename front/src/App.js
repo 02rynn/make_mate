@@ -1,24 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+// src/main/frontend/src/App.js
+
+import React, {useEffect, useState} from "react";
+import axios from "axios";
+import {BrowserRouter, Routes, Route, Link} from "react-router-dom";
+import Home from "./home";
+import About from "./about";
+import Profile from "./profile";
 
 function App() {
+  const [hello, setHello] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("/api/hello")
+      .then((response) => setHello(response.data))
+      .catch((error) => console.log(error));
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BrowserRouter>
+      <nav>
+        <Link to="/">Home{hello}</Link>
+        <br />
+        <Link to="/about">About</Link>
+        <br />
+        <Link to="/profile">Profile</Link>
+      </nav>
+      <header>----------------------------------</header>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/profile" element={<Profile />} />
+      </Routes>
+      <footer>----------------------------------</footer>
+    </BrowserRouter>
   );
 }
 
