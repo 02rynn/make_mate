@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+// <<<<<<< HEAD
 import 'bootstrap/dist/css/bootstrap.min.css';
 import BulletinBoard from './components/BulletinBoard';
 import Nav from 'react-bootstrap/Nav';
@@ -19,27 +19,11 @@ import MyPage from './components/MyPage';
 
 
 
-=======
-import "bootstrap/dist/css/bootstrap.min.css";
-import BulletinBoard from "./components/BulletinBoard";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
-import Container from "react-bootstrap/Container";
-import {Routes, Route, useNavigate} from "react-router-dom";
-import Main from "./components/Main";
-import logo from "./images/logo.jpg";
-import StudyBoard from "./components/StudyBoard";
-import HobbyBoard from "./components/HobbyBoard";
-import SportsBoard from "./components/SportsBoard";
-import MateBoard from "./components/MateBoard";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
-import Note from "./components/Note";
-import MyPage from "./components/MyPage";
+// =======
+
 import {useEffect, useState} from "react";
 import axios from "axios";
->>>>>>> 593774b9217a06489dfa33daa5b2fd68464b2a5c
+// >>>>>>> 593774b9217a06489dfa33daa5b2fd68464b2a5c
 function App() {
   const [hello, setHello] = useState("");
   const [hello2, setHello2] = useState("");
