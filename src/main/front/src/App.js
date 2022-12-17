@@ -17,6 +17,7 @@ import Note from './components/Note';
 import MyPage from './components/MyPage';
 
 
+
 function App() {
 
   let navigate = useNavigate()
