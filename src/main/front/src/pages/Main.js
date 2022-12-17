@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout, theme, Card } from 'antd';
 import { useState, useEffect } from 'react';
-import MapContainer from './MapContainer';
+import MapContainer from '../components/MapContainer';
 
 function Main() {
     
