@@ -9,6 +9,10 @@ class HobbyBoard extends React.Component {
     return (
       <div className='Board'>
         
+           <title> 게시판</title>
+
+
+
 <input type= "checkbox" id='board0' name='board0 ' value= 'board0'/>
 <label for = 'board0'> board 컴포넌트 만들기</label>
 
