@@ -11,7 +11,7 @@ function Login () {
     return( 
 
         <div>
-            <video className='videoTag' autoPlay loop muted style={{opacity:'0.7'}}>
+            <video className='videoTag' autoPlay loop muted style={{opacity:'0.7',width:'100%'}}>
                 <source src={loginBg} type='video/mp4' />
             </video>
             <Card style={{width:'40%', margin:'0 auto',marginTop:'-45%', backgroundColor:'lightgray',opacity:'0.8',alignItems:'center'}}>  

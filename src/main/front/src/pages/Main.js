@@ -2,6 +2,7 @@ import React from 'react';
 import { Layout, theme, Card } from 'antd';
 import { useState, useEffect } from 'react';
 import MapContainer from '../components/MapContainer';
+import Review from './Review';
 
 
 function Main() {
@@ -97,7 +98,7 @@ function Main() {
                   minHeight: 1600,
                   background: colorBgContainer,
                 }}>
-                내용 <MapContainer />
+                내용 <MapContainer /> <Review/>
               </div>
             </Content>
             <Footer
