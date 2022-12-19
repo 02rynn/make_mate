@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { Component } from 'react';
 import BoardService from '../service/BoardService';
 
@@ -62,4 +63,13 @@ class HobbyBoard extends Component {
     }
 }
 
+=======
+function HobbyBoard() {
+    return(
+        <div>
+
+        </div>
+    )
+}
+>>>>>>> 5d271c54af0b34671011a5aa7397bf01c0f0eefd
 export default HobbyBoard;

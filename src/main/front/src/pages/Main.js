@@ -3,7 +3,6 @@ import { Layout, theme, Card } from 'antd';
 import { useState, useEffect } from 'react';
 import MapContainer from '../components/MapContainer';
 
-
 function Main() {
   const {Header, Content, Footer, Sider} = Layout;
   const {
