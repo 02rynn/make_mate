@@ -3,7 +3,7 @@ import "../components/MessageBox";
 import MessageBox from "../components/MessageBox";
 import MsgContentBox from "../components/MsgContentBox";
 import {useState} from "react";
-import About from "./../about";
+
 function Note() {
   const [content, setContent] = useState();
 
@@ -13,23 +13,23 @@ function Note() {
 
   const selectComponent = {
     list: [
-      {name: "second"},
-      {name: "third"},
-      {name: "fourth"},
-      {name: "fifasdth1"},
-      {name: "fifasdasth2"},
-      {name: "fifthasd3"},
-      {name: "fiftdh4"},
-      {name: "fiftash5"},
-      {name: "fiftdasdh6"},
-      {name: "fifasdth7"},
-      {name: "fiftasdh8"},
+      {name1: "second"},
+      {name1: "third"},
+      {name1: "fourth"},
+      {name1: "fifasdth1"},
+      {name1: "fifasdasth2"},
+      {name1: "fifthasd3"},
+      {name1: "fiftdh4"},
+      {name1: "fiftash5"},
+      {name1: "fiftdasdh6"},
+      {name1: "fifasdth7"},
+      {name1: "fiftasdh8"},
     ],
   };
 
-  // selectComponent.list.map((data, index) => {
-  //   console.log(data.text);
-  // });
+  selectComponent.list.map((data, index) => {
+    console.log(data.name1);
+  });
   return (
     <div style={{display: "flex"}}>
       <div
