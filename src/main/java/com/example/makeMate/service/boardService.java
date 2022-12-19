@@ -14,7 +14,6 @@ import net.bytebuddy.asm.Advice.Return;
 
 @Slf4j
 @Service
-
 public class boardService {
 
 	
