@@ -67,13 +67,13 @@ public List<NbEntity> update(final NbEntity entity) {
 
 
 
-	original.ifPresent(todo -> {
+	original.ifPresent(nb -> {
 		// (3) 반환된 TodoEntity가 존재하면 값을 새 entity의 값으로 덮어 씌운다.
-		todo.setTitle(entity.getTitle());
-		todo.setDone(entity.isDone());
+		nb.setTitle(entity.getTitle());
+		nb.setDone(entity.isDone());
 
 		// (4) 데이터베이스에 새 값을 저장한다.
-		repository.save(todo);
+		repository.save(nb);
 	});
 
 	// 2.3.2 Retrieve Todo에서 만든 메서드를 이용해 유저의 모든 Todo 리스트를 리턴한다.

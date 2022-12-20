@@ -56,7 +56,7 @@ class HobbyBoard extends React.Component {
 		</Paper>
 	  );
   
-	  // 3. props로 넘겨주기
+	 
 	  return (
 		<div className="App">
 		  <Container maxWidth="md">

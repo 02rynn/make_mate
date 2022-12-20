@@ -46,7 +46,7 @@ class AddBoard extends React.Component {
               variant="outlined"
               onClick={this.onButtonClick}
             >
-              +
+              
             </Button>
           </Grid>
         </Grid>
