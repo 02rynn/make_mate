@@ -1,3 +1,4 @@
+ /* eslint-disable */
 import React from 'react';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Card , DatePicker , Radio ,} from 'antd';
@@ -5,10 +6,38 @@ import logo from '../images/logoSimple.jpg';
 import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
 import {useState} from 'react';
-
+import {useNavigate} from 'react-router-dom';
 function Signup () {
+    
+    const navigate = useNavigate();
+     const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [address, setAddress] = useState('');
+    const [zipcode, setZipcode] = useState('');
+
+    const handlePostCode = (data) => {
+        let fullAddress = data.address;
+        let extraAddress = ''; 
+        
+        if (data.addressType === 'R') {
+          if (data.bname !== '') {
+            extraAddress += data.bname;
+          }
+          if (data.buildingName !== '') {
+            extraAddress += (extraAddress !== '' ? `, ${data.buildingName}` : data.buildingName);
+          }
+          fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
+        }
+        console.log(data)
+        console.log(fullAddress)
+        console.log(data.zonecode)
+        setAddress(fullAddress);
+        setZipcode(data.zonecode);
+        setModalIsOpen(false)
+    }
+   
+
+    
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
@@ -83,11 +112,19 @@ function Signup () {
                             {
                                 required: true,
                                 message: 'Please input your Password!',
-                            }
+                            },
+                            {
+                                max: 12,
+                                message: "Value should be less than 12 character",
+                              },
+                              {
+                                min: 6,
+                                message: "Value should be more than 6 character",
+                              },
                         ]}>
                         <Input prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
-                                placeholder="Password"/>
+                                placeholder="Password" />
                     </Form.Item>
 
                     <Form.Item
@@ -188,24 +225,31 @@ function Signup () {
                         },
                     ]}>
                         <div style={{display:'flex' , flexDirection:'row'}}>
-                        <Input type = "text" style={{justifyContent:'space-between', marginRight:'10px'}} placeholder='우편주소를 입력하세요'></Input>
+                        <Input type = "text" id="postcode" style={{justifyContent:'space-between', marginRight:'10px'}} placeholder='우편번호를 입력하세요' value={zipcode}>
+                           
+                        </Input>
                         <Button type="primary" htmlType="button" className="login-form-button" style={{backgroundColor: "#ff7f27"}} onClick={()=>{
-                            setModalIsOpen=(true)}}>
+                        setModalIsOpen(true)}}>
                             주소찾기
                         </Button>
+                        <Modal isOpen={modalIsOpen}  style={{ content:{width:"50%" , marginLeft:'20%', height:'70%'}}} >
+                            <DaumPostcode onComplete={handlePostCode}>         
                           
+                            </DaumPostcode>
+                        </Modal>
+                           
 
                         {/* 주소는 일단 스페이스 가능한데 데이터에 집어넣을 때 trim해서 넣기 */}
                         </div>
-                        <Input type = "text" style={{justifyContent:'space-between', marginTop:'10px'}} placeholder='상세 주소를 입력하세요'></Input>
+                        <Input type = "text"  id="detailAddress" style={{justifyContent:'space-between', marginTop:'10px'}} placeholder='상세 주소를 입력하세요' value= {address}>
+                           
+                        </Input>
                     </Form.Item>
 
-                    <Modal isOpen={false}>
-                   This is Modal content
-                   </Modal>
+                    
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button" style={{backgroundColor: "#ff7f27"}}>
+                        <Button type="primary" htmlType="submit" className="login-form-button" style={{backgroundColor: "#ff7f27"}} >
                             Sing up
                         </Button>
                     </Form.Item>

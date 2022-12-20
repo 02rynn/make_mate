@@ -14,7 +14,7 @@ function MessageBox(props) {
           }}>
           익명
         </h4>
-        <time style={{fontSize: "12px", float: "right"}}>20/12/11 21:42</time>
+        <time style={{fontSize: "12px", float: "right"}}>{props.time}</time>
       </div>
       <div
         style={{
