@@ -2,8 +2,7 @@ import React from 'react';
 import { Layout, theme, Card } from 'antd';
 import { useState, useEffect } from 'react';
 import MapContainer from '../components/MapContainer';
-import Review from './Review';
-
+import ProfileImgContainer from '../components/ProfileImgContainer';
 
 function Main() {
   const {Header, Content, Footer, Sider} = Layout;
@@ -98,7 +97,9 @@ function Main() {
                   minHeight: 1600,
                   background: colorBgContainer,
                 }}>
-                내용 <MapContainer /> <Review/>
+                <div className='주혁개발공간'>
+                  <MapContainer/><ProfileImgContainer/>
+                </div>
               </div>
             </Content>
             <Footer
