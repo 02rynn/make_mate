@@ -8,6 +8,7 @@ import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Note from "../pages/Note";
 import MyPage from "../pages/MyPage";
+import Review from '../pages/Review';
 
 
 function RoutesContainer () {
@@ -23,6 +24,8 @@ function RoutesContainer () {
                 <Route Route path="/signup" element={<Signup />}></Route>
                 <Route path="/note" element={<Note />}></Route>
                 <Route path="/mypage" element={<MyPage />}></Route>
+                <Route path="/review" element={<Review />}></Route>
+
             </Routes>
         </div>
     )
