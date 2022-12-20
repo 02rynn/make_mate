@@ -2,11 +2,52 @@ import "../App.css";
 import "../components/MessageBox";
 import MessageBox from "../components/MessageBox";
 import MsgContentBox from "../components/MsgContentBox";
-import {useState} from "react";
+import {useState, useEffect} from "react";
+import SockJS from "sockjs-client";
+import axios from "axios";
 
 function Note() {
-  const [content, setContent] = useState(null);
+  // const sock = new SockJs("http://localhost:8080/stomp-endpoint");
+  // const stomp = StompJs.overy(sock);
+  // const token = {credentials: "omit", origin: "http://localhost:8080"};
+  // let net = require("net");
+  // let client = new net.Socket();
 
+  // const stompConnect = () => {
+  //   try {
+  //     stomp.debug = null;
+  //     //웹소켓 연결시 stomp에서 자동으로 connect이 되었다는것을
+  //     //console에 보여주는데 그것을 감추기 위한 debug
+  //     console.log("연결");
+  //     stomp.connect(token, () => {
+  //       stomp.subscribe(`/topic/greetings`, (data) => {
+  //         const newMessage = JSON.parse(data.body);
+  //         //데이터 파싱
+  //       });
+  //     });
+  //   } catch (err) {}
+  // };
+  // const stompDisConnect = () => {
+  //   try {
+  //     stomp.debug = null;
+  //     console.log("연결끊기");
+  //     stomp.disconnect(() => {
+  //       stomp.unsubscribe("sub-0");
+  //     }, token);
+  //   } catch (err) {}
+  // };
+  // const SendMessage = () => {
+  //   stomp.debug = null;
+  //   const data = {
+  //     type: "TALK",
+  //     message: message,
+  //   };
+  //   //예시 - 데이터 보낼때 json형식을 맞추어 보낸다.
+  //   stomp.send("/pub/chat/message", token, JSON.stringify(data));
+  // };
+
+  const [content, setContent] = useState(null);
+  const [message, setMessage] = useState(null);
   const handleClickButton = (index) => {
     setContent(index);
   };
@@ -27,9 +68,19 @@ function Note() {
     ],
   };
 
-  selectComponent.list.map((data, index) => {
-    console.log(data.name1);
-  });
+  useEffect(() => {
+    axios
+      .get("/msgList")
+      .then((response) => {
+        setMessage(response.data);
+        console.log(message);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  // selectComponent.list.map((data, index) => {
+  //   console.log(data.name1);
+  // });
   return (
     <div style={{display: "flex"}}>
       <div
@@ -66,6 +117,7 @@ function Note() {
                 </li>
               );
             })}
+            {message[0].content}
           </ul>
         </div>
       </div>
@@ -74,4 +126,5 @@ function Note() {
     </div>
   );
 }
+
 export default Note;

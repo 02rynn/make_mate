@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "react-icons": "^4.7.1",
-    "react-rating-stars-component": "^2.2.0"
+    "react-rating-stars-component": "^2.2.0",
+    "sockjs": "^0.3.24",
+    "sockjs-client": "^1.6.1"
   }
 }
