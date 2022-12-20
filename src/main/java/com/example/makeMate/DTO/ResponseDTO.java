@@ -8,17 +8,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-
 
 
 public class ResponseDTO<T> {
 
 	private String error;
 	private List<T> data;
-	
-	
 	
 }
