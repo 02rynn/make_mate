@@ -1,8 +1,34 @@
 import "../App.css";
 import axios from "axios";
-import {useState} from "react";
+import {useState, useEffect} from "react";
+import SockJS from "sockjs-client";
 
 function MsgModal(props) {
+  let [socket, setSocket] = useState(null);
+  // var socket = null;
+  function connectWS() {
+    var sock = new SockJS("http://localhost:8080/echo");
+    setSocket(sock);
+    // socket = sock;
+    sock.onopen = function () {
+      console.log("info: connection opened.");
+    };
+    sock.onmessage = function (e) {
+      //             console.log(e);
+      //             var strArray = e.data.split(":");
+      //             if(e.data.indexof(":") > -1){
+      //                 $(".chat_start_main").text(strArray[0]+"님이 메세지를 보냈습니다.");
+      //             }
+      //             else{
+      //             }
+      // $("#chat").append(e.data + "<br/>");
+    };
+  }
+
+  useEffect(() => {
+    connectWS();
+  }, []);
+
   let [message, setMsgStr] = useState("");
 
   return (
@@ -12,14 +38,17 @@ function MsgModal(props) {
         action="/msg"
         method="post"
         name="msgModalBox">
-        <p>쪽지 보내기</p>
+        <p> 쪽지 보내기 </p>{" "}
         <a
-          style={{float: "right", cursor: "pointer"}}
+          style={{
+            float: "right",
+            cursor: "pointer",
+          }}
           onClick={() => {
             props.setModal(false);
           }}>
-          닫기
-        </a>
+          닫기{" "}
+        </a>{" "}
         <textarea
           name="message"
           className="message"
@@ -27,41 +56,49 @@ function MsgModal(props) {
           id="msgbox"
           onKeyDown={(e) => {
             if (e.keyCode === 13) {
-              axios
-                .post("/msg", {message})
-                .then(() => {
-                  console.log("success");
-                })
-                .catch(() => {
-                  console.log("fail");
-                });
+              // axios
+              //   .post("/msg", {
+              //     message,
+              //   })
+              //   .then(() => {
+              //     console.log("success");
+              //   })
+              //   .catch(() => {
+              //     console.log("fail");
+              //   });
+              socket.send(message);
 
               props.setModal(false);
             }
             setMsgStr(e.target.value);
             console.log(e.target.value);
             console.log(e);
-          }}></textarea>
+          }}>
+          {" "}
+        </textarea>{" "}
         <input
           value="전송"
           type="submit"
           onClick={(e) => {
             e.preventDefault();
             //전송
-            axios
-              .post("/msg", {message})
-              .then(() => {
-                console.log("success");
-              })
-              .catch(() => {
-                console.log("fail");
-              });
+            // axios
+            //   .post("/msg", {
+            //     message,
+            //   })
+            //   .then(() => {
+            //     console.log("success");
+            //   })
+            //   .catch(() => {
+            //     console.log("fail");
+            //   });
+            socket.send(message);
 
             props.setModal(false);
             // document.form.msgModalBox.submit();
           }}
-        />
-      </form>
+        />{" "}
+      </form>{" "}
     </div>
   );
 }

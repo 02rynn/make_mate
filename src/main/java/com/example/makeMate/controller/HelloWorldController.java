@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.makeMate.Entity.MessageEntitiy;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 public class HelloWorldController {
 
@@ -29,6 +32,8 @@ public class HelloWorldController {
         Thread.sleep(2000);
         MessageEntitiy message = new MessageEntitiy();
         message.setContent(content);
+        
+        log.info("hello content {}", content);
     
         return  message;
     }
