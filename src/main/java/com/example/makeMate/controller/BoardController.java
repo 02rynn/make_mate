@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,15 +25,17 @@ public class BoardController {
 
 	@Autowired
 	private BoardService boardService;
-	
-//	---------서비스를 호출 글목록 데이터 리턴
+
+	// get all board 
 	@GetMapping("/board")
 	public List<Board> getAllBoards() {
-		
 		return boardService.getAllBoard();
+	}
 
-
-
+	// create board
+	@PostMapping("/board")
+	public Board createBoard(@RequestBody Board board) {
+		return boardService.createBoard(board);
+	}
 	
-}
 }

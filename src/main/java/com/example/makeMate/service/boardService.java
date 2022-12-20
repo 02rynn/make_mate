@@ -15,12 +15,17 @@ public class BoardService  {
 
 	
 	@Autowired
-	private BoardRepository boardRepository; 
 	
+	private BoardRepository boardRepository;
+	
+	// get boards data
 	public List<Board> getAllBoard() {
 		return boardRepository.findAll();
+	}
 
-
-
+	// create board
+	public Board createBoard(Board board) {
+		return boardRepository.save(board);
+	}
 }
-}
+

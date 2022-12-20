@@ -2,8 +2,7 @@ package com.example.makeMate.Entity;
 
 import java.util.Date;
 
-import org.hibernate.annotations.DynamicInsert;
-import org.hibernate.annotations.DynamicUpdate;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,8 +17,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "board")
-@DynamicInsert 
-@DynamicUpdate
+
 
 
 public class Board {
