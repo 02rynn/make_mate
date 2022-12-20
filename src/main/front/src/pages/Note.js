@@ -5,7 +5,7 @@ import MsgContentBox from "../components/MsgContentBox";
 import {useState} from "react";
 
 function Note() {
-  const [content, setContent] = useState();
+  const [content, setContent] = useState(null);
 
   const handleClickButton = (index) => {
     setContent(index);
@@ -13,17 +13,17 @@ function Note() {
 
   const selectComponent = {
     list: [
-      {name1: "second"},
-      {name1: "third"},
-      {name1: "fourth"},
-      {name1: "fifasdth1"},
-      {name1: "fifasdasth2"},
-      {name1: "fifthasd3"},
-      {name1: "fiftdh4"},
-      {name1: "fiftash5"},
-      {name1: "fiftdasdh6"},
-      {name1: "fifasdth7"},
-      {name1: "fiftasdh8"},
+      {name1: "second", time: "22/12/18 23:12"},
+      {name1: "third", time: "22/12/18 18:12"},
+      {name1: "fourth", time: "22/12/18 34:12"},
+      {name1: "fifasdth1", time: "22/12/18 03:12"},
+      {name1: "fifasdasth2", time: "22/12/18 04:12"},
+      {name1: "fifthasd3", time: "22/12/18 05:12"},
+      {name1: "fiftdh4", time: "22/12/18 14:12"},
+      {name1: "fiftash5", time: "22/12/18 09:12"},
+      {name1: "fiftdasdh6", time: "22/12/18 11:12"},
+      {name1: "fifasdth7", time: "22/12/18 23:32"},
+      {name1: "fiftasdh8", time: "22/12/18 22:12"},
     ],
   };
 
@@ -58,11 +58,11 @@ function Note() {
             {selectComponent.list.map((data, index) => {
               return (
                 <li
-                  key={data.name}
+                  key={data.name1}
                   onClick={() => {
                     handleClickButton(index);
                   }}>
-                  <MessageBox name={data.name}></MessageBox>
+                  <MessageBox name={data.name1} time={data.time}></MessageBox>
                 </li>
               );
             })}

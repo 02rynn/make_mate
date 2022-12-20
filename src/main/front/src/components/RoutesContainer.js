@@ -9,22 +9,21 @@ import Signup from "../pages/Signup";
 import Note from "../pages/Note";
 import MyPage from "../pages/MyPage";
 
-
-function RoutesContainer () {
-    return(
-        <div>
-            <Routes>
-                <Route path="/" element={<Main />}></Route>
-                <Route path="/bulletinBoard/study" element={<StudyBoard />}></Route>
-                <Route path="/bulletinBoard/hobby" element={<HobbyBoard />}></Route>
-                <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route>
-                <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route>
-                <Route path="/login" element={<Login />}></Route>
-                <Route Route path="/signup" element={<Signup />}></Route>
-                <Route path="/note" element={<Note />}></Route>
-                <Route path="/mypage" element={<MyPage />}></Route>
-            </Routes>
-        </div>
-    )
+function RoutesContainer() {
+  return (
+    <div>
+      <Routes>
+        <Route path="/" element={<Main />}></Route>
+        <Route path="/bulletinBoard/study" element={<StudyBoard />}></Route>
+        <Route path="/bulletinBoard/hobby" element={<HobbyBoard />}></Route>
+        <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route>
+        <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route Route path="/signup" element={<Signup />}></Route>
+        <Route path="/note" element={<Note />}></Route>
+        <Route path="/mypage" element={<MyPage />}></Route>
+      </Routes>
+    </div>
+  );
 }
 export default RoutesContainer;

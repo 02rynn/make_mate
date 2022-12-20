@@ -37,7 +37,11 @@ function MsgContentBox(props) {
         <div style={{clear: "both"}}></div>
       </div>
       {modal === true ? <MsgModal setModal={setModal}></MsgModal> : null}
-      <p></p>
+      <p>
+        {props.content === null
+          ? null
+          : props.selectComponent.list[props.content].name1}
+      </p>
     </div>
   );
 }
