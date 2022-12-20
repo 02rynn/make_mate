@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {jwtUtils} from "../utils/jwtUtils";
 import {useEffect, useState} from "react";
 import {setToken} from "../redux/reducers/AuthReducer";
-
+import logo from '../images/logo.jpg';
 const Header = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ const Header = () => {
     <div className="header-wrapper">
       <div className="header-title">
         <Link to="/">
-          <span>Duckgugong</span>
+        <img src={logo} style={{width: "60%", marginLeft: "-10%"}} />
         </Link>
       </div>
       <div className="header-menu">
