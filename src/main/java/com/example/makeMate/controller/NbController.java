@@ -23,7 +23,7 @@ import com.example.makeMate.service.NbService;
 import lombok.Builder;
 
 @RestController
-@RequestMapping("nb")
+@RequestMapping("board")
 
 
 public class NbController {
