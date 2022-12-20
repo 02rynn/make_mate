@@ -3,9 +3,10 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Pagination from "react-js-pagination";
 
+import "../../css/bbslist.css";
+import "../../css/page.css";
 
-
-function BulletinBoard() {
+function BbsList() {
 
 	const [bbsList, setBbsList] = useState([]);
 
@@ -87,7 +88,7 @@ function BulletinBoard() {
 			<table className="table table-hover">
 				<thead>
 					<tr>
-						<th classsName="col-1">번호</th>
+						<th className="col-1">번호</th>
 						<th className="col-8">제목</th>
 						<th className="col-3">작성자</th>
 					</tr>
@@ -130,7 +131,7 @@ function TableRow(props) {
 				
 					<th>{props.cnt}</th>
 					{
-						(bbs.del === 0) ?
+						(bbs.del == 0) ?
 						// 삭제되지 않은 게시글
 						<>
 							<td >
@@ -179,7 +180,4 @@ function Arrow( props ) {
 	 );
 }
 
-
-
-
-export default BulletinBoard;
+export default BbsList;
