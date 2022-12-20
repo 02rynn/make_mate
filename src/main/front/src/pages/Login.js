@@ -2,6 +2,8 @@ import React from 'react';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Card  } from 'antd';
 import loginBg from '../videos/loginBg.mp4';
+import logo from '../images/logoSimple.jpg';
+
 function Login () {
     const { Meta } = Card;
     const onFinish = (values) => {
@@ -14,15 +16,16 @@ function Login () {
             <video className='videoTag' autoPlay loop muted style={{opacity:'0.7',width:'100%'}}>
                 <source src={loginBg} type='video/mp4' />
             </video>
-            <Card style={{width:'40%', margin:'0 auto',marginTop:'-45%', backgroundColor:'lightgray',opacity:'0.8',alignItems:'center'}}>  
+            <Card style={{width:'40%', margin:'0 auto',marginTop:'-48%', backgroundColor:'lightgray',opacity:'0.8',alignItems:'center'}}>  
                 <Form
+                    action='/login'
                     name="normal_login"
                     className="login-form"
                     initialValues={{
                     remember: true,
                 }} onFinish={onFinish}>
                     <div>
-                        <h2>Login In</h2><br/><br/><br/>
+                    <img src={logo} alt="" /><br/><br/><br/>
                     </div>
                     <Form.Item
                         name="username"
@@ -58,7 +61,7 @@ function Login () {
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button">
+                        <Button type="primary" htmlType="submit" className="login-form-button" style={{backgroundColor: "#ff7f27"}}>
                             Log in
                         </Button>
                     </Form.Item>
