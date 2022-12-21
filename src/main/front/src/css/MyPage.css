@@ -1,0 +1,65 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.myPage_container{
+    padding: 12px 0;
+    border: 1px solid #EDEDED;
+    border-radius: 12px;
+    line-height: 30px;
+    color: #292929;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.section{
+    margin: 8px auto 0 auto;
+    width: 80%;
+}
+
+.logout{
+    background-color: #ff7f27 ;
+    border: none;
+    width:70px;
+    height: 30px;
+    padding: 0 12px;
+    border-radius: 15px;
+    line-height: 30px;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.profile{
+    display: flex;
+    flex-direction: row;
+}
+
+.profile img{
+    left: 0;
+    border-radius: 18px;
+    width: 56px;
+    height: 56px;
+}
+
+.userInfo p{
+    line-height: 18px;
+    color: #A6A6A6;
+    font-size: 12px;
+}
+
+.myInfo_section{
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+
+/* @media only screen and (min-width: 780px) {
+    .myPage_container{
+    margin: 8px auto 0 auto;
+    width: 480px;
+}
+} */
