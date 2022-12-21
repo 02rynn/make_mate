@@ -7,8 +7,10 @@ import Header from '../components/Header';
 
 function HobbyBoard() {
   return (
-    <div> 
-      <Router>             
+   
+   <div> 
+		<h1>취미게시판</h1>
+      {/* <Router>             
         <Header/> 
           <div className="container">
 		  <Routes>      
@@ -17,7 +19,7 @@ function HobbyBoard() {
             </Routes>
           </div>
     
-      </Router>
+      </Router> */}
     </div>
   );
 }

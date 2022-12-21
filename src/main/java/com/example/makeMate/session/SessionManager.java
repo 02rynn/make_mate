@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 @Component
-public class sessionManager {
+public class SessionManager {
 	public static final String SESSION__COOKIE_NAME = "tempSessionId";
 	private Map<String, Object> sessionMap = new HashMap<String, Object>();
 	

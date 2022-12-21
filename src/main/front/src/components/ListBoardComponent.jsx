@@ -56,7 +56,7 @@ class ListBoardComponent extends Component {
                         
                     </table>
                 </div>
-                </div>
+          </div>
         );
     }
 }

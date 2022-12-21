@@ -41,17 +41,15 @@ function App() {
       <div className="PageRoutes">
 
       <div className="container">
-      <Routes>
-              <Route path = "/" exact component = {ListBoardComponent}></Route>
-              <Route path = "/board" component = {ListBoardComponent}></Route>
+        안넣었으니까 아무것도 안나오지요
+        <RoutesContainer></RoutesContainer>
         
-              </Routes> 
-          </div>
+      </div>
 
 
 
 
-      <RoutesContainer/>
+ 
       </div>
     </div>
   );

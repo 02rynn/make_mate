@@ -20,7 +20,7 @@ function RoutesContainer() {
         <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route>
         <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route>
         <Route path="/login" element={<Login />}></Route>
-        <Route Route path="/signup" element={<Signup />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
         <Route path="/note" element={<Note />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
       </Routes>
