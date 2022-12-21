@@ -1,6 +1,7 @@
 package com.example.makeMate.Entity;
 
 import java.sql.Date;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,11 +18,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name="MSG")
-@SequenceGenerator(name = "msg_seq",sequenceName = "MSG_SEQ",initialValue = 1, allocationSize = 1)
+//@SequenceGenerator(name = "msg_seq",sequenceName = "MSG_SEQ",initialValue = 1, allocationSize = 1)
 public class MessageEntitiy {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "msg_seq")
+	@SequenceGenerator(name = "msg_seq",sequenceName = "MSG_SEQ",initialValue = 10, allocationSize = 1)
 	public Integer msg_id;
 	public Integer sender_id;
 	public Integer reciver_id;

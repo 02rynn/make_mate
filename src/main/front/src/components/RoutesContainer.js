@@ -9,7 +9,6 @@ import Signup from "../pages/Signup";
 import Note from "../pages/Note";
 import MyPage from "../pages/MyPage";
 
-
 function RoutesContainer() {
   return (
     <div>
