@@ -6,6 +6,7 @@ import RoutesContainer from "./components/RoutesContainer"; //PageRoutes 호출
 import ListBoardComponent from './components/ListBoardComponent';
 
 import { Route, Routes} from 'react-router-dom';
+import HobbyBoard from "./pages/HobbyBoard";
 
 
 
@@ -41,12 +42,12 @@ function App() {
       <div className="PageRoutes">
 
       <div className="container">
-        안넣었으니까 아무것도 안나오지요
+      
         <RoutesContainer></RoutesContainer>
         
       </div>
 
-
+      
 
 
  

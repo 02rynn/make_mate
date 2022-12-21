@@ -1,25 +1,29 @@
-
-import { Router, Route,Routes} from 'react-router-dom'; 
-import ListBoardComponent from '../components/ListBoardComponent';
-import Header from '../components/Header';
+import { Router, Route, Routes} from 'react-router-dom';
+import ListBoardComponent from '../components/ListBoardComponent'; 
+import CreateBoardComponent from '../components/CreateBoardComponent' ;
+import ReadBoardComponent  from '../components/ReadBoardComponent'
 
 
 
 function HobbyBoard() {
   return (
+    <div> 
+      <Router>
    
-   <div> 
-		<h1>취미게시판</h1>
-      {/* <Router>             
-        <Header/> 
           <div className="container">
-		  <Routes>      
+		  <Routes>
               <Route path = "/" exact component = {ListBoardComponent}></Route>
               <Route path = "/board" component = {ListBoardComponent}></Route>
-            </Routes>
+              <Route path = "/create-board/:no" component = {CreateBoardComponent}></Route>
+              <Route path = "/read-board/:no" component = {ReadBoardComponent}></Route>
+			
+			
+			  </Routes>
           </div>
-    
-      </Router> */}
+
+          
+   
+      </Router>
     </div>
   );
 }
