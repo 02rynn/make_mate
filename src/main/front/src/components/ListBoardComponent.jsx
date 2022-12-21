@@ -4,33 +4,24 @@ import BoardService from '../service/BoardService';
 class ListBoardComponent extends Component {
     constructor(props) {
         super(props)
-
+    // # 1. 
         this.state = { 
             boards: []
         }
 		
-		this.createBoard = this.createBoard.bind(this);
     }
-
+    // # 2. 
     componentDidMount() {
         BoardService.getBoards().then((res) => {
             this.setState({ boards: res.data});
         });
     }
-	
-	
-	createBoard() {
-        this.props.history.push('/create-board/');
-    }
 
+    // # 3.
     render() {
         return (
             <div>
                 <h2 className="text-center">Boards List</h2>
-				
-				<div className = "row">
-                    <button className="btn btn-primary" onClick={this.createBoard}> 글 작성</button>
-                </div>
                 <div className ="row">
                     <table className="table table-striped table-bordered">
                         <thead>
@@ -60,12 +51,15 @@ class ListBoardComponent extends Component {
                                     </tr>
                                 )
                             }
+                            
                         </tbody>
+                        
                     </table>
-                    </div>
-                    </div>
+                </div>
+                </div>
         );
     }
 }
 
-export default ListBoardComponent;
+
+export default  ListBoardComponent;

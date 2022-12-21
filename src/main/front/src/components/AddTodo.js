@@ -1,7 +1,7 @@
 import React from "react";
 import { TextField, Paper, Button, Grid } from "@material-ui/core";
 
-class AddBoard extends React.Component {
+class AddTodo extends React.Component {
   constructor(props) {
     super(props);
     this.state = { item: { title: "" } };
@@ -32,7 +32,7 @@ class AddBoard extends React.Component {
         <Grid container>
           <Grid xs={11} md={11} item style={{ paddingRight: 16 }}>
             <TextField
-              placeholder="Add Board here"
+              placeholder="Add Todo here"
               fullWidth
               onChange={this.onInputChange}
               value={this.state.item.title}
@@ -55,4 +55,4 @@ class AddBoard extends React.Component {
   }
 }
 
-export default AddBoard;
+export default AddTodo;
