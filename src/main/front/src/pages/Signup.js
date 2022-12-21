@@ -1,5 +1,5 @@
  /* eslint-disable */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
 import { Button, Checkbox, Form, Input, Card , DatePicker , Radio ,} from 'antd';
 import logo from '../images/logoSimple.jpg';
@@ -7,14 +7,66 @@ import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
+import { genPlaceholderStyle } from 'antd/es/input/style';
 function Signup () {
     
     const navigate = useNavigate();
      const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    //회원가입 초기값
+const [loginId, setLoginId] = useState("");
+const [name, setName] = useState("");
+const [password, setPassword] = useState("");
+const [passwordConfirm, setPasswordConfirm] = useState("");
+const [email, setEmail] = useState("");
+const [nickName, setNickName] = useState("");
+const [birth, setBirth] = useState("");
+const [gender , setGender] = useState("");
+const [profile , setProfile] = useState("");
+//유효성검사
+
+const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+
+const onChangePassword = (e) => {
+            const currentPW = e.target.value;
+            setPassword(currentPW);
+           console.log(password);
+           console.log('비밀번호');
+           
+        };
+
+        const onChangePasswordConfirm = (e) => { //재확인에 입력되는 value
+        const onCheckPW = e.target.value;
+         setPasswordConfirm(onCheckPW);
+         console.log('확인 비번');
+         console.log(passwordConfirm);
+        };
+
+        useEffect(()=>{
+            if(password !== passwordConfirm){ 
+                console.log('불일치')
+                setPasswordConfirmMessage("비밀번호가 일치하지 않습니다");
+            }else{
+                setPasswordConfirmMessage("비밀번호가 일치합니다");
+                console.log('일치')
+            };
+          console.log(passwordConfirm);
+            
+        },[onChangePasswordConfirm])
+
+        // const check = ()=>{
+        //     console.log("check method");
+        //     console.log(password);
+        //     console.log(passwordConfirm);
+        //     if(password !== passwordConfirm){
+        //         console.log('불일치')
+        //         setPasswordConfirmMessage("비밀번호가 일치하지 않습니다");
+        //     };
+        // }
+    
     const [address, setAddress] = useState('');
     const [zipcode, setZipcode] = useState('');
-
+    //카카오주소
     const handlePostCode = (data) => {
         let fullAddress = data.address;
         let extraAddress = ''; 
@@ -35,17 +87,27 @@ function Signup () {
         setZipcode(data.zonecode);
         setModalIsOpen(false)
     }
-   
 
-    
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
+
+  
+
+   
+    //성별 라디오버튼
+    const [value, setValue] = useState(1);
+    const onChange = (e) => {
+      console.log('radio checked', e.target.value);
+      setValue(e.target.value);
+    };
+
     return(
         <div>
              <Card style={{width:'40%', margin:'0 auto',marginTop:'5%', backgroundColor:'lightgray',opacity:'0.8',alignItems:'center'}}>  
                 <Form
                     action='/login'
+                    method='post'
                     name="normal_login"
                     className="login-form"
                     initialValues={{
@@ -71,10 +133,7 @@ function Signup () {
                             required: true,
                             message: 'Please input your E-mail!',
                         },
-                            {
-                            pattern: /^[\s]/,
-                            message: 'Please do not use space',
-                        },
+                            
                         ]}
                     >
                         <Input prefix={<MailOutlined />} placeholder='email'/>
@@ -114,17 +173,17 @@ function Signup () {
                                 message: 'Please input your Password!',
                             },
                             {
-                                max: 12,
-                                message: "Value should be less than 12 character",
-                              },
-                              {
-                                min: 6,
-                                message: "Value should be more than 6 character",
+                                pattern:/^([a-zA-Z0-9!#$%@\-_=+<>]+)$/,
+                                message: '영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요'
+                            }, {
+                                min: 8,
+                                message: "영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요",
                               },
                         ]}>
                         <Input prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
-                                placeholder="Password" />
+                                placeholder="Password"
+                                onChange={(e)=>{onChangePassword(e);}} />
                     </Form.Item>
 
                     <Form.Item
@@ -135,14 +194,24 @@ function Signup () {
                         rules={[
                             {
                                 required: true,
-                                message: 'Please check your Password!',
-                            }
+                                message: 'Please check your Password!'
+                            }, {
+                                pattern:/^([a-z0-9!#$%@\-_=+<>]+)$/,
+                                message: "영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요"
+                            }, {
+                                min: 8,
+                                message: "영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요"
+                              },
                         ]}>
                         <Input prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
-                                placeholder="Password"/>
+                                placeholder="Password"
+                                onChange={(e)=>{onChangePasswordConfirm(e);}}
+                                />
+                                < p style={{fontSize:'12px' ,color:'red'}}>{passwordConfirmMessage}</p>
+                                
                     </Form.Item>
-
+                        
                     {/* 사용자 이름 */}
                       <Form.Item
                         label="이름"
@@ -153,7 +222,14 @@ function Signup () {
                             {
                                 required: true,
                                 message: 'Please input your name!',
-                            },
+                            },{
+                                max: 5,
+                                message: "이름은  5글자 이하 입니다",
+                              },
+                              {
+                                min: 2,
+                                message: "이름은 2글자  입니다",
+                              },
                         ]}>
                         <Input  type="text"
                                 placeholder="이름"/>
@@ -189,8 +265,10 @@ function Signup () {
                                 message: 'Please choose your sex!',
                             },
                         ]}>
-                            <Radio>남</Radio>
-                            <Radio>여</Radio>
+                            <Radio.Group onChange={onChange} value={value}>
+                                <Radio value={1}>남</Radio>
+                                <Radio value={2}>여</Radio>
+                            </Radio.Group>
                     </Form.Item>
 
 
@@ -249,17 +327,17 @@ function Signup () {
                     
 
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className="login-form-button" style={{backgroundColor: "#ff7f27"}} >
+                        <Button type="primary" htmlType="submit" className="login-form-button" style={{backgroundColor: "#ff7f27"}}
+                        onClick={()=>{check()}}
+                        >
                             Sing up
                         </Button>
                     </Form.Item>
 
                 </Form>
             </Card>         
-
-
-
         </div>
     )
+  
 }
-export default Signup
+export default Signup;
