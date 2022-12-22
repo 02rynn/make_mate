@@ -10,7 +10,7 @@ function HobbyBoard() {
 
    
           <div className="container">
-		     <Routes>
+		  <Routes>
               <Route path = "/" exact component = {ListBoardComponent}></Route>
               <Route path = "/board" component = {ListBoardComponent}></Route>
               <Route path = "/create-board/:no" component = {CreateBoardComponent}></Route>
@@ -19,7 +19,7 @@ function HobbyBoard() {
 			
 			  </Routes>
 
-			 
+			  ㅁㄴㅇㅁㄴㅇ
 			  
           </div>
 
