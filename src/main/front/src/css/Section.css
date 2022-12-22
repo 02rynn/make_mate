@@ -1,0 +1,70 @@
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.section_container{
+    padding: 24px;
+    box-sizing: border-box;
+    border: 1px solid #EDEDED;
+    border-radius: 12px;
+    margin: 24px auto 0 auto;
+    margin-top: 55px;
+    width:60%;
+}
+
+.section_title{
+    line-height: 30px;
+    color: #292929;
+    font-size: 22px;
+    font-weight: bold;
+    text-align: left;
+    margin-left: 8px;
+}
+
+.section_menu{
+    text-align: left;
+    margin-left: 10px;
+    display: block;
+    line-height: 24px;
+    word-wrap: break-word;
+    color: #292929;
+    font-size: 16px;
+    text-decoration: none;
+}
+
+.warning_box{
+    min-width:400px;
+    /* margin-left: 33%;
+    margin-right: 33%; */
+    margin: 0 auto;
+}
+.warning{
+    text-align: center;
+    font-size: 8px;
+    color: gray;
+}
+
+.withdrawal_modal_content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 60px;
+}
+
+.withdrawal_check_btn{
+    display:flex;
+    flex-direction: row;
+    /* justify-content: center; */
+    align-items: center;
+    border-radius: 10%;
+    font-weight: bold; 
+    margin-top: 30px;
+    background-color: orange;
+    border-radius: 10px;
+    
+}
+
+
+

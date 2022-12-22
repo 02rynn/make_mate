@@ -7,8 +7,7 @@ import ReadBoardComponent  from '../components/ReadBoardComponent'
 
 function HobbyBoard() {
   return (
-    <div> 
-      <Router>
+
    
           <div className="container">
 		  <Routes>
@@ -19,12 +18,14 @@ function HobbyBoard() {
 			
 			
 			  </Routes>
+
+			  ㅁㄴㅇㅁㄴㅇ
+			  
           </div>
 
           
    
-      </Router>
-    </div>
+     
   );
 }
 

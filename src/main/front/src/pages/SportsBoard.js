@@ -1,7 +1,16 @@
+import CreateBoardComponent from "../components/CreateBoardComponent";
+import ListBoardComponent from "../components/ListBoardComponent";
+import ReadBoardComponent from "../components/ReadBoardComponent";
+
+
+
+
+
 function SportsBoard () {
     return(
         <div>
-            SportsBoard 페이지
+        sdfsdfs
+         
         </div>
     )
 }
