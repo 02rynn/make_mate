@@ -11,7 +11,8 @@ import { genPlaceholderStyle } from 'antd/es/input/style';
 function Signup () {
     
     const navigate = useNavigate();
-     const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
+    const [modalIsOpenSignUp, setModalIsOpenSignUp] = useState(false);
 
     //회원가입 초기값
 const [loginId, setLoginId] = useState("");
@@ -43,13 +44,16 @@ const onChangePassword = (e) => {
         };
 
         useEffect(()=>{
-            if(password !== passwordConfirm){ 
+            if(passwordConfirm == ""){ 
                 console.log('불일치')
-                setPasswordConfirmMessage("비밀번호가 일치하지 않습니다");
-            }else{
+                setPasswordConfirmMessage("");
+            }else if(password== passwordConfirm){
                 setPasswordConfirmMessage("비밀번호가 일치합니다");
                 console.log('일치')
-            };
+            }else if( password !== passwordConfirm){
+                setPasswordConfirmMessage("비밀번호가 일치하지 않습니다");
+
+            }
           console.log(passwordConfirm);
             
         },[onChangePasswordConfirm])
@@ -310,7 +314,8 @@ const onChangePassword = (e) => {
                         setModalIsOpen(true)}}>
                             주소찾기
                         </Button>
-                        <Modal isOpen={modalIsOpen}  style={{ content:{width:"50%" , marginLeft:'20%', height:'70%'}}} >
+                        <Modal isOpen={modalIsOpen}  style={{ content:{width:"50%" , marginLeft:'20%', height:'70%'}}}
+                          onRequestClose={()=>{setModalIsOpen(false)}} >
                             <DaumPostcode onComplete={handlePostCode}>         
                           
                             </DaumPostcode>
@@ -328,11 +333,17 @@ const onChangePassword = (e) => {
 
                     <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button" style={{backgroundColor: "#ff7f27"}}
-                        onClick={()=>{check()}}
+                        onClick={(e)=>{
+                          //  setModalIsOpenSignUp(true)
+                         // navigate("/login");
+                        }}
                         >
-                            Sing up
+                            Sign up
                         </Button>
                     </Form.Item>
+                    {/* <Modal isOpen={modalIsOpenSignUp}>
+                        <button onclick={setModalIsOpenSignUp(false)} >close</button>
+                    </Modal> */}
 
                 </Form>
             </Card>         
@@ -340,4 +351,8 @@ const onChangePassword = (e) => {
     )
   
 }
+
+
+
+
 export default Signup;
