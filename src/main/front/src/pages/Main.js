@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 // import ProfileImgContainer from '../components/ProfileImgContainer';
 import user from '../images/user.jpg';
 import {useNavigate} from "react-router-dom";
-
+import '../css/Main.css'
 
 function Main() {
   let navigate = useNavigate();
@@ -123,8 +123,16 @@ function Main() {
                   background: colorBgContainer,
                 }}>
                 <div>
-                  게시판 Map 불러오기
-                </div>
+                  <div className="home-wrapper">
+                    <div className="home-title">
+                      <span>MakeMate</span>에 오신걸 환영합니다
+                    </div>
+                    <div className="home-contents">
+                      자유롭게 게시판에 글을 작성하고📝<br/>
+                      댓글로 여러 의견을 나눠보세요✏️
+                    </div>
+                  </div>
+              </div>
               </div>
             </Content>
             <Footer
