@@ -1,68 +1,31 @@
-import React from "react";
-import AddBoard from "../components/AddBoard";
-import Board from "../components/Board";
-import {call} from "../service/ApiService";
-import {Paper, List, Container} from "@material-ui/core";
+import { Router, Route, Routes} from 'react-router-dom';
+import ListBoardComponent from '../components/ListBoardComponent'; 
+import CreateBoardComponent from '../components/CreateBoardComponent' ;
+import ReadBoardComponent  from '../components/ReadBoardComponent'
 
-class HobbyBoard extends React.Component {
-	constructor(props) {
-	  super(props);
-	  this.state = {
-		items: [],
-	  };
-	}
-  
-	componentDidMount() {
-	  call("/board", "GET", null).then((response) =>
-		this.setState({ items: response.data })
-	  );
-	}
-  
-	add = (item) => {
-	  call("/board", "POST", item).then((response) =>
-		this.setState({ items: response.data })
-	  );
-	};
-  
-	delete = (item) => {
-	  call("/board", "DELETE", item).then((response) =>
-		this.setState({ items: response.data })
-	  );
-	};
-  
-	update = (item) => {
-	  call("/board", "PUT", item).then((response) =>
-		this.setState({ items: response.data })
-	  );
-	};
-  
-	render() {
-	  var boardItems = this.state.items.length > 0 && (
-		<Paper style={{ margin: 16 }}>
-		  <List>
-			{this.state.items.map((item, idx) => (
-			  <Board
-				item={item}
-				key={item.id}
-				delete={this.delete}
-				update={this.update}
-			  />
-			))}
-		  </List>
-		</Paper>
-	  );
-  
-	 
-	  return (
-		<div className="App">
-		  <Container maxWidth="md">
-			<AddBoard add={this.add} />
-			<div className="BoardList">{boardItems}</div>
-		  </Container>
-		</div>
-	  );
-	}
-  
+
+
+function HobbyBoard() {
+  return (
+    <div> 
+      <Router>
+   
+          <div className="container">
+		  <Routes>
+              <Route path = "/" exact component = {ListBoardComponent}></Route>
+              <Route path = "/board" component = {ListBoardComponent}></Route>
+              <Route path = "/create-board/:no" component = {CreateBoardComponent}></Route>
+              <Route path = "/read-board/:no" component = {ReadBoardComponent}></Route>
+			
+			
+			  </Routes>
+          </div>
+
+          
+   
+      </Router>
+    </div>
+  );
 }
 
 export default HobbyBoard;

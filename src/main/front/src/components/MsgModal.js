@@ -4,6 +4,7 @@ import {useState, useEffect} from "react";
 import SockJS from "sockjs-client";
 
 function MsgModal(props) {
+  let [message, setMsgStr] = useState("");
   let [socket, setSocket] = useState(null);
   // var socket = null;
   function connectWS() {
@@ -25,11 +26,17 @@ function MsgModal(props) {
     };
   }
 
+  function sendMsg() {
+    console.log("버튼 눌림");
+    axios
+      .post("http://localhost:8080/sendMsg", {content: message})
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+  }
+
   useEffect(() => {
     connectWS();
   }, []);
-
-  let [message, setMsgStr] = useState("");
 
   return (
     <div className="msgModal">
@@ -66,13 +73,14 @@ function MsgModal(props) {
               //   .catch(() => {
               //     console.log("fail");
               //   });
+              sendMsg();
               socket.send(message);
 
               props.setModal(false);
             }
             setMsgStr(e.target.value);
-            console.log(e.target.value);
-            console.log(e);
+            // console.log(e.target.value);
+            // console.log(e);
           }}>
           {" "}
         </textarea>{" "}
@@ -92,6 +100,7 @@ function MsgModal(props) {
             //   .catch(() => {
             //     console.log("fail");
             //   });
+            sendMsg();
             socket.send(message);
 
             props.setModal(false);

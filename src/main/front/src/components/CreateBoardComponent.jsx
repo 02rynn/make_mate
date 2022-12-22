@@ -5,15 +5,14 @@ class CreateBoardComponent extends Component {
     constructor(props) {
         super(props);
 
-       
         this.state = {
-            type: '',
+            no: this.props.match.params.no,
+            type: 1,
             title: '',
             contents: '',
             memberNo: ''
         }
 
-        
         this.changeTypeHandler = this.changeTypeHandler.bind(this);
         this.changeTitleHandler = this.changeTitleHandler.bind(this);
         this.changeContentsHandler = this.changeContentsHandler.bind(this);
@@ -21,24 +20,23 @@ class CreateBoardComponent extends Component {
         this.createBoard = this.createBoard.bind(this);
     }
 
-  
+
     changeTypeHandler = (event) => {
         this.setState({type: event.target.value});
     }
-    
+
     changeTitleHandler = (event) => {
         this.setState({title: event.target.value});
     }
-    
+
     changeContentsHandler = (event) => {
         this.setState({contents: event.target.value});
     }
-    
+
     changeMemberNoHandler = (event) => {
         this.setState({memberNo: event.target.value});
     }
 
-   
     createBoard = (event) => {
         event.preventDefault();
         let board = {
@@ -48,16 +46,48 @@ class CreateBoardComponent extends Component {
             memberNo: this.state.memberNo
         };
         console.log("board => "+ JSON.stringify(board));
-        BoardService.createBoard(board).then(res => {
-            this.props.history.push('/board');
-        });
+
+        if (this.state.no === '_create') {
+            BoardService.createBoard(board).then(res => {
+                this.props.history.push('/board');
+            });
+        } else {
+            BoardService.updateBoard(this.state.no, board).then(res => {
+                this.props.history.push('/board');
+            });
+        }
     }
 
-    
     cancel() {
         this.props.history.push('/board');
     }
 
+    getTitle() {
+        if (this.state.no === '_create') {
+            return <h3 className="text-center">새글을 작성해주세요</h3>
+        } else {
+            return <h3 className="text-center">{this.state.no}글을 수정 합니다.</h3>
+        }
+    }
+
+    // For update function add
+    componentDidMount() {
+        if (this.state.no === '_create') {
+            return
+        } else {
+            BoardService.getOneBoard(this.state.no).then( (res) => {
+                let board = res.data;
+                console.log("board => "+ JSON.stringify(board));
+                
+                this.setState({
+                        type: board.type,
+                        title: board.title,
+                        contents: board.contents,
+                        memberNo: board.memberNo
+                    });
+            });
+        }
+    }
 
     render() {
         return (
@@ -65,7 +95,9 @@ class CreateBoardComponent extends Component {
                 <div className = "container">
                     <div className = "row">
                         <div className = "card col-md-6 offset-md-3 offset-md-3">
-                            <h3 className="text-center">새글을 작성해주세요</h3>
+                            {
+                               this.getTitle()
+                            }
                             <div className = "card-body">
                                 <form>
                                     <div className = "form-group">
@@ -105,4 +137,3 @@ class CreateBoardComponent extends Component {
 }
 
 export default CreateBoardComponent;
-

@@ -12,7 +12,7 @@ function MessageBox(props) {
             display: "inline-block",
             float: "left",
           }}>
-          익명
+          {props.sender_id}
         </h4>
         <time style={{fontSize: "12px", float: "right"}}>{props.time}</time>
       </div>
@@ -27,7 +27,7 @@ function MessageBox(props) {
           overflow: "hidden",
           lineHeight: "20px",
         }}>
-        {props.name}
+        {props.content}
       </p>
     </div>
   );

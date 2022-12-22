@@ -1,12 +1,12 @@
-
 import "bootstrap/dist/css/bootstrap.min.css";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import Header from "./components/Header"; //navbar 호출
 import RoutesContainer from "./components/RoutesContainer"; //PageRoutes 호출
 import ListBoardComponent from './components/ListBoardComponent';
-import CreateBoardComponent from './components/CreateBoardComponent';
+
 import { Route, Routes} from 'react-router-dom';
+import HobbyBoard from "./pages/HobbyBoard";
 
 
 
@@ -42,17 +42,15 @@ function App() {
       <div className="PageRoutes">
 
       <div className="container">
-      <Routes>
-              <Route path = "/" exact component = {ListBoardComponent}></Route>
-              <Route path = "/board" component = {ListBoardComponent}></Route>
-              <Route path = "/create-board" component = {CreateBoardComponent}></Route>
-              </Routes> 
-          </div>
+      
+        <RoutesContainer></RoutesContainer>
+        
+      </div>
+
+      
 
 
-
-
-      <RoutesContainer/>
+ 
       </div>
     </div>
   );
