@@ -7,11 +7,10 @@ import ReadBoardComponent  from '../components/ReadBoardComponent'
 
 function HobbyBoard() {
   return (
-    <div> 
-      <Router>
+
    
           <div className="container">
-		  <Routes>
+		     <Routes>
               <Route path = "/" exact component = {ListBoardComponent}></Route>
               <Route path = "/board" component = {ListBoardComponent}></Route>
               <Route path = "/create-board/:no" component = {CreateBoardComponent}></Route>
@@ -19,12 +18,14 @@ function HobbyBoard() {
 			
 			
 			  </Routes>
+
+			 
+			  
           </div>
 
           
    
-      </Router>
-    </div>
+     
   );
 }
 
