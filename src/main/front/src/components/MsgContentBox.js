@@ -21,7 +21,7 @@ function MsgContentBox(props) {
         width: "65%",
       }}>
       <div className="msgTitleBox" style={{display: "flex", width: "100%"}}>
-        <h3 style={{fontWeight: "bolder", marginLeft: "10px"}}>익명</h3>
+        <h4 style={{fontWeight: "bolder", marginLeft: "10px"}}>쪽지</h4>
         <a
           style={{
             float: "left",

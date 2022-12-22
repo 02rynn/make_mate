@@ -23,13 +23,14 @@ public class MessageEntitiy {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "msg_seq")
-	@SequenceGenerator(name = "msg_seq",sequenceName = "MSG_SEQ",initialValue = 10, allocationSize = 1)
+	@SequenceGenerator(name = "msg_seq",sequenceName = "MSG_SEQ",initialValue = 1, allocationSize = 1)
 	public Integer msg_id;
-	public Integer sender_id;
-	public Integer reciver_id;
+	public String sender_id;
+	public String reciver_id; 
 	public int read_yn;
 	public Date send_time;
 	public String content;
+	public Long room_id;
 	
 	
 
