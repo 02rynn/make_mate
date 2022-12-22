@@ -29,10 +29,12 @@ public class MsgController {
 	@GetMapping("/msgList")
 	@ResponseBody
 	public List<MessageEntitiy> list() {
-
+		Long room_id = msgRepository.getMaxRoom_id();
+		System.out.println(room_id);
+		String user = "asd";
 		log.info("요청 들어옴");
 
-		return msgRepository.findAll();
+		return msgRepository.findRecentMsg(user);
 	}
 
 	@PostMapping("/sendMsg")
@@ -40,10 +42,11 @@ public class MsgController {
 	public MessageEntitiy insertMsg(@RequestBody String content) {
 		MessageEntitiy message = new MessageEntitiy();
 		Date now = new java.sql.Date(System.currentTimeMillis());
+		Long room_id = msgRepository.getMaxRoom_id();
 		log.info(content);
 		log.info("post요청 들어옴");
 		
-		System.out.println(content.getClass());
+
         JSONParser parser = new JSONParser();
         try {
 			
@@ -54,15 +57,39 @@ public class MsgController {
 			e.printStackTrace();
 		}
         
-        int id = msgRepository.findRoom_IdbySender_idAndReciver_id(1,2);
+        
+        
+        
+        String sender_id  = msgRepository.findLogin_idById(1);
+        log.info("send_id:{}",sender_id);
+        
+        String Reciver_id  = msgRepository.findLogin_idById(3);
+        log.info("Reciver_id:{}",Reciver_id);
+        Long id = msgRepository.findRoom_IdbySender_idAndReciver_id(sender_id,Reciver_id);
+        log.info("id:{}",id);
+        if(id==null) {
+        	message.setRoom_id(room_id+1);
+        }else {
+        	message.setRoom_id(id);
+        }
         log.info("id:{}",id);
         
-		message.setSender_id(1);
-		message.setReciver_id(3);
-		message.setRead_yn(0);
 //		message.setSend_time((java.sql.Date) now);
+//		message.setContent(jsonObject.get("constent"));
+       
+        
+        message.setMsg_id(1);
+        message.setSender_id(msgRepository.findLogin_idById(2));
+		message.setReciver_id(msgRepository.findLogin_idById(1));
+		message.setRead_yn(0);
 		message.setSend_time((java.sql.Date)now);
-//		message.setContent(jsonObject.get("content"));
+		System.out.println(message.toString());
+		
+		
+		
+		
+		
+		
 		
 		msgRepository.save(message);
 		
