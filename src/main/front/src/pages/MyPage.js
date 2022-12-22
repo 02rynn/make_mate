@@ -1,4 +1,4 @@
-import { RestaurantMenuRounded } from '@material-ui/icons';
+
 import css from '../css/MyPage.css';
 import css2 from '../css/Section.css';
 import logo from '../images/logoSimple.jpg';

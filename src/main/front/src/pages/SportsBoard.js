@@ -1,7 +1,14 @@
+
+
+
+
+
+
 function SportsBoard () {
     return(
         <div>
-            SportsBoard 페이지
+        sdfsdfs
+         
         </div>
     )
 }

@@ -1,10 +1,14 @@
 import React from 'react';
 import { Layout, theme, Card } from 'antd';
 import { useState, useEffect } from 'react';
-import MapContainer from '../components/MapContainer';
-import ProfileImgContainer from '../components/ProfileImgContainer';
+// import MapContainer from '../components/MapContainer';
+// import ProfileImgContainer from '../components/ProfileImgContainer';
+import user from '../images/user.jpg';
+import {useNavigate} from "react-router-dom";
+import '../css/Main.css'
 
 function Main() {
+  let navigate = useNavigate();
   const {Header, Content, Footer, Sider} = Layout;
   const {
     token: {colorBgContainer},
@@ -55,7 +59,6 @@ function Main() {
               console.log(collapsed, type);
             }}>
             <Card
-              hoverable
               style={{
                 width: "auto ",
                 margin: "3%",
@@ -63,15 +66,37 @@ function Main() {
               }}
               cover={
                 <img
+                  style={{padding:'3%',
+                          borderRadius:'10%'
+                }}
                   alt="example"
-                  src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png"
+                  src={user}
                 />
               }>
               <Meta
                 style={{textAlign: "center"}}
                 title="유저닉네임"
-                description="www.instagram.com"
-              />
+                /><br/>
+                <p>유저 아이디</p>
+                <span style={{margin:'6%',
+                              backgroundColor: '#ff7f27',
+                              color: '#FFFFFF',
+                              padding:'1%',
+                              borderRadius:'10%'
+                
+                  }} 
+                      onClick={() => {
+                      navigate("mypage");
+                }}><a>내정보</a></span>
+                <span style={{margin:'6%',
+                              backgroundColor: '#ff7f27',
+                              color: '#FFFFFF',
+                              padding:'1%',
+                              borderRadius:'10%'
+              }} 
+                      onClick={() => {
+                      navigate("/");
+                }}><a>로그아웃</a></span>
             </Card>
           </Sider>
           <Layout>
@@ -97,16 +122,24 @@ function Main() {
                   minHeight: 1600,
                   background: colorBgContainer,
                 }}>
-                <div className='주혁개발공간'>
-                  <MapContainer/><ProfileImgContainer/>
-                </div>
+                <div>
+                  <div className="home-wrapper">
+                    <div className="home-title">
+                      <span>MakeMate</span>에 오신걸 환영합니다
+                    </div>
+                    <div className="home-contents">
+                      자유롭게 게시판에 글을 작성하고📝<br/>
+                      댓글로 여러 의견을 나눠보세요✏️
+                    </div>
+                  </div>
+              </div>
               </div>
             </Content>
             <Footer
               style={{
                 textAlign: "center",
               }}>
-              Ant Design ©2018 Created by Ant UED
+              Human Design ©2022 Created by TDOUCI5
             </Footer>
           </Layout>
         </Layout>

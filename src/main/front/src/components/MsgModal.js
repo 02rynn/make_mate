@@ -28,8 +28,10 @@ function MsgModal(props) {
 
   function sendMsg() {
     console.log("버튼 눌림");
+
+    const mmes = document.getElementById("msgbox").value;
     axios
-      .post("http://localhost:8080/sendMsg", {content: message})
+      .post("http://localhost:8080/sendMsg", {content: mmes})
       .then((response) => console.log(response.data))
       .catch((error) => console.log(error));
   }
@@ -79,7 +81,7 @@ function MsgModal(props) {
               props.setModal(false);
             }
             setMsgStr(e.target.value);
-            // console.log(e.target.value);
+            console.log(e.target.value);
             // console.log(e);
           }}>
           {" "}
