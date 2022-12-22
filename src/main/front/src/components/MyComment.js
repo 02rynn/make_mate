@@ -5,6 +5,7 @@ function MyComment(){
 
     return(
        <>
+       댓글
        </>
     )
 

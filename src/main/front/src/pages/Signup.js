@@ -1,18 +1,20 @@
  /* eslint-disable */
 import React, { useEffect } from 'react';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, Card , DatePicker , Radio ,} from 'antd';
+import { Button, Checkbox, Form, Input, Card , DatePicker , Radio, message ,} from 'antd';
 import logo from '../images/logoSimple.jpg';
 import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
 import {useState} from 'react';
 import {useNavigate} from 'react-router-dom';
 import { genPlaceholderStyle } from 'antd/es/input/style';
+import axios from 'axios';
 function Signup () {
     
     const navigate = useNavigate();
     const [modalIsOpen, setModalIsOpen] = useState(false);
     const [modalIsOpenSignUp, setModalIsOpenSignUp] = useState(false);
+    const [modalmodal , setmodalmodal] = useState(false);
 
     //회원가입 초기값
 const [loginId, setLoginId] = useState("");
@@ -27,6 +29,16 @@ const [profile , setProfile] = useState("");
 //유효성검사
 
 const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
+
+
+function sendForm() {
+    console.log("버튼 눌림");
+    axios
+      .post("http://localhost:3000/signup", {content: message})
+      .then((response) => console.log(response.data))
+      .catch((error) => console.log(error));
+  }
+
 
 const onChangePassword = (e) => {
             const currentPW = e.target.value;
@@ -43,12 +55,15 @@ const onChangePassword = (e) => {
          console.log(passwordConfirm);
         };
 
+        
         useEffect(()=>{
             if(passwordConfirm == ""){ 
                 console.log('불일치')
                 setPasswordConfirmMessage("");
+               
             }else if(password== passwordConfirm){
                 setPasswordConfirmMessage("비밀번호가 일치합니다");
+            
                 console.log('일치')
             }else if( password !== passwordConfirm){
                 setPasswordConfirmMessage("비밀번호가 일치하지 않습니다");
@@ -56,24 +71,18 @@ const onChangePassword = (e) => {
             }
           console.log(passwordConfirm);
             
-        },[onChangePasswordConfirm])
+        },[onChangePasswordConfirm, onChangePassword])
 
-        // const check = ()=>{
-        //     console.log("check method");
-        //     console.log(password);
-        //     console.log(passwordConfirm);
-        //     if(password !== passwordConfirm){
-        //         console.log('불일치')
-        //         setPasswordConfirmMessage("비밀번호가 일치하지 않습니다");
-        //     };
-        // }
-    
+       
     const [address, setAddress] = useState('');
     const [zipcode, setZipcode] = useState('');
+    // let addressMsg= "";
     //카카오주소
     const handlePostCode = (data) => {
         let fullAddress = data.address;
         let extraAddress = ''; 
+
+      
         
         if (data.addressType === 'R') {
           if (data.bname !== '') {
@@ -84,19 +93,22 @@ const onChangePassword = (e) => {
           }
           fullAddress += (extraAddress !== '' ? ` (${extraAddress})` : '');
         }
+         document.getElementById("detailAddress").value=fullAddress ;
+         document.getElementById("postcode").value=data.zonecode ;
+
         console.log(data)
         console.log(fullAddress)
         console.log(data.zonecode)
         setAddress(fullAddress);
+       // setAddress(document.getElementById("detailAddress").value);
         setZipcode(data.zonecode);
+        //setZipcode(document.getElementById("detailAddress").value);
         setModalIsOpen(false)
     }
 
     const onFinish = (values) => {
         console.log('Received values of form: ', values);
     };
-
-  
 
    
     //성별 라디오버튼
@@ -105,6 +117,8 @@ const onChangePassword = (e) => {
       console.log('radio checked', e.target.value);
       setValue(e.target.value);
     };
+
+    
 
     return(
         <div>
@@ -153,6 +167,12 @@ const onChangePassword = (e) => {
                             {   
                                 required: true,
                                 message: 'Please input your ID!',
+                            },{
+                                pattern:/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/,
+                                message: '아이디는 영어 대문자, 숫자 조합으로 6글자 이상입니다'
+                            },{
+                                max:12,
+                                message:'아이디는 최대 12글자 입니다'
                             }
                         ]}>
 
@@ -177,12 +197,13 @@ const onChangePassword = (e) => {
                                 message: 'Please input your Password!',
                             },
                             {
-                                pattern:/^([a-zA-Z0-9!#$%@\-_=+<>]+)$/,
+                                pattern:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
                                 message: '영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요'
-                            }, {
-                                min: 8,
-                                message: "영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요",
-                              },
+                             }
+                            //  , {
+                            //     min:8,
+                            //     message: '영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요'
+                            // }
                         ]}>
                         <Input prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
@@ -198,23 +219,20 @@ const onChangePassword = (e) => {
                         rules={[
                             {
                                 required: true,
-                                message: 'Please check your Password!'
+                                message: 'Please check your Password2!',
                             }, {
-                                pattern:/^([a-z0-9!#$%@\-_=+<>]+)$/,
-                                message: "영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요"
-                            }, {
-                                min: 8,
-                                message: "영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요"
-                              },
+                                pattern:/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                               // min: 8,
+                                message: '영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요'
+                            }
                         ]}>
                         <Input prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
                                 placeholder="Password"
                                 onChange={(e)=>{onChangePasswordConfirm(e);}}
-                                />
-                                < p style={{fontSize:'12px' ,color:'red'}}>{passwordConfirmMessage}</p>
-                                
+                                /> 
                     </Form.Item>
+                                < p style={{fontSize:'12px' , color: 'red'}}>{passwordConfirmMessage}</p>
                         
                     {/* 사용자 이름 */}
                       <Form.Item
@@ -276,7 +294,7 @@ const onChangePassword = (e) => {
                     </Form.Item>
 
 
-                    {/* 닉네임 */}
+                    {/* 닉네임
                     <Form.Item
                         label="닉네임"
                         labelCol={{span:24}}
@@ -285,30 +303,31 @@ const onChangePassword = (e) => {
                         rules={[
                             {   
                                 required: true,
-                                message: 'Please input your nickName!',
-                            }, {
-                                pattern: /^[\s]/,
-                                message: 'Please do not use space',
+                                message: 'Please input your nickName!'
                             }
                         ]}>
-                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="nickName" />
+                        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="nickName" 
+                        
+                        onChange={(e)=>{
+                            console.log(e.target.value);
+                        }}
+                        />
                     </Form.Item>
 
-                
+                 */}
 
                     <Form.Item label="주소"
                       labelCol={{span:24}}
                       wrapperCol={{span: 22}}
                       name="address"
-                      rules={[
-                        {   
-                            required: true,
-                            message: 'Please input your nickName!',
-                        },
-                    ]}>
+                      
+                    >
                         <div style={{display:'flex' , flexDirection:'row'}}>
-                        <Input type = "text" id="postcode" style={{justifyContent:'space-between', marginRight:'10px'}} placeholder='우편번호를 입력하세요' value={zipcode}>
-                           
+                        <Input id="postcode" type = "text" name="postcode" style={{justifyContent:'space-between', marginRight:'10px'}} 
+                        placeholder='우편번호를 입력하세요' 
+                        value={zipcode}
+                        >
+                         
                         </Input>
                         <Button type="primary" htmlType="button" className="login-form-button" style={{backgroundColor: "#ff7f27"}} onClick={()=>{
                         setModalIsOpen(true)}}>
@@ -320,35 +339,62 @@ const onChangePassword = (e) => {
                           
                             </DaumPostcode>
                         </Modal>
-                           
+                        
 
                         {/* 주소는 일단 스페이스 가능한데 데이터에 집어넣을 때 trim해서 넣기 */}
-                        </div>
-                        <Input type = "text"  id="detailAddress" style={{justifyContent:'space-between', marginTop:'10px'}} placeholder='상세 주소를 입력하세요' value= {address}>
-                           
+                       </div>
+                        <Input id="detailAddress" type = "text"  name="detailAddress" style={{justifyContent:'space-between', marginTop:'10px'}} placeholder='상세 주소를 입력하세요' 
+                         value= {address} >
+
+                            
+                          
                         </Input>
                     </Form.Item>
+ 
+
+                 
 
                     
 
                     <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button" style={{backgroundColor: "#ff7f27"}}
                         onClick={(e)=>{
-                          //  setModalIsOpenSignUp(true)
-                         // navigate("/login");
+                         
+                            //value 값 렌더링 되도록 넣어줘야하는디 
+                            //value 값이 변하면 ->
+                            // let asd = document.getElementById("postcode").value;
+                            // let asd2 = document.getElementById("detailAddress").value;
+                            // setZipcode(asd);
+                            // setAddress(asd2);
+                            setAddress(document.getElementById("detailAddress").value);
+                            setZipcode(document.getElementById("postcode").value);
+                            console.log(zipcode);
+                            console.log(address);
+                         validateFields();
+                        // navigate("/login");
+                        setmodalmodal(true);
                         }}
                         >
                             Sign up
                         </Button>
                     </Form.Item>
-                    {/* <Modal isOpen={modalIsOpenSignUp}>
-                        <button onclick={setModalIsOpenSignUp(false)} >close</button>
-                    </Modal> */}
+
+                    <Modal isOpen={modalmodal}
+                      onRequestClose={()=>{setmodalmodal(false)}}
+                      style={{ content:{width:"23%" , margin:'0 auto', height:'30%' ,marginTop:'20%', textAlign:'center'} ,
+                       overlay:{borderRadius:'15%',margin:'0 auto'}}}>
+                            <div className='withdrawal_modal_content'>
+                            <p className='withdrawal_check_msg'>정말 탈퇴하시겠습니까?</p>
+                            <div className='withdrawal_check_btn'>
+                          
+                           </div>
+                           </div>
+                      </Modal>
 
                 </Form>
             </Card>         
         </div>
-    )
+    );
   
 }
 

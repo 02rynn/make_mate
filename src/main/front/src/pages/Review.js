@@ -7,6 +7,21 @@ const colors= {
 }
 
 function Review() {
+    const selectComponent = {
+        list: [
+          {name1: "second", time: "22/12/18 23:12"},
+          {name1: "third", time: "22/12/18 18:12"},
+          {name1: "fourth", time: "22/12/18 34:12"},
+          {name1: "fifasdth1", time: "22/12/18 03:12"},
+          {name1: "fifasdasth2", time: "22/12/18 04:12"},
+          {name1: "fifthasd3", time: "22/12/18 05:12"},
+          {name1: "fiftdh4", time: "22/12/18 14:12"},
+          {name1: "fiftash5", time: "22/12/18 09:12"},
+          {name1: "fiftdasdh6", time: "22/12/18 11:12"},
+          {name1: "fifasdth7", time: "22/12/18 23:32"},
+          {name1: "fiftasdh8", time: "22/12/18 22:12"},
+        ],
+      };
     
 
     
