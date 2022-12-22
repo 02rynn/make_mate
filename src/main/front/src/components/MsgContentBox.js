@@ -38,10 +38,17 @@ function MsgContentBox(props) {
       </div>
       {modal === true ? <MsgModal setModal={setModal}></MsgModal> : null}
       <p>
-        {props.content === null
+        {/* {props.content === null
           ? null
-          : props.selectComponent[props.content].content}
+          : props.selectComponent[props.content].content} */}
       </p>
+      {props.messages.map((data, index) => {
+        return (
+          <p key={index}>
+            <div>{data.content}</div>
+          </p>
+        );
+      })}
     </div>
   );
 }

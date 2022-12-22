@@ -46,6 +46,10 @@ function Note() {
   //   stomp.send("/pub/chat/message", token, JSON.stringify(data));
   // };
   const user = "asd";
+  const [message, setMessage] = useState([]);
+  const [view, setView] = useState();
+  const [messages, setMessages] = useState([]);
+  const [content1, setContent] = useState(null);
   useEffect(() => {
     axios
       .get("http://localhost:8080/msgList")
@@ -53,13 +57,25 @@ function Note() {
       .catch((error) => console.log(error));
   }, []);
 
-  const [content1, setContent] = useState(null);
-  const [message, setMessage] = useState([]);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/msgUser?room_id=" + view)
+      .then((response) => {
+        setMessages(response.data);
+        console.log(messages);
+      })
+      .catch((error) => console.log(error));
+  }, [content1]);
+
+  //메세지 내용을
+
   const handleClickButton = (index) => {
     setContent(index);
+    setView(message[index].room_id);
+    console.log(message[index].room_id);
   };
 
-  console.log(message);
+  // console.log(message);
   // const selectComponent = {
   //   list: [
   //     {name1: "second", time: "22/12/18 23:12"},
@@ -125,7 +141,11 @@ function Note() {
         </div>
       </div>
 
-      <MsgContentBox content={content1} selectComponent={message} />
+      <MsgContentBox
+        content={content1}
+        selectComponent={message}
+        messages={messages}
+      />
     </div>
   );
 }

@@ -63,7 +63,7 @@ public class MsgController {
         String sender_id  = msgRepository.findLogin_idById(1);
         log.info("send_id:{}",sender_id);
         
-        String Reciver_id  = msgRepository.findLogin_idById(3);
+        String Reciver_id  = msgRepository.findLogin_idById(2);
         log.info("Reciver_id:{}",Reciver_id);
         Long id = msgRepository.findRoom_IdbySender_idAndReciver_id(sender_id,Reciver_id);
         log.info("id:{}",id);
@@ -79,8 +79,8 @@ public class MsgController {
        
         
         message.setMsg_id(1);
-        message.setSender_id(msgRepository.findLogin_idById(2));
-		message.setReciver_id(msgRepository.findLogin_idById(1));
+        message.setSender_id(sender_id);
+		message.setReciver_id(Reciver_id);
 		message.setRead_yn(0);
 		message.setSend_time((java.sql.Date)now);
 		System.out.println(message.toString());
@@ -95,5 +95,17 @@ public class MsgController {
 		
 		
 		return message;
+	}
+	
+
+	@ResponseBody
+	@GetMapping("/msgUser")
+	public List<MessageEntitiy> list2(String room_id) {
+		
+		int no = Integer.parseInt(room_id);
+		
+		
+		return msgRepository.findtMsgList(no);
+
 	}
 }
