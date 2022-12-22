@@ -46,12 +46,20 @@ function Note() {
   //   stomp.send("/pub/chat/message", token, JSON.stringify(data));
   // };
 
-  const [content, setContent] = useState(null);
-  const [message, setMessage] = useState(null);
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/msgList")
+      .then((response) => setMessage(response.data))
+      .catch((error) => console.log(error));
+  }, []);
+
+  const [content1, setContent] = useState(null);
+  const [message, setMessage] = useState([]);
   const handleClickButton = (index) => {
     setContent(index);
   };
 
+  console.log(message);
   const selectComponent = {
     list: [
       {name1: "second", time: "22/12/18 23:12"},
@@ -68,19 +76,10 @@ function Note() {
     ],
   };
 
-  useEffect(() => {
-    axios
-      .get("/msgList")
-      .then((response) => {
-        setMessage(response.data);
-        console.log(message);
-      })
-      .catch((error) => console.log(error));
-  }, []);
-
   // selectComponent.list.map((data, index) => {
   //   console.log(data.name1);
   // });
+
   return (
     <div style={{display: "flex"}}>
       <div
@@ -106,23 +105,26 @@ function Note() {
         </div>
         <div className="msgItems">
           <ul>
-            {selectComponent.list.map((data, index) => {
+            {message.map((data, index) => {
               return (
                 <li
-                  key={data.name1}
+                  style={{listStyle: "none"}}
+                  key={index}
                   onClick={() => {
                     handleClickButton(index);
                   }}>
-                  <MessageBox name={data.name1} time={data.time}></MessageBox>
+                  <MessageBox
+                    sender_id={data.sender_id}
+                    content={data.content}
+                    time={data.send_time}></MessageBox>
                 </li>
               );
             })}
-            {message[0].content}
           </ul>
         </div>
       </div>
 
-      <MsgContentBox content={content} selectComponent={selectComponent} />
+      <MsgContentBox content={content1} selectComponent={message} />
     </div>
   );
 }

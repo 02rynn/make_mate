@@ -40,7 +40,7 @@ function MsgContentBox(props) {
       <p>
         {props.content === null
           ? null
-          : props.selectComponent.list[props.content].name1}
+          : props.selectComponent[props.content].content}
       </p>
     </div>
   );
