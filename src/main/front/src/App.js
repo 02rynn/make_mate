@@ -3,10 +3,10 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Header from "./components/Header"; //navbar 호출
 import RoutesContainer from "./components/RoutesContainer"; //PageRoutes 호출
-import ListBoardComponent from './components/ListBoardComponent';
+import ListBoardComponent from './components/BoardList';
 
 import { Route, Routes} from 'react-router-dom';
-import HobbyBoard from "./pages/HobbyBoard";
+import HobbyBoard from "./pages/Board";
 
 
 
