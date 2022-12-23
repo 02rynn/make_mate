@@ -420,7 +420,7 @@ function Signup() {
                 setZipcode(document.getElementById("postcode").value);
                 console.log(zipcode);
                 console.log(address);
-                //validateFields();
+                // validateFields();
                 // navigate("/login");
                 setmodalmodal(true);
               }}>

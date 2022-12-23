@@ -86,6 +86,8 @@
   margin-left: -200px;
   margin-top: -107px;
   display: block;
+  z-index: 1000;
+  opacity: 1;
 }
 
 .message {

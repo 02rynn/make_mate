@@ -26,6 +26,6 @@ public interface MsgRepository extends JpaRepository<MessageEntitiy, Long> {
 	@Query(value="select nvl(max(room_id),0)from msg",nativeQuery = true)
 	Long getMaxRoom_id();
 	
-	@Query(value="select * from msg where room_id = ?1",nativeQuery = true)
+	@Query(value="select * from msg where room_id = ?1 order by msg_id desc",nativeQuery = true)
 	List<MessageEntitiy> findtMsgList(int room_id);
 }

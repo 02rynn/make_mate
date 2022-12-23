@@ -44,9 +44,31 @@ function MsgContentBox(props) {
       </p>
       {props.messages.map((data, index) => {
         return (
-          <p key={index}>
-            <div>{data.content}</div>
-          </p>
+          <div
+            key={index}
+            style={{
+              border: "1px solid #ededed",
+
+              boxSizing: "border-box",
+            }}>
+            {data.sender_id === props.user ? (
+              <p style={{color: "orange", float: "left", fontWeight: "bolder"}}>
+                보낸 메세지
+              </p>
+            ) : (
+              <p
+                style={{
+                  color: "blueviolet",
+                  float: "left",
+                  fontWeight: "bolder",
+                }}>
+                받은 메세지
+              </p>
+            )}
+            <p style={{color: "black", float: "right"}}>{data.send_time}</p>
+            <div style={{clear: "both"}}></div>
+            <div style={{fontWeight: "300"}}>{data.content}</div>
+          </div>
         );
       })}
     </div>

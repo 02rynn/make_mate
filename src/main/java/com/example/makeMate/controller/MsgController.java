@@ -101,9 +101,9 @@ public class MsgController {
 
 	@ResponseBody
 	@GetMapping("/msgUser")
-	public List<MessageEntitiy> list2(String room_id) {
+	public List<MessageEntitiy> list2(int room_id) {
 		
-		int no = Integer.parseInt(room_id);
+		int no = room_id;
 		
 		
 		return msgRepository.findtMsgList(no);
