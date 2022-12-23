@@ -1,7 +1,7 @@
  /* eslint-disable */
 import React, { useEffect } from 'react';
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
-import { Button, Checkbox, Form, Input, Card , DatePicker , Radio, message ,} from 'antd';
+import { Button, Checkbox, Form, Input, Card , DatePicker , Radio, message ,Modal} from 'antd';
 import logo from '../images/logoSimple.jpg';
 import DaumPostcode from 'react-daum-postcode';
 import Modal from 'react-modal';
@@ -370,7 +370,7 @@ const onChangePassword = (e) => {
                             setZipcode(document.getElementById("postcode").value);
                             console.log(zipcode);
                             console.log(address);
-                         validateFields();
+                         //validateFields();
                         // navigate("/login");
                         setmodalmodal(true);
                         }}
@@ -379,7 +379,7 @@ const onChangePassword = (e) => {
                         </Button>
                     </Form.Item>
 
-                    <Modal isOpen={modalmodal}
+                    {/* <Modal isOpen={modalmodal}
                       onRequestClose={()=>{setmodalmodal(false)}}
                       style={{ content:{width:"23%" , margin:'0 auto', height:'30%' ,marginTop:'20%', textAlign:'center'} ,
                        overlay:{borderRadius:'15%',margin:'0 auto'}}}>
@@ -389,7 +389,7 @@ const onChangePassword = (e) => {
                           
                            </div>
                            </div>
-                      </Modal>
+                      </Modal> */}
 
                 </Form>
             </Card>         

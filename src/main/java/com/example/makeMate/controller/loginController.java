@@ -33,11 +33,9 @@ public class LoginController {
 	
 	
 	@PostMapping("/login")
-	public String login (@ModelAttribute UserDTO user
-			,BindingResult bindingResult
-			,HttpServletResponse resp
-			,HttpServletRequest req 
-			) {
+	public String login (@ModelAttribute UserDTO user) {
+		
+		log.info("user : {}" , user);
 		
 		
 		

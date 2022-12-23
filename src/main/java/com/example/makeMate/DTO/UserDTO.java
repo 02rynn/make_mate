@@ -17,7 +17,7 @@ public class UserDTO {
 	private String nickName;
 	private int gender; 
 	private LocalDate birthDate; 
-	private String profile_path;
+	//private String profile_path;
 	
 
 }
