@@ -5,7 +5,7 @@ import {useState} from "react";
 import MsgModal from "../components/MsgModal";
 function MsgContentBox(props) {
   let [modal, setModal] = useState(false);
-
+  let [mess, setMess] = useState("");
   return (
     <div
       className="msgContentBox"
@@ -20,7 +20,13 @@ function MsgContentBox(props) {
         marginLeft: "0px",
         width: "65%",
       }}>
-      <div className="msgTitleBox" style={{display: "flex", width: "100%"}}>
+      <div
+        className="msgTitleBox"
+        style={{
+          display: "flex",
+          width: "100%",
+          borderBottom: "0.5px solid #ededed",
+        }}>
         <h4 style={{fontWeight: "bolder", marginLeft: "10px"}}>쪽지</h4>
         <a
           style={{
@@ -47,7 +53,7 @@ function MsgContentBox(props) {
           <div
             key={index}
             style={{
-              border: "1px solid #ededed",
+              borderBottom: "0.5px solid #ededed",
 
               boxSizing: "border-box",
             }}>
@@ -65,7 +71,9 @@ function MsgContentBox(props) {
                 받은 메세지
               </p>
             )}
-            <p style={{color: "black", float: "right"}}>{data.send_time}</p>
+            <p style={{color: "black", float: "right", fontSize: "12px"}}>
+              {data.send_time.split(".")[0].replace("T", "일")}
+            </p>
             <div style={{clear: "both"}}></div>
             <div style={{fontWeight: "300"}}>{data.content}</div>
           </div>
