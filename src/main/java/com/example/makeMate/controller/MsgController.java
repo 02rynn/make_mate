@@ -2,7 +2,7 @@ package com.example.makeMate.controller;
 
 
 import java.sql.Date;
-
+import java.sql.Timestamp;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -42,7 +42,7 @@ public class MsgController {
 	@ResponseBody
 	public MessageEntitiy insertMsg(@RequestBody String content) {
 		MessageEntitiy message = new MessageEntitiy();
-		Date now = new java.sql.Date(System.currentTimeMillis());
+		Timestamp now = new Timestamp(System.currentTimeMillis());
 		Long room_id = msgRepository.getMaxRoom_id();
 		log.info(content);
 		log.info("post요청 들어옴");
@@ -83,7 +83,7 @@ public class MsgController {
         message.setSender_id(sender_id);
 		message.setReciver_id(Reciver_id);
 		message.setRead_yn(0);
-		message.setSend_time((java.sql.Date)now);
+		message.setSend_time((Timestamp)now);
 		System.out.println(message.toString());
 		
 		

@@ -30,10 +30,12 @@ function MsgModal(props) {
     console.log("버튼 눌림");
 
     const mmes = document.getElementById("msgbox").value;
+
     axios
       .post("http://localhost:8080/sendMsg", {content: mmes})
       .then((response) => {
         console.log(response.data);
+        alert("쪽지가 성공적으로 전송되었습니다");
         window.location.replace("/note");
       })
       .catch((error) => console.log(error));
@@ -44,14 +46,13 @@ function MsgModal(props) {
   }, []);
 
   return (
-    <div className="msgModal">
+    <div className="msgModal" style={{backgroundColor: "rgba(1,1,1,0.5)"}}>
       <div>
         <form
           className="msgModalBox"
           action="/msg"
           method="post"
-          name="msgModalBox"
-          style={{opacity: "1"}}>
+          name="msgModalBox">
           <p> 쪽지 보내기 </p>{" "}
           <a
             style={{

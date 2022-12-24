@@ -1,6 +1,7 @@
 package com.example.makeMate.Entity;
 
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Entity;
@@ -28,7 +29,7 @@ public class MessageEntitiy {
 	public String sender_id;
 	public String reciver_id; 
 	public int read_yn;
-	public Date send_time;
+	public Timestamp send_time;
 	public String content;
 	public Long room_id;
 	
