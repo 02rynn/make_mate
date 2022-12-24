@@ -5,7 +5,7 @@ import {useState} from "react";
 import MsgModal from "../components/MsgModal";
 function MsgContentBox(props) {
   let [modal, setModal] = useState(false);
-
+  let [mess, setMess] = useState("");
   return (
     <div
       className="msgContentBox"
@@ -20,7 +20,13 @@ function MsgContentBox(props) {
         marginLeft: "0px",
         width: "65%",
       }}>
-      <div className="msgTitleBox" style={{display: "flex", width: "100%"}}>
+      <div
+        className="msgTitleBox"
+        style={{
+          display: "flex",
+          width: "100%",
+          borderBottom: "0.5px solid #ededed",
+        }}>
         <h4 style={{fontWeight: "bolder", marginLeft: "10px"}}>쪽지</h4>
         <a
           style={{
@@ -44,9 +50,33 @@ function MsgContentBox(props) {
       </p>
       {props.messages.map((data, index) => {
         return (
-          <p key={index}>
-            <div>{data.content}</div>
-          </p>
+          <div
+            key={index}
+            style={{
+              borderBottom: "0.5px solid #ededed",
+
+              boxSizing: "border-box",
+            }}>
+            {data.sender_id === props.user ? (
+              <p style={{color: "orange", float: "left", fontWeight: "bolder"}}>
+                보낸 메세지
+              </p>
+            ) : (
+              <p
+                style={{
+                  color: "blueviolet",
+                  float: "left",
+                  fontWeight: "bolder",
+                }}>
+                받은 메세지
+              </p>
+            )}
+            <p style={{color: "black", float: "right", fontSize: "12px"}}>
+              {data.send_time.split(".")[0].replace("T", "일")}
+            </p>
+            <div style={{clear: "both"}}></div>
+            <div style={{fontWeight: "300"}}>{data.content}</div>
+          </div>
         );
       })}
     </div>

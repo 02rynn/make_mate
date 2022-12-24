@@ -142,6 +142,7 @@ function Note() {
       </div>
 
       <MsgContentBox
+        user={user}
         content={content1}
         selectComponent={message}
         messages={messages}

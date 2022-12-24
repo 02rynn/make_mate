@@ -444,6 +444,17 @@ function Signup() {
               
                
                 //validateFields();
+                //value 값 렌더링 되도록 넣어줘야하는디
+                //value 값이 변하면 ->
+                // let asd = document.getElementById("postcode").value;
+                // let asd2 = document.getElementById("detailAddress").value;
+                // setZipcode(asd);
+                // setAddress(asd2);
+               // setAddress(document.getElementById("detailAddress").value);
+                //setZipcode(document.getElementById("postcode").value);
+                //console.log(zipcode);
+                //console.log(address);
+                // validateFields();
                 // navigate("/login");
                 // setmodalmodal(true);
                 console.log('before submit');

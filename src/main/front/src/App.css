@@ -64,14 +64,13 @@
 
 .msgModal {
   position: fixed;
-  z-index: 999;
+  z-index: 100;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
   background-color: #000;
-  opacity: .5;
-  filter: alpha(opacity=50);
+  /* filter: alpha(opacity=50); */
 }
 
 .msgModalBox {
@@ -86,6 +85,7 @@
   margin-left: -200px;
   margin-top: -107px;
   display: block;
+  z-index: 1000;
 }
 
 .message {
