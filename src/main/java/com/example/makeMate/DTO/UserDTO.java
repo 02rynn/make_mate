@@ -2,10 +2,17 @@ package com.example.makeMate.DTO;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.Entity;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+
 
 @Data
+@NoArgsConstructor
+
 public class UserDTO {
+
+	//@id
 	private int id;
 	private String email; 
 	private String loginId; 
