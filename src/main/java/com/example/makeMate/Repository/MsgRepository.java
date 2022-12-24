@@ -5,9 +5,12 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.example.makeMate.Entity.MessageEntitiy;
 
+
+@Repository
 public interface MsgRepository extends JpaRepository<MessageEntitiy, Long> {
 
 	List<MessageEntitiy> findAll();
@@ -28,4 +31,7 @@ public interface MsgRepository extends JpaRepository<MessageEntitiy, Long> {
 	
 	@Query(value="select * from msg where room_id = ?1 order by msg_id desc",nativeQuery = true)
 	List<MessageEntitiy> findtMsgList(int room_id);
+	@Query(value="select * from msg where reciver_id = ?1 and read_yn = 0",nativeQuery = true)
+	List<MessageEntitiy> findAllByreciver_idAndread_yn(String user);
+	
 }

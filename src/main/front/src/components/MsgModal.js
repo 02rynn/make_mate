@@ -15,7 +15,7 @@ function MsgModal(props) {
       console.log("info: connection opened.");
     };
     sock.onmessage = function (e) {
-      //             console.log(e);
+      console.log(e);
       //             var strArray = e.data.split(":");
       //             if(e.data.indexof(":") > -1){
       //                 $(".chat_start_main").text(strArray[0]+"님이 메세지를 보냈습니다.");
@@ -36,7 +36,7 @@ function MsgModal(props) {
       .then((response) => {
         console.log(response.data);
         alert("쪽지가 성공적으로 전송되었습니다");
-        window.location.replace("/note");
+        window.location.replace("/note"); // 이거임 여기서 요청 보내는데 이거 우짬?
       })
       .catch((error) => console.log(error));
   }
