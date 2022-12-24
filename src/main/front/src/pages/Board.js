@@ -1,5 +1,5 @@
-import BoardList from "../components/BoardList";
-import Write from "../components/writh";
+import BoardList from "../components/Board/BoardList";
+import Write from "../components/Board/writh";
 
 function Board() {
     return (
