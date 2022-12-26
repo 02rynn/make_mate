@@ -14,7 +14,8 @@ import Password from "../components/Password";
 import MyArticle from "../components/MyArticle";
 import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
-import  Address from "../components/Address";
+import Address from "../components/Address";
+import ImgTest from "./../pages/imgTest";
 
 function RoutesContainer() {
   return (
@@ -22,21 +23,29 @@ function RoutesContainer() {
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/bulletinBoard/study" element={<StudyBoard />}></Route>
-        <Route path="/bulletinBoard/hobby" element={<Board/>}></Route>
+        <Route path="/bulletinBoard/hobby" element={<Board />}></Route>
         <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route>
         <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/note" element={<Note />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
-        <Route path="/mypage/nickname" element={<Nickname></Nickname>}></Route>
-        <Route path="/mypage/password" element={<Password></Password>}></Route>
-        <Route path="/mypage/email" element={<Email></Email>}></Route>
-        <Route path="/mypage/myarticle" element={<MyArticle></MyArticle>}></Route>
-        <Route path="/mypage/mycomment" element={<MyComment></MyComment>}></Route>
-        <Route path="/mypage/withdrawal" element={<Withdrawal></Withdrawal>}></Route>
+        <Route path="/mypage/nickname" element={<Nickname> </Nickname>}></Route>
+        <Route path="/mypage/password" element={<Password> </Password>}></Route>
+        <Route path="/mypage/email" element={<Email> </Email>}></Route>
+        <Route
+          Route
+          path="/mypage/myarticle"
+          element={<MyArticle> </MyArticle>}></Route>
+        <Route
+          path="/mypage/mycomment"
+          element={<MyComment> </MyComment>}></Route>
+        <Route
+          path="/mypage/withdrawal"
+          element={<Withdrawal> </Withdrawal>}></Route>
         {/* 섹션확인용 */}
-        <Route path="/mypage/section" element={<Address></Address>}></Route>
+        <Route path="/mypage/section" element={<Address> </Address>}></Route>
+        <Route path="/imgUpLoad" element={<ImgTest> </ImgTest>}></Route>
       </Routes>
     </div>
   );

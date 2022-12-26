@@ -30,7 +30,8 @@ public class EchoHandler extends TextWebSocketHandler {
    
    @Override
    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-//       String user_name = searchUserName(session);
+// 웹소켓 세션에 접속한 모든 유저를 sessionList에 저장함
+	   //       String user_name = searchUserName(session);
 //       for(WebSocketSession sess : sessionList) {
 //           sess.sendMessage(new TextMessage(user_name+"님이 접속했습니다."));
 //       }
@@ -63,7 +64,7 @@ public class EchoHandler extends TextWebSocketHandler {
        for(WebSocketSession sess: sessionList) {
            sess.sendMessage(new TextMessage(user_name+": "+message.getPayload()));
        }
-   }
+   }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
    
    @Override
    public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {

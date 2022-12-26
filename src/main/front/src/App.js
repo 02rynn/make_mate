@@ -15,7 +15,8 @@ function App() {
   // useEffect(() => {
   //   axios
   //     .get("/api/hello")
-  //     .then((response) => setHello(response.data))
+  //     .then((response) => {setHello(response.data)
+  //     })
   //     .catch((error) => console.log(error));
 
   //   axios
