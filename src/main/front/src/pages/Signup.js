@@ -14,7 +14,6 @@ import {
 
 } from "antd";
 import logo from "../images/logoSimple.jpg";
-import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
@@ -45,13 +44,13 @@ function Signup() {
 
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
 
-  function sendForm() {
-    console.log("버튼 눌림");
-    axios
-      .post("http://localhost:3000/signup", {content: message})
-      .then((response) => console.log(response.data))
-      .catch((error) => console.log(error));
-  }
+  // function sendForm() {
+  //   console.log("버튼 눌림");
+  //   axios
+  //     .post("http://localhost:3000/signup", {content: message})
+  //     .then((response) => console.log(response.data))
+  //     .catch((error) => console.log(error));
+  // }
 
   const onChangePassword = (e) => {
     const currentPW = e.target.value;
@@ -87,12 +86,32 @@ function Signup() {
   const onFinish = (values) => {
     console.log('onfinish');
     console.log("Received values of form: ", values);
+    console.log(fileImage);
 
-    axios
-      .post("http://localhost:8080/signup"
-            , {values} )
+    const formData = new FormData();
+    formData.append("file", fileImage);
+    formData.append('values', new Blob([JSON.stringify(values)], {
+      type: "application/json"
+  }));
+    console.log(formData);
+
+    
+
+    // axios
+    //   // .post("http://localhost:8080/signup", {values, fileImage} , {
+    //   .post("http://localhost:8080/signup", formData , {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data'
+    //     }
+    //   })
+    axios({
+      method:"post",
+      url:"http://localhost:8080/signup",
+      data: formData,
+      headers:{'Content-Type': 'multipart/form-data'}
+    })
       .catch((e) => {
-        console.error(e);
+        console.error(e.response.data);
       })
       .then((response) => {
         console.log(response);
@@ -115,12 +134,14 @@ function Signup() {
   };
 
   //프로필 사진 업로드
-  const [fileImage, setFileImage] = useState("");
+  const [fileImage, setFileImage] = useState(null);
 
     // 파일 저장
     const saveFileImage = (e) => {
-        setFileImage(URL.createObjectURL(e.target.files[0]));
-        console.log(e.target.files[0]);
+        // setFileImage(URL.createObjectURL(e.target.files[0]));
+        setFileImage(e.target.files[0]);
+        console.log(e.target.files[0]);//파일 정보 
+        console.log(URL.createObjectURL(e.target.files[0])); //경로(리액트 서버)
         const formData = new FormData()
         formData.append('files',fileImage)
     };
@@ -132,9 +153,6 @@ function Signup() {
         setFileImage("");
     };
     
-
-  
-  
   
   return (
 
@@ -154,6 +172,7 @@ function Signup() {
           id="normal_login"
           name="normal_login"
           className="login-form"
+          encType="multipart/form-data"
           initialValues={{
             remember: true,
           }}
@@ -378,14 +397,14 @@ function Signup() {
           wrapperCol={{span: 24}}
          >
            <div>
-                <h6 style={{margin: '20px 0px'}}>이미지 미리보기</h6>
+                <p style={{margin: '20px 0px'}}>이미지 미리보기</p>
         <table>
             <tbody>
             <tr>
                 <th></th>
                 <td>
                 <div>
-                    {fileImage && (
+                    {fileImage && ( //이미지 미리보기 
                     <img 
                         alt="sample"
                         src={fileImage}
@@ -398,11 +417,12 @@ function Signup() {
                         justifyContent: "center",
                     }}
                     >
-                    <input
+                    <input //input 버튼 
                         id="profile"
                         name="imgUpload"
                         type="file"
                         accept="image/*"
+                        //ref={fileInputRef}
                         onChange={saveFileImage}
                     />
 
