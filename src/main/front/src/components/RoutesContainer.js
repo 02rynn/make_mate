@@ -15,8 +15,8 @@ import MyArticle from "../components/MyArticle";
 import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
 import  Address from "../components/Address";
-import BbsWrite from "../components/Board/bbs/BbsWrite";
-import BbsUpdate from "../components/Board/bbs/BbsUpdate";
+import ContentForm from  './Board/ContentForm';
+import WriteForm from "./Board/WriteForm";
  
 
 
@@ -30,8 +30,8 @@ function RoutesContainer() {
         <Route path="/bulletinBoard/hobby" element={<Board/>}></Route>
         <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route>
         <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route>
-        <Route path="/bbswrite" element={<BbsWrite />}></Route>
-        <Route path="/bbsupdate" element={<BbsUpdate />}></Route>
+        <Route path="/ContentForm" element={<ContentForm />}/>
+        <Route path="/WriteForm" element={<WriteForm />}/>
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/note" element={<Note />}></Route>

@@ -3,6 +3,8 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Header from "./components/Header"; //navbar 호출
 import RoutesContainer from "./components/RoutesContainer"; //PageRoutes 호출
+import ListForm from './components/Board/WriteForm';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 
@@ -19,8 +21,15 @@ import RoutesContainer from "./components/RoutesContainer"; //PageRoutes 호출
 function App() {
   const [hello, setHello] = useState("");
   const [hello2, setHello2] = useState("");
+  const [message, setMessage] = useState("");
+
 
   useEffect(() => {
+    fetch("/listForm")
+    .then(response => response.text())
+    .then(message => {
+      setMessage(message);
+
     axios
       .get("/api/hello")
       .then((response) => setHello(response.data))
@@ -30,6 +39,10 @@ function App() {
       .get("/api/test")
       .then((response) => setHello2(response.data))
       .catch((error) => console.log(error));
+
+    });
+
+    
   }, []);
 
 
@@ -40,6 +53,9 @@ function App() {
       </div>
 
       <div className="PageRoutes">
+
+    
+
 
       <div className="container">
       
