@@ -8,11 +8,15 @@ function ProfileImgContainer () {
     // 파일 저장
     const saveFileImage = (e) => {
         setFileImage(URL.createObjectURL(e.target.files[0]));
+        console.log(e.target.files[0]);
+        const formData = new FormData()
+        formData.append('files',fileImage)
     };
 
     // 파일 삭제
     const deleteFileImage = () => {
         URL.revokeObjectURL(fileImage);
+        
         setFileImage("");
     };
     
@@ -20,15 +24,15 @@ function ProfileImgContainer () {
 
     return(
         <div>
-                <h1>이미지 미리보기</h1>
+                <h6 style={{margin: '20px 0px'}}>이미지 미리보기</h6>
         <table>
             <tbody>
             <tr>
-                <th>이미지</th>
+                <th></th>
                 <td>
                 <div>
                     {fileImage && (
-                    <img
+                    <img 
                         alt="sample"
                         src={fileImage}
                         style={{ margin: "auto" }}
@@ -41,6 +45,7 @@ function ProfileImgContainer () {
                     }}
                     >
                     <input
+                        id="profile"
                         name="imgUpload"
                         type="file"
                         accept="image/*"
@@ -52,8 +57,9 @@ function ProfileImgContainer () {
                         backgroundColor: "gray",
                         color: "white",
                         width: "55px",
-                        height: "40px",
+                        height: "30px",
                         cursor: "pointer",
+                        borderRadius:'10px',
                         }}
                         onClick={() => deleteFileImage()}
                     >
