@@ -15,7 +15,8 @@ import MyArticle from "../components/MyArticle";
 import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
 import  Address from "../components/Address";
-
+import Signup_bye_bye from "../pages/Signup_bye_bye";
+import Avatar from "../components/Avartar";
 function RoutesContainer() {
   return (
     <div>
@@ -35,8 +36,10 @@ function RoutesContainer() {
         <Route path="/mypage/myarticle" element={<MyArticle></MyArticle>}></Route>
         <Route path="/mypage/mycomment" element={<MyComment></MyComment>}></Route>
         <Route path="/mypage/withdrawal" element={<Withdrawal></Withdrawal>}></Route>
+        <Route path="/mypage/test" element={<Signup_bye_bye></Signup_bye_bye>}></Route>
         {/* 섹션확인용 */}
         <Route path="/mypage/section" element={<Address></Address>}></Route>
+        <Route path="/mypage/avar" element={<Avatar></Avatar>}></Route>
       </Routes>
     </div>
   );

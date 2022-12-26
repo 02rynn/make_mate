@@ -10,19 +10,26 @@ import {
   DatePicker,
   Radio,
   message,
+  Upload
+
 } from "antd";
 import logo from "../images/logoSimple.jpg";
 import DaumPostcode from "react-daum-postcode";
 import Modal from "react-modal";
 import {useState} from "react";
 import {useNavigate} from "react-router-dom";
-import {genPlaceholderStyle} from "antd/es/input/style";
 import axios from "axios";
+import Profile from "../components/ProfileImgContainer";
+
+
+
 function Signup() {
   const navigate = useNavigate();
   const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [modalIsOpenSignUp, setModalIsOpenSignUp] = useState(false);
+  // const [modalIsOpenSignUp, setModalIsOpenSignUp] = useState(false);
   const [modalmodal, setmodalmodal] = useState(false);
+  const [antdmodal, setantdmodal] = useState(false);
+  const showantdmodal=()=>{setantdmodal(true)}
 
   //회원가입 초기값
   const [loginId, setLoginId] = useState("");
@@ -33,7 +40,7 @@ function Signup() {
   const [nickName, setNickName] = useState("");
   const [birth, setBirth] = useState("");
   const [gender, setGender] = useState("");
-  const [profile, setProfile] = useState("");
+  
   //유효성검사
 
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
@@ -75,58 +82,30 @@ function Signup() {
     console.log(passwordConfirm);
   }, [onChangePasswordConfirm, onChangePassword]);
 
-  const [address, setAddress] = useState("");
-  const [zipcode, setZipcode] = useState("");
-  // let addressMsg= "";
-  //카카오주소
-  const handlePostCode = (data) => {
-    let fullAddress = data.address;
-    let extraAddress = "";
 
-    if (data.addressType === "R") {
-      if (data.bname !== "") {
-        extraAddress += data.bname;
-      }
-      if (data.buildingName !== "") {
-        extraAddress +=
-          extraAddress !== "" ? `, ${data.buildingName}` : data.buildingName;
-      }
-      fullAddress += extraAddress !== "" ? ` (${extraAddress})` : "";
-    }
-    document.getElementById("detailAddress").value = fullAddress;
-    document.getElementById("postcode").value = data.zonecode;
-
-    console.log(data);
-    console.log(fullAddress);
-    console.log(data.zonecode);
-    setAddress(fullAddress);
-    // setAddress(document.getElementById("detailAddress").value);
-    setZipcode(data.zonecode);
-    //setZipcode(document.getElementById("detailAddress").value);
-    setModalIsOpen(false);
-  };
 
   const onFinish = (values) => {
+    console.log('onfinish');
     console.log("Received values of form: ", values);
 
     axios
-      .post("http://localhost:8080/login", {email: email})
+      .post("http://localhost:8080/signup"
+            , {values} )
       .catch((e) => {
         console.error(e);
       })
       .then((response) => {
         console.log(response);
-        if (response.status === 200) {
-          console.log("축하해 이제 집에가");
-          //   Modal.success({
-          //     title: "회원가입이 완료되었습니다.",
-          //     onOk() {
-          //     //   router.push("/signin");
-          //     },
-          //   });
-        }
+          //setmodalmodal(true);
+            alert("회원가입을 축하합니다");
+          console.log(modalmodal);
+         
+     //       navigate('/login');
+            
       });
+ 
   };
+
 
   //성별 라디오버튼
   const [value, setValue] = useState(1);
@@ -135,7 +114,30 @@ function Signup() {
     setValue(e.target.value);
   };
 
+  //프로필 사진 업로드
+  const [fileImage, setFileImage] = useState("");
+
+    // 파일 저장
+    const saveFileImage = (e) => {
+        setFileImage(URL.createObjectURL(e.target.files[0]));
+        console.log(e.target.files[0]);
+        const formData = new FormData()
+        formData.append('files',fileImage)
+    };
+
+    // 파일 삭제
+    const deleteFileImage = () => {
+        URL.revokeObjectURL(fileImage);
+        
+        setFileImage("");
+    };
+    
+
+  
+  
+  
   return (
+
     <div>
       <Card
         style={{
@@ -149,12 +151,13 @@ function Signup() {
         <Form
           action="/login"
           method="post"
+          id="normal_login"
           name="normal_login"
           className="login-form"
           initialValues={{
             remember: true,
           }}
-          onFinish={onFinish()}>
+          onFinish={onFinish}>
           <div>
             <img src={logo} alt="" />
             <br />
@@ -211,11 +214,18 @@ function Signup() {
                 type="primary"
                 htmlType="button"
                 className="ld-check-button"
+                onClick={()=>{setModalIsOpen(true)}}
                 style={{backgroundColor: "#ff7f27", marginLeft: "10px"}}>
                 중복확인
               </Button>
             </div>
           </Form.Item>
+          <Modal isOpen={modalIsOpen} onRequestClose={()=>{setModalIsOpen(false)}}
+           style={{ content:{width:"23%" , margin:'0 auto', height:'30%' ,marginTop:'20%', textAlign:'center'} ,
+           overlay:{borderRadius:'15%',margin:'0 auto'}}}>
+            중복확인 들갑니다
+            {/* <button onClick={setModalIsOpen(false)}>닫기</button> */}
+          </Modal>
 
           {/* 비밀번호 , 재확인     */}
           <Form.Item
@@ -298,7 +308,11 @@ function Signup() {
               {
                 min: 2,
                 message: "이름은 2글자  입니다",
-              },
+               }
+               //,{
+              //   pattern:/ ^[a-zA-Zㄱ-ㅎ가-힣]/,
+              //   message: "이름은 문자만 가능합니다."
+              // }
             ]}>
             <Input type="text" placeholder="이름" />
           </Form.Item>
@@ -336,73 +350,90 @@ function Signup() {
             </Radio.Group>
           </Form.Item>
 
-          {/* 닉네임
-                     <Form.Item
-                         label="닉네임"
-                         labelCol={{span:24}}
-                         wrapperCol={{span: 24}}
-                         name="nickName"
-                         rules={[
-                             {   
-                                 required: true,
-                                 message: 'Please input your nickName!'
-                             }
-                         ]}>
-                         <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="nickName" 
-                         
-                         onChange={(e)=>{
-                             console.log(e.target.value);
-                         }}
-                         />
-                     </Form.Item>
- 
-                  */}
-
+          {/*핸드폰 번호 */}
           <Form.Item
-            label="주소"
+            name="phoneNum"
             labelCol={{span: 24}}
-            wrapperCol={{span: 22}}
-            name="address">
-            <div style={{display: "flex", flexDirection: "row"}}>
-              <Input
-                id="postcode"
-                type="text"
-                name="postcode"
-                style={{justifyContent: "space-between", marginRight: "10px"}}
-                placeholder="우편번호를 입력하세요"
-                value={zipcode}></Input>
-              <Button
-                type="primary"
-                htmlType="button"
-                className="login-form-button"
-                style={{backgroundColor: "#ff7f27"}}
-                onClick={() => {
-                  setModalIsOpen(true);
-                }}>
-                주소찾기
-              </Button>
-              <Modal
-                isOpen={modalIsOpen}
-                style={{
-                  content: {width: "50%", marginLeft: "20%", height: "70%"},
-                }}
-                onRequestClose={() => {
-                  setModalIsOpen(false);
-                }}>
-                <DaumPostcode onComplete={handlePostCode}></DaumPostcode>
-              </Modal>
-
-              {/* 주소는 일단 스페이스 가능한데 데이터에 집어넣을 때 trim해서 넣기 */}
-            </div>
+            wrapperCol={{span:24}}
+            label="휴대폰 번호"
+            rules={[{ 
+                required: true, 
+                message: "'-' 없이 숫자만 입력해주세요",
+                pattern: new RegExp(/^[0-9]+$/)
+            }]}
+        >
             <Input
-              id="detailAddress"
-              type="text"
-              name="detailAddress"
-              style={{justifyContent: "space-between", marginTop: "10px"}}
-              placeholder="상세 주소를 입력하세요"
-              value={address}></Input>
-          </Form.Item>
+                placeholder="01012345678"
+                maxLength={11}
+            />
+        </Form.Item>
 
+
+          {/*프로필사진  */}
+
+         <Form.Item
+          label="프로필 사진"
+          name="profile_path"
+          labelCol={{span: 24}}
+          wrapperCol={{span: 24}}
+         >
+           <div>
+                <h6 style={{margin: '20px 0px'}}>이미지 미리보기</h6>
+        <table>
+            <tbody>
+            <tr>
+                <th></th>
+                <td>
+                <div>
+                    {fileImage && (
+                    <img 
+                        alt="sample"
+                        src={fileImage}
+                        style={{ margin: "auto" }}
+                    />
+                    )}
+                    <div
+                    style={{
+                        alignItems: "center",
+                        justifyContent: "center",
+                    }}
+                    >
+                    <input
+                        id="profile"
+                        name="imgUpload"
+                        type="file"
+                        accept="image/*"
+                        onChange={saveFileImage}
+                    />
+
+                    <button
+                        style={{
+                        backgroundColor: "gray",
+                        color: "white",
+                        width: "55px",
+                        height: "30px",
+                        cursor: "pointer",
+                        borderRadius:'10px',
+                        }}
+                        onClick={() => deleteFileImage()}
+                    >
+                        삭제
+                    </button>
+                    </div>
+                </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+            
+        </div>     
+ 
+        
+        
+         </Form.Item>
+           
+
+            {/*가입하기 버튼 */}
           <Form.Item>
             <Button
               type="primary"
@@ -410,35 +441,32 @@ function Signup() {
               className="login-form-button"
               style={{backgroundColor: "#ff7f27"}}
               onClick={(e) => {
+              
+               
+                //validateFields();
                 //value 값 렌더링 되도록 넣어줘야하는디
                 //value 값이 변하면 ->
                 // let asd = document.getElementById("postcode").value;
                 // let asd2 = document.getElementById("detailAddress").value;
                 // setZipcode(asd);
                 // setAddress(asd2);
-                setAddress(document.getElementById("detailAddress").value);
-                setZipcode(document.getElementById("postcode").value);
-                console.log(zipcode);
-                console.log(address);
-                //validateFields();
+               // setAddress(document.getElementById("detailAddress").value);
+                //setZipcode(document.getElementById("postcode").value);
+                //console.log(zipcode);
+                //console.log(address);
+                // validateFields();
                 // navigate("/login");
-                setmodalmodal(true);
+                // setmodalmodal(true);
+                console.log('before submit');
+                console.log(fileImage);
+
+               
               }}>
               Sign up
             </Button>
-          </Form.Item>
+            </Form.Item>
+        
 
-          {/* <Modal isOpen={modalmodal}
-                       onRequestClose={()=>{setmodalmodal(false)}}
-                       style={{ content:{width:"23%" , margin:'0 auto', height:'30%' ,marginTop:'20%', textAlign:'center'} ,
-                        overlay:{borderRadius:'15%',margin:'0 auto'}}}>
-                             <div className='withdrawal_modal_content'>
-                             <p className='withdrawal_check_msg'>정말 탈퇴하시겠습니까?</p>
-                             <div className='withdrawal_check_btn'>
-                           
-                            </div>
-                            </div>
-                       </Modal> */}
         </Form>
       </Card>
     </div>
