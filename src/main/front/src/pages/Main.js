@@ -5,7 +5,9 @@ import { useState, useEffect } from 'react';
 // import ProfileImgContainer from '../components/ProfileImgContainer';
 import user from '../images/user.jpg';
 import {useNavigate} from "react-router-dom";
-import '../css/Main.css'
+import MainGrap from '../components/MainGraf/MainGrap';
+import '../css/Main.css';
+
 
 function Main() {
   let navigate = useNavigate();
@@ -131,6 +133,7 @@ function Main() {
                       자유롭게 게시판에 글을 작성하고📝<br/>
                       댓글로 여러 의견을 나눠보세요✏️
                     </div>
+                  <MainGrap/>
                   </div>
               </div>
               </div>

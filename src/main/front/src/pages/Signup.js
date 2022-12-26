@@ -72,7 +72,7 @@ function Signup() {
       console.log("불일치");
       setPasswordConfirmMessage("");
     } else if (password == passwordConfirm) {
-      setPasswordConfirmMessage("비밀번호가 일치합니다");
+      setPasswordConfirmMessage(<div style={{color:'blue'}}>비밀번호가 일치합니다</div>);
 
       console.log("일치");
     } else if (password !== passwordConfirm) {
