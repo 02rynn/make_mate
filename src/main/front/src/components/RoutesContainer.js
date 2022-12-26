@@ -42,8 +42,9 @@ function RoutesContainer() {
         <Route path="/mypage/myarticle" element={<MyArticle></MyArticle>}></Route>
         <Route path="/mypage/mycomment" element={<MyComment></MyComment>}></Route>
         <Route path="/mypage/withdrawal" element={<Withdrawal></Withdrawal>}></Route>
-        {/* 섹션확인용 */}
+       
         <Route path="/mypage/section" element={<Address></Address>}></Route>
+       
       </Routes>
     </div>
   );

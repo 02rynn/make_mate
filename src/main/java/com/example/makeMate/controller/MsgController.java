@@ -46,7 +46,7 @@ public class MsgController {
 		Long room_id = msgRepository.getMaxRoom_id();
 		log.info(content);
 		log.info("post요청 들어옴");
-		
+		System.out.println(msgRepository.findAllByreciver_idAndread_yn("asd").size());
 
         JSONParser parser = new JSONParser();
         try {

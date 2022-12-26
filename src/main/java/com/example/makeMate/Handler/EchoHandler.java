@@ -2,13 +2,17 @@ package com.example.makeMate.Handler;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Component;
-import org.springframework.web.socket.*;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
+
+import com.example.makeMate.Entity.MessageEntitiy;
+import com.example.makeMate.Repository.MsgRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -19,7 +23,7 @@ public class EchoHandler extends TextWebSocketHandler {
    
    
    private static List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
-   
+   private static MsgRepository msgRepository;
    
    
 //   Map<String,WebSocketSession> us ers = new HashMap<>();
@@ -31,6 +35,12 @@ public class EchoHandler extends TextWebSocketHandler {
 //           sess.sendMessage(new TextMessage(user_name+"님이 접속했습니다."));
 //       }
 	   
+	   //최초 접속 시 읽지않는 메세지의 갯수를 보여주는 함수 
+//	    String user_name = searchUserName(session);
+//        sessionList.add(session);
+//            session.sendMessage(new TextMessage("recMs :"+msgRepository.findAllByreciver_idAndread_yn("asd").size()));
+//    }
+//	   System.out.println("안읽은 메세지 수 "+unReadList.size());
 	   log.info(session.toString());
        System.out.println("연결 성공");
        sessionList.add(session);
@@ -41,7 +51,7 @@ public class EchoHandler extends TextWebSocketHandler {
        String user_name= searchUserName(session);
        System.out.println("연결 성공");
        log.info("text msg : {}" , message.getPayload());
-       
+      
 //       //사용자가 접속중인지 아닌지
 //       WebSocketSession chatwritingSession =users.get("user_name");
 //       if(chatwritingSession != null) {

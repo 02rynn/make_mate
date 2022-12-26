@@ -10,14 +10,6 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 
 
-
-
-
-
-
-
-
-
 function App() {
   const [hello, setHello] = useState("");
   const [hello2, setHello2] = useState("");
@@ -44,12 +36,17 @@ function App() {
 
     
   }, []);
-
+  
+  //   axios
+  //     .get("/api/test")
+  //     .then((response) => setHello2(response.data))
+  //     .catch((error) => console.log(error));
+  // }, []);
 
   return (
     <div className="App">
       <div className="NavBar">
-        <Header/>
+        <Header />
       </div>
 
       <div className="PageRoutes">
