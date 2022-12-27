@@ -16,6 +16,8 @@ import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
 import ImgTest from "./../pages/imgTest";
+import WriteForm from "../components/Board/WriteForm";
+import ContentForm from "../components/Board/ContentForm";
 
 function RoutesContainer() {
   return (
@@ -33,7 +35,10 @@ function RoutesContainer() {
         <Route path="/note" element={<Note />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/mypage/nickname" element={<Nickname> </Nickname>}></Route>
-        <Route path="/mypage/password" element={<Password> </Password>}></Route>
+        <Route
+          Route
+          path="/mypage/password"
+          element={<Password> </Password>}></Route>
         <Route path="/mypage/email" element={<Email> </Email>}></Route>
         <Route
           Route
@@ -48,6 +53,10 @@ function RoutesContainer() {
         {/* 섹션확인용 */}
         <Route path="/mypage/section" element={<Address> </Address>}></Route>
         <Route path="/imgUpLoad" element={<ImgTest> </ImgTest>}></Route>
+        <Route
+          path="/contentForm"
+          element={<ContentForm> </ContentForm>}></Route>
+        <Route path="/writeForm" element={<WriteForm> </WriteForm>}></Route>
       </Routes>
     </div>
   );
