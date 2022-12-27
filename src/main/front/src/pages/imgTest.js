@@ -1,28 +1,52 @@
 import React, {Component} from "react";
-import axios, {post} from "axios";
-function ImgTest() {
-  const URL = "http://localhost:8080/imgUpload";
+import axios from "axios";
 
-  const fileUp = () => {
-    axios
-      .post(URL)
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => console.log(error));
+class ImgTest extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      file: null,
+    };
+  }
+
+  fileUpload(file) {
+    const url = "http://localhost:8080/upload";
+    const formData = new FormData();
+    formData.append("file", file);
+    const config = {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    };
+    return axios.post(url, formData, config);
+  }
+
+  upload = (e) => {
+    e.preventDefault();
+    this.fileUpload(this.state.file).then((response) => {
+      console.log(response.data);
+    });
+  };
+  fileChange = (e) => {
+    this.setState({file: e.target.files[0]});
   };
 
-  return (
-    <div className="">
-      <h1>파일 업로드</h1>
-      <form>
-        <h1>File Upload</h1>
-        <input type="file" className="file" />
-        <button type="button" onClick={fileUp()}>
-          Upload
-        </button>
-      </form>
-    </div>
-  );
+  ////여기 위로 이미지 파일 업로드 함수
+
+  render() {
+    return (
+      <div>
+        {/* <h1>파일 업로드</h1> */}
+        <form>
+          <h1>프로필 사진</h1>
+          <input type="file" onChange={this.fileChange} name="file" />
+          <button type="button" onClick={this.upload}>
+            Upload
+          </button>
+        </form>
+      </div>
+    );
+  }
 }
+
 export default ImgTest;
