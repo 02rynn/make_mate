@@ -52,6 +52,8 @@ function Signup() {
   //     .catch((error) => console.log(error));
   // }
 
+  const [isColor, setIsColor] = useState(false);
+
   const onChangePassword = (e) => {
     const currentPW = e.target.value;
     setPassword(currentPW);
@@ -70,12 +72,14 @@ function Signup() {
   useEffect(() => {
     if (passwordConfirm == "") {
       console.log("불일치");
+      setIsColor(true);
       setPasswordConfirmMessage("");
     } else if (password == passwordConfirm) {
-      setPasswordConfirmMessage(<div style={{color:'blue'}}>비밀번호가 일치합니다</div>);
+      setPasswordConfirmMessage('비밀번호가 일치합니다');
 
       console.log("일치");
     } else if (password !== passwordConfirm) {
+      setIsColor(false);
       setPasswordConfirmMessage("비밀번호가 일치하지 않습니다");
     }
     console.log(passwordConfirm);
@@ -132,25 +136,28 @@ function Signup() {
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
   //프로필 사진 업로드
   const [fileImage, setFileImage] = useState(null);
-
+ 
     // 파일 저장
     const saveFileImage = (e) => {
-        // setFileImage(URL.createObjectURL(e.target.files[0]));
-        setFileImage(e.target.files[0]);
-        console.log(e.target.files[0]);//파일 정보 
-        console.log(URL.createObjectURL(e.target.files[0])); //경로(리액트 서버)
-        const formData = new FormData()
-        formData.append('files',fileImage)
-    };
+    
+      setFileImage(URL.createObjectURL(e.target.files[0]));   //이걸로 해야 삭제, 미리보기됨 
+     setFileImage(e.target.files[0]);
+      console.log(e.target.files[0]);//파일 정보 
+      console.log(URL.createObjectURL(e.target.files[0])); //경로(리액트 서버)
+      const formData = new FormData()
+      formData.append('files',fileImage)
+       }
+
+//    };
 
     // 파일 삭제
     const deleteFileImage = () => {
-        URL.revokeObjectURL(fileImage);
-        
-        setFileImage("");
+      URL.revokeObjectURL(fileImage);
+      setFileImage("");
+
     };
     
   
@@ -215,8 +222,8 @@ function Signup() {
                 message: "Please input your ID!",
               },
               {
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/,
-                message: "아이디는 영어 대문자, 숫자 조합으로 6글자 이상입니다",
+                pattern: /^[a-z0-9]{6,12}$/,
+                message: "아이디는 영어소문자 , 숫자 조합으로 6글자 이상입니다",
               },
               {
                 max: 12,
@@ -305,7 +312,7 @@ function Signup() {
               }}
             />
           </Form.Item>
-          <p style={{fontSize: "12px", color: "red"}}>
+          <p style={{color: isColor? 'red' : 'blue'}}>
             {passwordConfirmMessage}
           </p>
 
@@ -404,10 +411,11 @@ function Signup() {
                 <th></th>
                 <td>
                 <div>
-                    {fileImage && ( //이미지 미리보기 
+                    {img && ( 
                     <img 
                         alt="sample"
-                        src={fileImage}
+                        //src={fileImage}
+                        src={img}
                         style={{ margin: "auto" }}
                     />
                     )}
@@ -421,8 +429,7 @@ function Signup() {
                         id="profile"
                         name="imgUpload"
                         type="file"
-                        accept="image/*"
-                        //ref={fileInputRef}
+                        accept="image/*" 
                         onChange={saveFileImage}
                     />
 
@@ -448,11 +455,7 @@ function Signup() {
             
         </div>     
  
-        
-        
          </Form.Item>
-           
-
             {/*가입하기 버튼 */}
           <Form.Item>
             <Button
@@ -461,26 +464,8 @@ function Signup() {
               className="login-form-button"
               style={{backgroundColor: "#ff7f27"}}
               onClick={(e) => {
-              
-               
-                //validateFields();
-                //value 값 렌더링 되도록 넣어줘야하는디
-                //value 값이 변하면 ->
-                // let asd = document.getElementById("postcode").value;
-                // let asd2 = document.getElementById("detailAddress").value;
-                // setZipcode(asd);
-                // setAddress(asd2);
-               // setAddress(document.getElementById("detailAddress").value);
-                //setZipcode(document.getElementById("postcode").value);
-                //console.log(zipcode);
-                //console.log(address);
-                // validateFields();
-                // navigate("/login");
-                // setmodalmodal(true);
                 console.log('before submit');
                 console.log(fileImage);
-
-               
               }}>
               Sign up
             </Button>
@@ -492,5 +477,6 @@ function Signup() {
     </div>
   );
 }
+
 
 export default Signup;
