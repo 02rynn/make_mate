@@ -10,8 +10,7 @@ import {
   DatePicker,
   Radio,
   message,
-  Upload
-
+  Upload,
 } from "antd";
 import logo from "../images/logoSimple.jpg";
 import Modal from "react-modal";
@@ -19,8 +18,7 @@ import {useState} from "react";
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
 import Profile from "../components/ProfileImgContainer";
-
-
+import ImgTest from "./imgTest";
 
 function Signup() {
   const navigate = useNavigate();
@@ -28,7 +26,9 @@ function Signup() {
   // const [modalIsOpenSignUp, setModalIsOpenSignUp] = useState(false);
   const [modalmodal, setmodalmodal] = useState(false);
   const [antdmodal, setantdmodal] = useState(false);
-  const showantdmodal=()=>{setantdmodal(true)}
+  const showantdmodal = () => {
+    setantdmodal(true);
+  };
 
   //회원가입 초기값
   const [loginId, setLoginId] = useState("");
@@ -39,7 +39,7 @@ function Signup() {
   const [nickName, setNickName] = useState("");
   const [birth, setBirth] = useState("");
   const [gender, setGender] = useState("");
-  
+
   //유효성검사
 
   const [passwordConfirmMessage, setPasswordConfirmMessage] = useState("");
@@ -75,7 +75,11 @@ function Signup() {
       setIsColor(true);
       setPasswordConfirmMessage("");
     } else if (password == passwordConfirm) {
+<<<<<<< HEAD
       setPasswordConfirmMessage('비밀번호가 일치합니다');
+=======
+      setPasswordConfirmMessage("비밀번호가 일치합니다");
+>>>>>>> b818c29900bd2b6b5a8ad30bc8b3e41dde4aa32a
 
       console.log("일치");
     } else if (password !== passwordConfirm) {
@@ -85,21 +89,20 @@ function Signup() {
     console.log(passwordConfirm);
   }, [onChangePasswordConfirm, onChangePassword]);
 
-
-
   const onFinish = (values) => {
-    console.log('onfinish');
+    console.log("onfinish");
     console.log("Received values of form: ", values);
     console.log(fileImage);
 
     const formData = new FormData();
     formData.append("file", fileImage);
-    formData.append('values', new Blob([JSON.stringify(values)], {
-      type: "application/json"
-  }));
+    formData.append(
+      "values",
+      new Blob([JSON.stringify(values)], {
+        type: "application/json",
+      })
+    );
     console.log(formData);
-
-    
 
     // axios
     //   // .post("http://localhost:8080/signup", {values, fileImage} , {
@@ -109,26 +112,23 @@ function Signup() {
     //     }
     //   })
     axios({
-      method:"post",
-      url:"http://localhost:8080/signup",
+      method: "post",
+      url: "http://localhost:8080/signup",
       data: formData,
-      headers:{'Content-Type': 'multipart/form-data'}
+      headers: {"Content-Type": "multipart/form-data"},
     })
       .catch((e) => {
         console.error(e.response.data);
       })
       .then((response) => {
         console.log(response);
-          //setmodalmodal(true);
-            alert("회원가입을 축하합니다");
-          console.log(modalmodal);
-         
-     //       navigate('/login');
-            
-      });
- 
-  };
+        //setmodalmodal(true);
+        alert("회원가입을 축하합니다");
+        console.log(modalmodal);
 
+        //       navigate('/login');
+      });
+  };
 
   //성별 라디오버튼
   const [value, setValue] = useState(1);
@@ -139,30 +139,31 @@ function Signup() {
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             
   //프로필 사진 업로드
   const [fileImage, setFileImage] = useState(null);
- 
-    // 파일 저장
-    const saveFileImage = (e) => {
-    
-      setFileImage(URL.createObjectURL(e.target.files[0]));   //이걸로 해야 삭제, 미리보기됨 
-     setFileImage(e.target.files[0]);
-      console.log(e.target.files[0]);//파일 정보 
-      console.log(URL.createObjectURL(e.target.files[0])); //경로(리액트 서버)
-      const formData = new FormData()
-      formData.append('files',fileImage)
-       }
 
-//    };
+  // 파일 저장
+  const saveFileImage = (e) => {
+    // setFileImage(URL.createObjectURL(e.target.files[0]));
+    setFileImage(e.target.files[0]);
+    console.log(e.target.files[0]); //파일 정보
+    console.log(URL.createObjectURL(e.target.files[0])); //경로(리액트 서버)
+    const formData = new FormData();
+    formData.append("files", fileImage);
+  };
 
-    // 파일 삭제
-    const deleteFileImage = () => {
-      URL.revokeObjectURL(fileImage);
-      setFileImage("");
+  // 파일 삭제
+  const deleteFileImage = () => {
+    URL.revokeObjectURL(fileImage);
 
-    };
-    
-  
+    setFileImage("");
+  };
+  const upload = (e) => {
+    e.preventDefault();
+    this.fileUpload(this.state.file).then((response) => {
+      console.log(response.data);
+    });
+  };
+
   return (
-
     <div>
       <Card
         style={{
@@ -240,15 +241,29 @@ function Signup() {
                 type="primary"
                 htmlType="button"
                 className="ld-check-button"
-                onClick={()=>{setModalIsOpen(true)}}
+                onClick={() => {
+                  setModalIsOpen(true);
+                }}
                 style={{backgroundColor: "#ff7f27", marginLeft: "10px"}}>
                 중복확인
               </Button>
             </div>
           </Form.Item>
-          <Modal isOpen={modalIsOpen} onRequestClose={()=>{setModalIsOpen(false)}}
-           style={{ content:{width:"23%" , margin:'0 auto', height:'30%' ,marginTop:'20%', textAlign:'center'} ,
-           overlay:{borderRadius:'15%',margin:'0 auto'}}}>
+          <Modal
+            isOpen={modalIsOpen}
+            onRequestClose={() => {
+              setModalIsOpen(false);
+            }}
+            style={{
+              content: {
+                width: "23%",
+                margin: "0 auto",
+                height: "30%",
+                marginTop: "20%",
+                textAlign: "center",
+              },
+              overlay: {borderRadius: "15%", margin: "0 auto"},
+            }}>
             중복확인 들갑니다
             {/* <button onClick={setModalIsOpen(false)}>닫기</button> */}
           </Modal>
@@ -334,8 +349,8 @@ function Signup() {
               {
                 min: 2,
                 message: "이름은 2글자  입니다",
-               }
-               //,{
+              },
+              //,{
               //   pattern:/ ^[a-zA-Zㄱ-ㅎ가-힣]/,
               //   message: "이름은 문자만 가능합니다."
               // }
@@ -380,83 +395,77 @@ function Signup() {
           <Form.Item
             name="phoneNum"
             labelCol={{span: 24}}
-            wrapperCol={{span:24}}
+            wrapperCol={{span: 24}}
             label="휴대폰 번호"
-            rules={[{ 
-                required: true, 
+            rules={[
+              {
+                required: true,
                 message: "'-' 없이 숫자만 입력해주세요",
-                pattern: new RegExp(/^[0-9]+$/)
-            }]}
-        >
-            <Input
-                placeholder="01012345678"
-                maxLength={11}
-            />
-        </Form.Item>
-
+                pattern: new RegExp(/^[0-9]+$/),
+              },
+            ]}>
+            <Input placeholder="01012345678" maxLength={11} />
+          </Form.Item>
 
           {/*프로필사진  */}
+          {/* 
+          <Form.Item
+            label="프로필 사진"
+            name="profile_path"
+            labelCol={{span: 24}}
+            wrapperCol={{span: 24}}>
+            <div>
+              <p style={{margin: "20px 0px"}}>이미지 미리보기</p>
+              <table>
+                <tbody>
+                  <tr>
+                    <th></th>
+                    <td>
+                      <div>
+                        {fileImage && ( //이미지 미리보기
+                          <img
+                            alt="sample"
+                            src={fileImage}
+                            style={{margin: "auto"}}
+                          />
+                        )}
+                        <div
+                          style={{
+                            alignItems: "center",
+                            justifyContent: "center",
+                          }}>
+                          <input //input 버튼
+                            id="profile"
+                            name="imgUpload"
+                            type="file"
+                            accept="image/*"
+                            //ref={fileInputRef}
+                            onChange={saveFileImage}
+                          />
 
-         <Form.Item
-          label="프로필 사진"
-          name="profile_path"
-          labelCol={{span: 24}}
-          wrapperCol={{span: 24}}
-         >
-           <div>
-                <p style={{margin: '20px 0px'}}>이미지 미리보기</p>
-        <table>
-            <tbody>
-            <tr>
-                <th></th>
-                <td>
-                <div>
-                    {img && ( 
-                    <img 
-                        alt="sample"
-                        //src={fileImage}
-                        src={img}
-                        style={{ margin: "auto" }}
-                    />
-                    )}
-                    <div
-                    style={{
-                        alignItems: "center",
-                        justifyContent: "center",
-                    }}
-                    >
-                    <input //input 버튼 
-                        id="profile"
-                        name="imgUpload"
-                        type="file"
-                        accept="image/*" 
-                        onChange={saveFileImage}
-                    />
+                          <button
+                            style={{
+                              backgroundColor: "gray",
+                              color: "white",
+                              width: "55px",
+                              height: "30px",
+                              cursor: "pointer",
+                              borderRadius: "10px",
+                            }}
+                            onClick={() => deleteFileImage()}>
+                            삭제
+                          </button>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </Form.Item> */}
+          <ImgTest></ImgTest>
 
-                    <button
-                        style={{
-                        backgroundColor: "gray",
-                        color: "white",
-                        width: "55px",
-                        height: "30px",
-                        cursor: "pointer",
-                        borderRadius:'10px',
-                        }}
-                        onClick={() => deleteFileImage()}
-                    >
-                        삭제
-                    </button>
-                    </div>
-                </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-            
-        </div>     
- 
-         </Form.Item>
-            {/*가입하기 버튼 */}
+          {/*가입하기 버튼 */}
           <Form.Item>
             <Button
               type="primary"
@@ -464,14 +473,13 @@ function Signup() {
               className="login-form-button"
               style={{backgroundColor: "#ff7f27"}}
               onClick={(e) => {
-                console.log('before submit');
+                upload();
+                console.log("before submit");
                 console.log(fileImage);
               }}>
               Sign up
             </Button>
-            </Form.Item>
-        
-
+          </Form.Item>
         </Form>
       </Card>
     </div>

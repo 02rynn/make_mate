@@ -1,30 +1,26 @@
 //package com.example.makeMate.Entity;
 //
-//import java.awt.Image;
+//import org.springframework.data.annotation.Id;
+//
 //
 //import jakarta.persistence.Column;
-//import jakarta.persistence.Embedded;
 //import jakarta.persistence.Entity;
-//import jakarta.persistence.GeneratedValue;
-//import jakarta.persistence.GenerationType;
-//import jakarta.persistence.Id;
 //import lombok.Data;
+//import lombok.NoArgsConstructor;
 //
-////@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor
 //@Data
 //@Entity
-//public class ImageEntity  {
-//	
-//	   @Id
-//	    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//	    @Column(name = "user_image_id")
-//	    private Long id;
+//public class ImageEntity {
 //
-//	    @Embedded
-//	    private Image image;
-//	
-//	
-//	
-//	
+//	@Id
+//	@Column(nullable = false)
+//	private String fileName;
+//
+//	@Column(nullable = false)
+//	private String fileOriName;
+//
+//	@Column(nullable = false)
+//	private String fileUrl;;	
 //
 //}
