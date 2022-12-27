@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.makeMate.Entity.Board;
+import com.example.makeMate.Entity.BoardEntity;
 import com.example.makeMate.service.BoardService;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -22,7 +22,7 @@ public class BoardController {
    
 	// get all board 
 	@GetMapping("/board")
-	public List<Board> getAllBoards() {
+	public List<BoardEntity> getAllBoards() {
 		
 		return boardService.getAllBoard();
 	}

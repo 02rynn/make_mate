@@ -4,7 +4,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.makeMate.Entity.Board;
+import com.example.makeMate.Entity.BoardEntity;
 import com.example.makeMate.Repository.BoardRepository;
 
 
@@ -17,7 +17,7 @@ public class BoardService {
 	
   
 	// get boards data
-	public List<Board> getAllBoard() {
+	public List<BoardEntity> getAllBoard() {
 		return boardRepository.findAll();
 	}
 
