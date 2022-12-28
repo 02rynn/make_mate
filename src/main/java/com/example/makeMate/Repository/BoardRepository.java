@@ -7,7 +7,14 @@ import org.springframework.stereotype.Repository;
 
 import com.example.makeMate.Entity.BoardEntity;
 
+
+
 @Repository
 public interface BoardRepository extends JpaRepository<BoardEntity, String>{
 	List<BoardEntity> findByUserId(String userId);
+	
+	
+
+	
+	
 }
