@@ -1,16 +1,16 @@
 package com.example.makeMate.Entity;
 
 import java.sql.Date;
-import java.time.LocalDate;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -25,6 +25,8 @@ public class UserEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="user_seq")
 	@SequenceGenerator(name = "user_seq",sequenceName = "USER_SEQ",initialValue = 1, allocationSize = 1)
+//	@OneToOne
+//	@JoinColumn(name = "id")
 	private long id;
 	
 	@Column(name = "email", nullable = false)
