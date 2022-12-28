@@ -2,22 +2,15 @@ package com.example.makeMate.Entity;
 
 import java.sql.Date;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -32,6 +25,8 @@ public class UserEntity { //자바클래스를 Entity로 지정하고싶다면 @
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="user_seq")
 	@SequenceGenerator(name = "user_seq",sequenceName = "USER_SEQ",initialValue = 1, allocationSize = 1)
+//	@OneToOne
+//	@JoinColumn(name = "id")
 	private long id;
 	
 	@Column(name = "email",  unique = true)

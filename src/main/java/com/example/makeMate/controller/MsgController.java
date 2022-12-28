@@ -43,8 +43,11 @@ public class MsgController {
 	public MessageEntitiy insertMsg(@RequestBody String content) {
 		MessageEntitiy message = new MessageEntitiy();
 		Timestamp now = new Timestamp(System.currentTimeMillis());
+		int nn = now.getHours()+9;
+		now.setHours(nn);
 		Long room_id = msgRepository.getMaxRoom_id();
 		log.info(content);
+		log.info(String.valueOf(now));
 		log.info("post요청 들어옴");
 		System.out.println(msgRepository.findAllByreciver_idAndread_yn("asd").size());
 

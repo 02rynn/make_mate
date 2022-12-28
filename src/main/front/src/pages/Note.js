@@ -62,6 +62,7 @@ function Note() {
       .get("http://localhost:8080/msgUser?room_id=" + view)
       .then((response) => {
         setMessages(response.data);
+        console.log(response.data);
         console.log(messages);
       })
       .catch((error) => console.log(error));
@@ -97,10 +98,17 @@ function Note() {
   // });
 
   return (
-    <div style={{display: "flex"}}>
+    <div
+      style={{
+        display: "flex",
+      }}>
       <div
         className="messageBox"
-        style={{height: "750px", overflowY: "scroll", position: "relative"}}>
+        style={{
+          height: "750px",
+          overflowY: "scroll",
+          position: "relative",
+        }}>
         <div
           style={{
             padding: "0px 0px 0px 0px",
@@ -116,11 +124,15 @@ function Note() {
               top: "-12px",
               borderBottom: "1px solid #ededed",
             }}>
-            쪽지함
-          </h3>
-        </div>
+            쪽지함{" "}
+          </h3>{" "}
+        </div>{" "}
         <div className="msgItems">
-          <ul style={{listStyle: "none"}}>
+          <ul
+            style={{
+              listStyle: "none",
+            }}>
+            {" "}
             {message.map((data, index) => {
               return (
                 <li
@@ -133,20 +145,21 @@ function Note() {
                       data.sender_id === user ? data.reciver_id : data.sender_id
                     }
                     content={data.content}
-                    time={data.send_time}></MessageBox>
+                    time={data.send_time}>
+                    {" "}
+                  </MessageBox>{" "}
                 </li>
               );
-            })}
-          </ul>
-        </div>
+            })}{" "}
+          </ul>{" "}
+        </div>{" "}
       </div>
-
       <MsgContentBox
         user={user}
         content={content1}
         selectComponent={message}
         messages={messages}
-      />
+      />{" "}
     </div>
   );
 }
