@@ -75,11 +75,7 @@ function Signup() {
       setIsColor(true);
       setPasswordConfirmMessage("");
     } else if (password == passwordConfirm) {
-<<<<<<< HEAD
-      setPasswordConfirmMessage('비밀번호가 일치합니다');
-=======
       setPasswordConfirmMessage("비밀번호가 일치합니다");
->>>>>>> b818c29900bd2b6b5a8ad30bc8b3e41dde4aa32a
 
       console.log("일치");
     } else if (password !== passwordConfirm) {
@@ -92,7 +88,6 @@ function Signup() {
   const onFinish = (values) => {
     console.log("onfinish");
     console.log("Received values of form: ", values);
-    console.log(fileImage);
 
     const formData = new FormData();
     formData.append("file", fileImage);
@@ -156,12 +151,13 @@ function Signup() {
 
     setFileImage("");
   };
-  const upload = (e) => {
-    e.preventDefault();
-    this.fileUpload(this.state.file).then((response) => {
-      console.log(response.data);
-    });
-  };
+
+  // const upload = (e) => {
+  //   e.preventDefault();
+  //   this.fileUpload(this.state.file).then((response) => {
+  //     console.log(response.data);
+  //   });
+  // };
 
   return (
     <div>
@@ -408,8 +404,8 @@ function Signup() {
           </Form.Item>
 
           {/*프로필사진  */}
-          {/* 
-          <Form.Item
+          
+          {/* <Form.Item
             label="프로필 사진"
             name="profile_path"
             labelCol={{span: 24}}
@@ -463,7 +459,7 @@ function Signup() {
               </table>
             </div>
           </Form.Item> */}
-          <ImgTest></ImgTest>
+          {/* <ImgTest></ImgTest> */}
 
           {/*가입하기 버튼 */}
           <Form.Item>
@@ -473,7 +469,7 @@ function Signup() {
               className="login-form-button"
               style={{backgroundColor: "#ff7f27"}}
               onClick={(e) => {
-                upload();
+                // upload();
                 console.log("before submit");
                 console.log(fileImage);
               }}>

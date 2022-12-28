@@ -3,6 +3,8 @@ package com.example.makeMate.DTO;
 
 import java.sql.Date;
 
+
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,9 +27,8 @@ public class UserDTO {
 	private int age; 
 	private int gender; 
 	private Date birthDate; 
-	private String profile_path;
 	private String phoneNum;
-	private int user_status;
+	private int userStatus;
 	
 
 }

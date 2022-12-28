@@ -21,6 +21,9 @@ public class ImageUpLoaderController {
 	
 	  @PostMapping(value = "/upload")
 	    public Map<String, Object> upload(@RequestParam("file") MultipartFile multipartFile) {
+		  
+		  log.info("이미지 post요청 들어옴");
+		  
 	        File targetFile = new File("src/main/resources/static/imgs/" + multipartFile.getOriginalFilename());
 	        try {
 	            InputStream fileStream = multipartFile.getInputStream();
@@ -31,6 +34,8 @@ public class ImageUpLoaderController {
 	        }
 	        Map<String, Object> m = new HashMap<>();
 	        m.put("ImagePath", targetFile);
+	        log.info("img_path{}", targetFile);
+	        
 	        return m;
 	    }
 }

@@ -15,7 +15,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 	
 
 	
-	UserEntity findByloginId(@Param("loginid") String loginid);
+	UserEntity findByloginId(@Param("loginId") String loginId);
 	UserEntity findByEmail(@Param("email") String email);
 	
 	List<UserEntity> findAll();
@@ -23,7 +23,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 	UserEntity save(UserEntity user);
 	
 	Boolean existByEmail(String email);
-	Boolean existByLoginId(String email);
+	Boolean existByLoginId(String loginId);
 	UserEntity findByEmailAndPassword(String email, String password);
 	
 }

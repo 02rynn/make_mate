@@ -34,6 +34,7 @@ function MyPage () {
                     <a className='section_menu' href="/mypage/password">비밀번호 변경</a><br/>
                     <a className='section_menu' href="/mypage/email">이메일 변경</a><br/>
                     <a className='section_menu' href="/mypage/nickname">닉네임 변경</a><br/>
+                    <a className='section_menu' href="/mypage/profile">프로필 사진 변경</a><br/>
                 </div>
 
                 <div className='section_container'>
