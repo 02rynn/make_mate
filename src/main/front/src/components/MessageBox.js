@@ -14,7 +14,11 @@ function MessageBox(props) {
           }}>
           {props.sender_id}
         </h4>
-        <time style={{fontSize: "12px", float: "right"}}>
+        <time
+          style={{
+            fontSize: "12px",
+            float: "right",
+          }}>
           {props.time.split(".")[0].replace("T", "일")}
         </time>
       </div>

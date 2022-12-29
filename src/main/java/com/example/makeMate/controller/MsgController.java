@@ -3,6 +3,7 @@ package com.example.makeMate.controller;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.makeMate.Entity.MessageEntitiy;
 import com.example.makeMate.Repository.MsgRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -30,8 +32,8 @@ public class MsgController {
 	@GetMapping("/msgList")
 	@ResponseBody
 	public List<MessageEntitiy> list() {
-		Long room_id = msgRepository.getMaxRoom_id();
-		System.out.println(room_id);
+//		Long room_id = msgRepository.getMaxRoom_id();
+//		System.out.println(room_id);
 		String user = "asd";
 		log.info("요청 들어옴");
 
@@ -100,14 +102,22 @@ public class MsgController {
 	}
 	
 
+//	@Transactional
 	@ResponseBody
 	@GetMapping("/msgUser")
 	public List<MessageEntitiy> list2(int room_id) {
 		
-		int no = room_id;
+
+		
+		List<MessageEntitiy> list = new ArrayList<MessageEntitiy>();
+		
+		list = msgRepository.findtMsgList(room_id);
 		
 		
-		return msgRepository.findtMsgList(no);
+		list = msgRepository.updateRead_ty(room_id);
+		System.out.println();
+		
+		return list;
 
 	}
 }

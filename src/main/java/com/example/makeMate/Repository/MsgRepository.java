@@ -3,6 +3,7 @@ package com.example.makeMate.Repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -33,5 +34,12 @@ public interface MsgRepository extends JpaRepository<MessageEntitiy, Long> {
 	List<MessageEntitiy> findtMsgList(int room_id);
 	@Query(value="select * from msg where reciver_id = ?1 and read_yn = 0",nativeQuery = true)
 	List<MessageEntitiy> findAllByreciver_idAndread_yn(String user);
+	
+
+	@Query(value="update msg set read_yn=1 where room_id = ?1",nativeQuery = true)
+	List<MessageEntitiy> updateRead_ty(int room_id);
+	
+	
+	
 	
 }
