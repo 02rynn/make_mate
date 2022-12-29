@@ -18,6 +18,7 @@ import Address from "../components/Address";
 import ImgTest from "./../pages/imgTest";
 import WriteForm from "../components/Board/WriteForm";
 import ContentForm from "../components/Board/ContentForm";
+import Profile from "../components/Profile";
 
 function RoutesContainer() {
   return (
@@ -57,6 +58,7 @@ function RoutesContainer() {
           path="/contentForm"
           element={<ContentForm> </ContentForm>}></Route>
         <Route path="/writeForm" element={<WriteForm> </WriteForm>}></Route>
+        <Route path="/mypage/profile" element={<Profile></Profile>}></Route>
       </Routes>
     </div>
   );

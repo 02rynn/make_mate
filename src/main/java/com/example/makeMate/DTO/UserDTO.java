@@ -1,14 +1,20 @@
 package com.example.makeMate.DTO;
 
-import java.time.LocalDate;
 
-import jakarta.persistence.Entity;
+import java.sql.Date;
+
+
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
 @Data
 @NoArgsConstructor
+@Builder
+@AllArgsConstructor
 
 public class UserDTO {
 
@@ -19,12 +25,10 @@ public class UserDTO {
 	private String password;
 	private String name;
 	private int age; 
-	private String detail_address; 
-	private int zipcode;
-	private String nickName;
 	private int gender; 
-	private LocalDate birthDate; 
-	//private String profile_path;
+	private Date birthDate; 
+	private String phoneNum;
+	private int userStatus;
 	
 
 }

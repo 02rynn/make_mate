@@ -52,6 +52,8 @@ function Signup() {
   //     .catch((error) => console.log(error));
   // }
 
+  const [isColor, setIsColor] = useState(false);
+
   const onChangePassword = (e) => {
     const currentPW = e.target.value;
     setPassword(currentPW);
@@ -70,12 +72,14 @@ function Signup() {
   useEffect(() => {
     if (passwordConfirm == "") {
       console.log("불일치");
+      setIsColor(true);
       setPasswordConfirmMessage("");
     } else if (password == passwordConfirm) {
       setPasswordConfirmMessage("비밀번호가 일치합니다");
 
       console.log("일치");
     } else if (password !== passwordConfirm) {
+      setIsColor(false);
       setPasswordConfirmMessage("비밀번호가 일치하지 않습니다");
     }
     console.log(passwordConfirm);
@@ -84,7 +88,6 @@ function Signup() {
   const onFinish = (values) => {
     console.log("onfinish");
     console.log("Received values of form: ", values);
-    console.log(fileImage);
 
     const formData = new FormData();
     formData.append("file", fileImage);
@@ -128,7 +131,7 @@ function Signup() {
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
-
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
   //프로필 사진 업로드
   const [fileImage, setFileImage] = useState(null);
 
@@ -148,12 +151,13 @@ function Signup() {
 
     setFileImage("");
   };
-  const upload = (e) => {
-    e.preventDefault();
-    this.fileUpload(this.state.file).then((response) => {
-      console.log(response.data);
-    });
-  };
+
+  // const upload = (e) => {
+  //   e.preventDefault();
+  //   this.fileUpload(this.state.file).then((response) => {
+  //     console.log(response.data);
+  //   });
+  // };
 
   return (
     <div>
@@ -215,8 +219,8 @@ function Signup() {
                 message: "Please input your ID!",
               },
               {
-                pattern: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{6,12}$/,
-                message: "아이디는 영어 대문자, 숫자 조합으로 6글자 이상입니다",
+                pattern: /^[a-z0-9]{6,12}$/,
+                message: "아이디는 영어소문자 , 숫자 조합으로 6글자 이상입니다",
               },
               {
                 max: 12,
@@ -319,7 +323,7 @@ function Signup() {
               }}
             />
           </Form.Item>
-          <p style={{fontSize: "12px", color: "red"}}>
+          <p style={{color: isColor? 'red' : 'blue'}}>
             {passwordConfirmMessage}
           </p>
 
@@ -400,8 +404,8 @@ function Signup() {
           </Form.Item>
 
           {/*프로필사진  */}
-          {/* 
-          <Form.Item
+          
+          {/* <Form.Item
             label="프로필 사진"
             name="profile_path"
             labelCol={{span: 24}}
@@ -455,7 +459,7 @@ function Signup() {
               </table>
             </div>
           </Form.Item> */}
-          <ImgTest></ImgTest>
+          {/* <ImgTest></ImgTest> */}
 
           {/*가입하기 버튼 */}
           <Form.Item>
@@ -465,7 +469,7 @@ function Signup() {
               className="login-form-button"
               style={{backgroundColor: "#ff7f27"}}
               onClick={(e) => {
-                upload();
+                // upload();
                 console.log("before submit");
                 console.log(fileImage);
               }}>
@@ -477,5 +481,6 @@ function Signup() {
     </div>
   );
 }
+
 
 export default Signup;
