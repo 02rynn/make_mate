@@ -39,6 +39,24 @@ public class MsgController {
 
 		return msgRepository.findRecentMsg(user);
 	}
+	
+	@GetMapping("/msgListUnRead")
+	@ResponseBody
+	public List<Long> unReadConut() {
+		String user = "asd";
+		log.info("요청 들어옴");
+		List<MessageEntitiy>list = msgRepository.findRecentMsg(user);
+		List<Long> unreadCount = new ArrayList<Long>();
+		for(MessageEntitiy msg : list) {
+		Long num =	(long) msgRepository.findAllByreciver_idAndread_ynAndRoom_id(msg.getRoom_id());	
+		unreadCount.add(num);
+			
+		}
+		
+		
+
+		return unreadCount;
+	}
 
 	@PostMapping("/sendMsg")
 	@ResponseBody
@@ -102,20 +120,28 @@ public class MsgController {
 	}
 	
 
-//	@Transactional
+	@Transactional
 	@ResponseBody
 	@GetMapping("/msgUser")
-	public List<MessageEntitiy> list2(int room_id) {
+	public List<MessageEntitiy> list2(Long room_id) {
 		
 
+	
+		log.info("room_id{}",room_id);
 		
 		List<MessageEntitiy> list = new ArrayList<MessageEntitiy>();
+		int aD = msgRepository.updateRead_yn(room_id);
+		
+		log.info("ad:",aD);
 		
 		list = msgRepository.findtMsgList(room_id);
 		
+		for(MessageEntitiy msg :list) {
+			msg.setRead_yn(1);
+		}
 		
-		list = msgRepository.updateRead_ty(room_id);
-		System.out.println();
+		
+
 		
 		return list;
 
