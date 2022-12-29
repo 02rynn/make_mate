@@ -1,10 +1,8 @@
 package com.example.makeMate.Entity;
 
-import java.sql.Date;
-
-
 import java.sql.Timestamp;
-import java.time.format.DateTimeFormatter;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,6 +29,7 @@ public class MessageEntitiy {
 	public String sender_id;
 	public String reciver_id; 
 	public int read_yn;
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
 	public Timestamp send_time;
 	public String content;
 	public Long room_id;
