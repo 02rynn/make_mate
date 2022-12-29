@@ -85,19 +85,22 @@ function Signup() {
     console.log(passwordConfirm);
   }, [onChangePasswordConfirm, onChangePassword]);
 
+
+
+
   const onFinish = (values) => {
     console.log("onfinish");
     console.log("Received values of form: ", values);
 
-    const formData = new FormData();
-    formData.append("file", fileImage);
-    formData.append(
-      "values",
-      new Blob([JSON.stringify(values)], {
-        type: "application/json",
-      })
-    );
-    console.log(formData);
+    //const formData = new FormData();
+    //formData.append("file", fileImage);
+    // formData.append(
+    //   "values",
+    //   new Blob([JSON.stringify(values)], {
+    //     type: "application/json",
+    //   })
+    // );
+   // console.log(formData);
 
     // axios
     //   // .post("http://localhost:8080/signup", {values, fileImage} , {
@@ -108,9 +111,9 @@ function Signup() {
     //   })
     axios({
       method: "post",
-      url: "http://localhost:8080/signup",
-      data: formData,
-      headers: {"Content-Type": "multipart/form-data"},
+      url: "http://localhost:8080/signup", 
+      data: values,
+    //  headers: {"Content-Type": "multipart/form-data"},
     })
       .catch((e) => {
         console.error(e.response.data);

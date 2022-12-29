@@ -23,6 +23,7 @@ public class UserDTO {
 	private String email; 
 	private String loginId; 
 	private String password;
+	private String passwordCheck;
 	private String name;
 	private int age; 
 	private int gender; 
