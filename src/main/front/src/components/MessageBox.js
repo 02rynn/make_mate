@@ -33,16 +33,19 @@ function MessageBox(props) {
           overflow: "hidden",
           lineHeight: "20px",
         }}>
-        <div
-          style={{
-            top: "10px",
-            right: "0px",
-            color: "white",
-            backgroundColor: "#dc5d46",
-            borderRadius: "10px",
-          }}>
-          {props.count}
-        </div>
+        {props.count == 0 ? null : (
+          <div
+            style={{
+              top: "10px",
+              right: "0px",
+              color: "white",
+              backgroundColor: "#dc5d46",
+              borderRadius: "10px",
+              width: "20px",
+            }}>
+            {props.count}
+          </div>
+        )}
         {props.content}
       </p>
     </div>

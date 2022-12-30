@@ -2,6 +2,7 @@ package com.example.makeMate.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.example.makeMate.Entity.UserEntity;
 import com.example.makeMate.Repository.UserRepository;
@@ -16,6 +17,7 @@ public class UserService { //데이터베이스에 저장된 사용자를 가지
 	private UserRepository userRepository;
 	
 	// 회원가입메소드 
+//	@Transactional(noRollbackFor =  Exception.class)
 	public UserEntity create(final UserEntity userEntity) { //요청에 대한 응답을 Entity에 담을 거임
 		
 		if(userEntity == null || userEntity.getEmail() == null || userEntity.getLoginId() == null) {
@@ -44,18 +46,30 @@ public class UserService { //데이터베이스에 저장된 사용자를 가지
 		}
 		
 		//비밀번호, 확인비밀번호 일치 확인 
-		if(userEntity.getPassword() != userEntity.getPasswordCheck()) {
+		if(!password.equals(passwordCheck)) { 
 			log.warn("비밀번호가 일치하지 않습니다 {} , {}" , password, passwordCheck);
-			throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+			throw new RuntimeException("password is not same");
 		}
 		
-		return userRepository.save(userEntity); //이미 존재하지 않는 회원이면 회원가입 시키겟다
+		//기존에 존재하지 않는 회원이고 비밀번호 일치하면 회원가입 시키겟다(insert)
+		return userRepository.save(userEntity); 
+		
 	}
 	
 	
 	//로그인메소드 
-	public UserEntity getByCredentials(final String email, final String password) {
-		return userRepository.findByEmailAndPassword(email, password);
+	public void getByCredentials(final String loginId, final String password) {
+		
+//		UserEntity user = userRepository.findByloginId(loginId);
+//		syotu//아이디로  레파지토리에 저장되어 있는 객체 찾기 
+//		if(user != null) { //아이디가 존재한다면
+//			if(user.getPassword().equals(password)) { //비밀번호 확인
+//				return user;
+//			}
+//		}
+//		return null;
 	}
 
+	
+ 
 }

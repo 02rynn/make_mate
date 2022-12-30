@@ -31,7 +31,7 @@ function Signup() {
   };
 
   //회원가입 초기값
-  const [loginId, setLoginId] = useState("");
+
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
@@ -81,16 +81,26 @@ function Signup() {
     } else if (password !== passwordConfirm) {
       setIsColor(false);
       setPasswordConfirmMessage("비밀번호가 일치하지 않습니다");
+     
     }
     console.log(passwordConfirm);
   }, [onChangePasswordConfirm, onChangePassword]);
 
 
 
-
+  
+  //데이터 스프링으로 전송
   const onFinish = (values) => {
     console.log("onfinish");
     console.log("Received values of form: ", values);
+
+    if(password !== passwordConfirm){
+      console.log('비밀번호 일치하지 않는답')
+      alert("비밀번호가 일치하지 않습니다.")
+     // e.preventdefault();
+      return
+    }
+
 
     //const formData = new FormData();
     //formData.append("file", fileImage);
@@ -124,7 +134,7 @@ function Signup() {
         alert("회원가입을 축하합니다");
         console.log(modalmodal);
 
-        //       navigate('/login');
+              navigate('/login');
       });
   };
 
@@ -162,6 +172,10 @@ function Signup() {
   //   });
   // };
 
+
+ 
+  
+  
   return (
     <div>
       <Card
@@ -176,9 +190,9 @@ function Signup() {
         <Form
           action="/login"
           method="post"
-          id="normal_login"
-          name="normal_login"
-          className="login-form"
+          // id="normal_login"
+          // name="normal_login"
+          // className="login-form"
           encType="multipart/form-data"
           initialValues={{
             remember: true,
@@ -280,9 +294,9 @@ function Signup() {
               },
               {
                 pattern:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
+                  /[a-zA-Z\\\\d`~.!@#$%^&*()-_=+]{8,24}$/,
                 message:
-                  "영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요",
+                  "영문자, 특수문자, 숫자 조합으로 8~26자리  입력해주세요",
               },
               //  , {
               //     min:8,
@@ -295,6 +309,7 @@ function Signup() {
               placeholder="Password"
               onChange={(e) => {
                 onChangePassword(e);
+                
               }}
             />
           </Form.Item>
@@ -311,10 +326,9 @@ function Signup() {
               },
               {
                 pattern:
-                  /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/,
-                // min: 8,
+                  /[a-zA-Z\\\\d`~.!@#$%^&*()-_=+]{8,24}$/,
                 message:
-                  "영문자, 특수문자, 숫자 조합으로 8자리 이상 입력해주세요",
+                  "영문자, 특수문자, 숫자 조합으로 8~26자리  입력해주세요",
               },
             ]}>
             <Input
@@ -472,9 +486,9 @@ function Signup() {
               className="login-form-button"
               style={{backgroundColor: "#ff7f27"}}
               onClick={(e) => {
-                // upload();
+               
                 console.log("before submit");
-                console.log(fileImage);
+
               }}>
               Sign up
             </Button>

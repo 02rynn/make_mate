@@ -8,10 +8,10 @@ import java.util.Map;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import com.example.makeMate.Entity.MessageEntitiy;
 import com.example.makeMate.Repository.MsgRepository;
 
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class EchoHandler extends TextWebSocketHandler {
+public class EchoHandler extends TextWebSocketHandler implements WebSocketHandler {
    
    
    private static List<WebSocketSession> sessionList = new ArrayList<WebSocketSession>();
@@ -31,19 +31,19 @@ public class EchoHandler extends TextWebSocketHandler {
    @Override
    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
 // 웹소켓 세션에 접속한 모든 유저를 sessionList에 저장함
-	   //       String user_name = searchUserName(session);
+	          String user_name = searchUserName(session);
 //       for(WebSocketSession sess : sessionList) {
 //           sess.sendMessage(new TextMessage(user_name+"님이 접속했습니다."));
 //       }
-	   
+//	   
 	   //최초 접속 시 읽지않는 메세지의 갯수를 보여주는 함수 
 //	    String user_name = searchUserName(session);
 //        sessionList.add(session);
 //            session.sendMessage(new TextMessage("recMs :"+msgRepository.findAllByreciver_idAndread_yn("asd").size()));
 //    }
 //	   System.out.println("안읽은 메세지 수 "+unReadList.size());
-	   log.info(session.toString());
-       System.out.println("연결 성공");
+	   log.info("asd{}",user_name);
+       System.out.println("연결 성공11111111");
        sessionList.add(session);
    }
    
@@ -82,6 +82,7 @@ public class EchoHandler extends TextWebSocketHandler {
        Map<String, Object> map;
        map = session.getAttributes();
        user_name = (String) map.get("user_name");
+	   log.info("asd{}",user_name);
        return user_name;
    }
 }
