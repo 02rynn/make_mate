@@ -19,6 +19,11 @@ import FormControl from '@mui/material/FormControl';
 
 function ContentForm() {
 
+
+
+
+
+
     const location = useLocation();
     const keyword = getBoardIdx(location);
     const navigate = useNavigate();
@@ -84,6 +89,34 @@ function ContentForm() {
         })
 
     }
+
+    componentDidMount() {
+        call("/board", "GET", null).then((response) =>
+          this.setState({ items: response.data })
+        );
+      }
+    
+      add = (item) => {
+        call("/board", "POST", item).then((response) =>
+          this.setState({ items: response.data })
+        );
+      };
+    
+      delete = (item) => {
+        call("/board", "DELETE", item).then((response) =>
+          this.setState({ items: response.data })
+        );
+      };
+    
+      update = (item) => {
+        call("/board", "PUT", item).then((response) =>
+          this.setState({ items: response.data })
+        );
+      };
+
+
+
+
 
     return (
        
