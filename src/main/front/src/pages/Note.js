@@ -49,11 +49,24 @@ function Note() {
   const [message, setMessage] = useState([]);
   const [view, setView] = useState();
   const [messages, setMessages] = useState([]);
+  const [count, setCount] = useState([]);
   const [content1, setContent] = useState(null);
+  console.log("asdasd" + view);
   useEffect(() => {
     axios
       .get("http://localhost:8080/msgList")
-      .then((response) => setMessage(response.data))
+      .then((response) => {
+        setMessage(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => console.log(error));
+
+    axios
+      .get("http://localhost:8080/msgListUnRead")
+      .then((response) => {
+        setCount(response.data);
+        console.log(response.data);
+      })
       .catch((error) => console.log(error));
   }, []);
 
@@ -62,6 +75,7 @@ function Note() {
       .get("http://localhost:8080/msgUser?room_id=" + view)
       .then((response) => {
         setMessages(response.data);
+        console.log(response.data);
         console.log(messages);
       })
       .catch((error) => console.log(error));
@@ -72,6 +86,7 @@ function Note() {
   const handleClickButton = (index) => {
     setContent(index);
     setView(message[index].room_id);
+    console.log(view);
     console.log(message[index].room_id);
   };
 
@@ -97,10 +112,17 @@ function Note() {
   // });
 
   return (
-    <div style={{display: "flex"}}>
+    <div
+      style={{
+        display: "flex",
+      }}>
       <div
         className="messageBox"
-        style={{height: "750px", overflowY: "scroll", position: "relative"}}>
+        style={{
+          height: "750px",
+          overflowY: "scroll",
+          position: "relative",
+        }}>
         <div
           style={{
             padding: "0px 0px 0px 0px",
@@ -116,11 +138,15 @@ function Note() {
               top: "-12px",
               borderBottom: "1px solid #ededed",
             }}>
-            쪽지함
-          </h3>
-        </div>
+            쪽지함{" "}
+          </h3>{" "}
+        </div>{" "}
         <div className="msgItems">
-          <ul style={{listStyle: "none"}}>
+          <ul
+            style={{
+              listStyle: "none",
+            }}>
+            {" "}
             {message.map((data, index) => {
               return (
                 <li
@@ -133,20 +159,21 @@ function Note() {
                       data.sender_id === user ? data.reciver_id : data.sender_id
                     }
                     content={data.content}
-                    time={data.send_time}></MessageBox>
+                    time={data.send_time}
+                    count={count[index]}
+                    setCount={setCount}></MessageBox>
                 </li>
               );
-            })}
-          </ul>
-        </div>
+            })}{" "}
+          </ul>{" "}
+        </div>{" "}
       </div>
-
       <MsgContentBox
         user={user}
         content={content1}
         selectComponent={message}
         messages={messages}
-      />
+      />{" "}
     </div>
   );
 }

@@ -1,24 +1,30 @@
-//package com.example.makeMate.Entity;
-//
-//import java.awt.Image;
-//
-//import org.springframework.data.annotation.Id;
-//
-//import jakarta.persistence.Embedded;
-//import jakarta.persistence.Entity;
-//import lombok.Data;
-//
-//
-//@Data
-//@Entity
-//public class UserImage{
-//    
-//	@Id
-//    private Long id;
-//
-//    @Embedded
-//    private Image image;
-//    
-//
-//
-//}
+package com.example.makeMate.Entity;
+
+
+
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import lombok.Data;
+
+
+@Data
+@Entity
+@Table(name="USERIMAGE")
+public class UserImage{
+    
+	@Id
+//	@OneToOne(mappedBy = "id")
+    private Long id;
+
+	@Column(length = 50000)
+	private String pullPath;
+	@Column(length = 50000)
+	private String userUploadPath;
+    
+    
+
+
+}

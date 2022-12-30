@@ -3,6 +3,7 @@ package com.example.makeMate.controller;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.simple.JSONObject;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.makeMate.Entity.MessageEntitiy;
 import com.example.makeMate.Repository.MsgRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -30,12 +32,30 @@ public class MsgController {
 	@GetMapping("/msgList")
 	@ResponseBody
 	public List<MessageEntitiy> list() {
-		Long room_id = msgRepository.getMaxRoom_id();
-		System.out.println(room_id);
+//		Long room_id = msgRepository.getMaxRoom_id();
+//		System.out.println(room_id);
 		String user = "asd";
 		log.info("요청 들어옴");
 
 		return msgRepository.findRecentMsg(user);
+	}
+	
+	@GetMapping("/msgListUnRead")
+	@ResponseBody
+	public List<Long> unReadConut() {
+		String user = "asd";
+		log.info("요청 들어옴");
+		List<MessageEntitiy>list = msgRepository.findRecentMsg(user);
+		List<Long> unreadCount = new ArrayList<Long>();
+		for(MessageEntitiy msg : list) {
+		Long num =	(long) msgRepository.findAllByreciver_idAndread_ynAndRoom_id(msg.getRoom_id());	
+		unreadCount.add(num);
+			
+		}
+		
+		
+
+		return unreadCount;
 	}
 
 	@PostMapping("/sendMsg")
@@ -45,6 +65,7 @@ public class MsgController {
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		Long room_id = msgRepository.getMaxRoom_id();
 		log.info(content);
+		log.info(String.valueOf(now));
 		log.info("post요청 들어옴");
 		System.out.println(msgRepository.findAllByreciver_idAndread_yn("asd").size());
 
@@ -99,14 +120,30 @@ public class MsgController {
 	}
 	
 
+	@Transactional
 	@ResponseBody
 	@GetMapping("/msgUser")
-	public List<MessageEntitiy> list2(int room_id) {
+	public List<MessageEntitiy> list2(Long room_id) {
 		
-		int no = room_id;
+
+	
+		log.info("room_id{}",room_id);
+		
+		List<MessageEntitiy> list = new ArrayList<MessageEntitiy>();
+		int aD = msgRepository.updateRead_yn(room_id);
+		
+		log.info("ad:",aD);
+		
+		list = msgRepository.findtMsgList(room_id);
+		
+		for(MessageEntitiy msg :list) {
+			msg.setRead_yn(1);
+		}
 		
 		
-		return msgRepository.findtMsgList(no);
+
+		
+		return list;
 
 	}
 }

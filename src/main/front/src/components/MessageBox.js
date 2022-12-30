@@ -14,7 +14,11 @@ function MessageBox(props) {
           }}>
           {props.sender_id}
         </h4>
-        <time style={{fontSize: "12px", float: "right"}}>
+        <time
+          style={{
+            fontSize: "12px",
+            float: "right",
+          }}>
           {props.time.split(".")[0].replace("T", "일")}
         </time>
       </div>
@@ -29,6 +33,16 @@ function MessageBox(props) {
           overflow: "hidden",
           lineHeight: "20px",
         }}>
+        <div
+          style={{
+            top: "10px",
+            right: "0px",
+            color: "white",
+            backgroundColor: "#dc5d46",
+            borderRadius: "10px",
+          }}>
+          {props.count}
+        </div>
         {props.content}
       </p>
     </div>

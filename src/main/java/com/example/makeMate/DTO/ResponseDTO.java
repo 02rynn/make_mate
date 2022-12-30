@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class ResponseDTO<T> {
+public class ResponseDTO<T> { //HTTP 응답으로 사용하기 위한 DTO
 	private String error;
 	private List<T> data;
 }
