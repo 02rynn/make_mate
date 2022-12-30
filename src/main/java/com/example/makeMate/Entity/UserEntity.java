@@ -1,5 +1,6 @@
 package com.example.makeMate.Entity;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -25,8 +27,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor	
 @AllArgsConstructor
-@Table(name="user_info" ,uniqueConstraints = @UniqueConstraint(columnNames = { "email", "loginId"}))
-public class UserEntity { //자바클래스를 Entity로 지정하고싶다면 @Entity, @생성자, @Data @Table 필수 
+@Table(name="USER_INFO" ,uniqueConstraints = @UniqueConstraint(columnNames = { "email", "loginId"}))
+public class UserEntity implements Serializable{ //자바클래스를 Entity로 지정하고싶다면 @Entity, @생성자, @Data @Table 필수 
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="user_seq")
@@ -38,19 +40,20 @@ public class UserEntity { //자바클래스를 Entity로 지정하고싶다면 @
 	@NotNull(message="이메일을 입력해주세요")
 	private String email; 
 	
-	@Column(name = "loginId", unique = true)
-	@Pattern(regexp="(?=.*[a-zA-Z0-9]{6,12}$", message = "아이디는 영문자와 숫자조합으로 6-12글자 입니다,")
+	@Column(name = "LOGINID", unique = true)
+	@Pattern(regexp="[a-zA-Z1-9]{6,12}", message = "아이디는 영문자와 숫자조합으로 6-12글자 입니다,")
 	@NotNull(message="아이디을 입력해주세요")
-	private String loginId; 
+	private String loginId;
 	
-//	@Column(name = "password")
-	@Pattern(regexp="(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$", message = "비밀번호는 영어와 숫자로 포함해서 8자리 이상 입력해주세요.")
+	@Column(name = "password")
+	@Pattern(regexp = "^[a-zA-Z\\d`~.!@#$%^&*()-_=+]{8,24}$", message = "비밀번호는 8~24자 영문 , 숫자, 특수문자를 사용하세요.")
 	@NotNull(message="비밀번호를 입력해주세요")
+	@Transient
 	private String passwordCheck;
 	
 	
 	@Column(name = "password")
-	@Pattern(regexp="(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$", message = "비밀번호는 영어와 숫자로 포함해서 8자리 이상 입력해주세요.")
+	@Pattern(regexp = "^[a-zA-Z\\d`~.!@#$%^&*()-_=+]{8,24}$", message = "비밀번호는 8~24자 영문 , 숫자, 특수문자를 사용하세요.")
 	@NotNull(message="비밀번호를 입력해주세요")
 	private String password;
 	
@@ -67,12 +70,13 @@ public class UserEntity { //자바클래스를 Entity로 지정하고싶다면 @
 	@NotNull(message="성별을 입력해주세요")
 	private int gender;
 	
-	@Column(name = "birthdate")
+	@Column(name = "BIRTHDATE") 
 	@NotNull(message="생년월일을 입력해주세요")
-	private Date birthDate;
+	private String birthDate;
 	
 	
-	@Column(name = "phoneNum")
+	@Column(name = "PHONENUM")
+	@NotNull(message="휴대번호를 입력해주세요")
 	@Pattern(regexp="^[0-9]{10,11}$", message = "휴대전화 번호는 숫자로 이뤄진 10-11자리 입니다")
 	private String phoneNum;
 	
