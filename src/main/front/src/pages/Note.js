@@ -49,11 +49,24 @@ function Note() {
   const [message, setMessage] = useState([]);
   const [view, setView] = useState();
   const [messages, setMessages] = useState([]);
+  const [count, setCount] = useState([]);
   const [content1, setContent] = useState(null);
+  console.log("asdasd" + view);
   useEffect(() => {
     axios
       .get("http://localhost:8080/msgList")
-      .then((response) => setMessage(response.data))
+      .then((response) => {
+        setMessage(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => console.log(error));
+
+    axios
+      .get("http://localhost:8080/msgListUnRead")
+      .then((response) => {
+        setCount(response.data);
+        console.log(response.data);
+      })
       .catch((error) => console.log(error));
   }, []);
 
@@ -73,6 +86,7 @@ function Note() {
   const handleClickButton = (index) => {
     setContent(index);
     setView(message[index].room_id);
+    console.log(view);
     console.log(message[index].room_id);
   };
 
@@ -145,9 +159,9 @@ function Note() {
                       data.sender_id === user ? data.reciver_id : data.sender_id
                     }
                     content={data.content}
-                    time={data.send_time}>
-                    {" "}
-                  </MessageBox>{" "}
+                    time={data.send_time}
+                    count={count[index]}
+                    setCount={setCount}></MessageBox>
                 </li>
               );
             })}{" "}
