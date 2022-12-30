@@ -14,8 +14,6 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.GenericGenerator;
 
-
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -34,18 +32,16 @@ import jakarta.persistence.Table;
 @AllArgsConstructor
 @Data
 @Entity
-@Table(name = "Board")
+@Table(name = "board")
 public class BoardEntity {
+
 	@Id
-	@GeneratedValue(generator="system-uuid")
-	@GenericGenerator(name="system-uuid", strategy = "uuid")
-	
-	private String userId ;
-	private String name ;
-	private String title ;
-	private String contents; 
-	private LocalDateTime created_time; 
-	
+	@GeneratedValue(generator="boardIdx")
+	private String boardIdx;
+	private String boardName;
+	private String boardTtl;
+	private String boardCn;
+	private LocalDateTime boardDate; 
 	
 }
 

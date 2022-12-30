@@ -5,35 +5,39 @@ import java.time.LocalDateTime;
 import com.example.makeMate.Entity.BoardEntity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
+
+
 public class BoardDTO {
-	private String userId ;
-	private String name ;
-	private String title ;
-	private String contents; 
-	private LocalDateTime created_time; 
+	private String boardIdx ;
+	private String boardName ;
+	private String boardTtl ;
+	private String boardCn; 
+	private LocalDateTime boardDate; 
 	
 
 	public BoardDTO(final BoardEntity entity) {
-		this.userId = entity.getUserId();
-		this.title = entity.getTitle();
-		this.name = entity.getName();
-		this.contents = entity.getContents();
-		this.created_time = entity.getCreated_time();
+		this.boardIdx = entity.getBoardIdx();
+		this.boardTtl = entity.getBoardTtl();
+		this.boardName = entity.getBoardName();
+		this.boardCn = entity.getBoardCn();
+		this.boardDate = entity.getBoardDate();
 	}
 
 	public static BoardEntity toEntity(final BoardDTO dto) {
 		return BoardEntity.builder()
-						.userId(dto.getUserId())
-						.title(dto.getTitle())
-						.name(dto.getName())
-						.contents(dto.getContents())
-						.created_time(dto.created_time)
+						.boardIdx(dto.getBoardIdx())
+						.boardTtl(dto.getBoardTtl())
+						.boardName(dto.getBoardName())
+						.boardCn(dto.getBoardCn())
+						.boardDate(dto.getBoardDate())
 						.build();
 	}
 }
