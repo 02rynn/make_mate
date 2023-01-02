@@ -35,6 +35,7 @@ function Signup() {
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
+  const [loginId, setLoginId] = useState("");
   const [email, setEmail] = useState("");
   const [nickName, setNickName] = useState("");
   const [birth, setBirth] = useState("");
@@ -54,6 +55,34 @@ function Signup() {
 
   const [isColor, setIsColor] = useState(false);
 
+  const onChangeLoginId = (e) => {
+    const currentLoginId = e.target.value;
+    setLoginId(currentLoginId);
+    console.log(loginId);
+    console.log("로그인 아이디");
+  };
+
+
+  const checkId = ()=>{
+    axios({
+      method:"post",
+      url:"http://localhost:3000//signup/checkId",
+      data: loginId
+    })
+    .then((response)=>{
+      console.log("아이디 확인중 ")
+      console.log(response.data);
+      if(response.data === 1){
+        alert("이미 사용중인 아이디 입니다.")
+      }else{
+        alert("사용 가능한 아이디 입니다.")
+      }
+    })
+    .catch((e)=>{
+      console.error(e.response.data);
+    })
+  }
+
   const onChangePassword = (e) => {
     const currentPW = e.target.value;
     setPassword(currentPW);
@@ -71,7 +100,7 @@ function Signup() {
 
   useEffect(() => {
     if (passwordConfirm == "") {
-      console.log("불일치");
+    //  console.log("불일치");
       setIsColor(true);
       setPasswordConfirmMessage("");
     } else if (password == passwordConfirm) {
@@ -134,7 +163,7 @@ function Signup() {
         alert("회원가입을 축하합니다");
         console.log(modalmodal);
 
-              navigate('/login');
+              navigate("/login");
       });
   };
 
@@ -249,20 +278,23 @@ function Signup() {
                 prefix={<UserOutlined className="site-form-item-icon" />}
                 placeholder="UserId"
                 style={{justifyContent: "space-between"}}
+                onChange={(e) => {
+                  onChangeLoginId(e);
+                }}
               />
               <Button
                 type="primary"
                 htmlType="button"
                 className="ld-check-button"
-                onClick={() => {
-                  setModalIsOpen(true);
+                onClick={(e) => { //아이디 인풋값을 서버로 보내서 => 만약 있다면 alert
+                {checkId()}
                 }}
                 style={{backgroundColor: "#ff7f27", marginLeft: "10px"}}>
                 중복확인
               </Button>
             </div>
           </Form.Item>
-          <Modal
+          {/* <Modal
             isOpen={modalIsOpen}
             onRequestClose={() => {
               setModalIsOpen(false);
@@ -276,10 +308,15 @@ function Signup() {
                 textAlign: "center",
               },
               overlay: {borderRadius: "15%", margin: "0 auto"},
-            }}>
-            중복확인 들갑니다
+            }}> */}
+  
+            {/* <Form>
+              <Form.Item>
+                <Input></Input>             
+            </Form.Item>
+            </Form>
             {/* <button onClick={setModalIsOpen(false)}>닫기</button> */}
-          </Modal>
+          {/* </Modal> */} 
 
           {/* 비밀번호 , 재확인     */}
           <Form.Item

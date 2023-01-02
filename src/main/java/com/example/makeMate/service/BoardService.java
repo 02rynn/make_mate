@@ -1,4 +1,3 @@
-
 package com.example.makeMate.service;
 
 import java.util.List;
@@ -55,12 +54,23 @@ public class BoardService {
 
 
 
-      original.ifPresent(Board -> {
-         // (3) 반환된 BoardEntity가 존재하면 값을 새 entity의 값으로 덮어 씌운다.
-         Board.setBoardTtl(entity.getBoardTtl());
-         Board.setBoardName(entity.getBoardName());
-         Board.setBoardCn(entity.getBoardCn());
-         Board.setBoardTtl(entity.getBoardTtl());
+		original.ifPresent(Board -> {
+			// (3) 반환된 BoardEntity가 존재하면 값을 새 entity의 값으로 덮어 씌운다.
+			Board.setBoardTtl(entity.getBoardTtl());
+			Board.setBoardName(entity.getBoardName());
+			Board.setBoardCn(entity.getBoardCn());
+			Board.setBoardTtl(entity.getBoardTtl());
+
+
+			
+			
+			// (4) 데이터베이스에 새 값을 저장한다.
+			repository.save(Board);
+		});
+
+		// 2.3.2 Retrieve Board에서 만든 메서드를 이용해 유저의 모든 Board 리스트를 리턴한다.
+		return retrieve(entity.getBoardIdx());
+	}
 
 
          
@@ -204,3 +214,7 @@ public class BoardService {
 //   }
 //
 //}
+<<<<<<< HEAD
+=======
+
+>>>>>>> 5abd8963cf6bb5c7bfd30b2d8ae7306484a8c908

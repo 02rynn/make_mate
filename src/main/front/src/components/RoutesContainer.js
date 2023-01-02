@@ -20,6 +20,7 @@ import WriteForm from "../components/Board/WriteForm";
 import ContentForm from "../components/Board/ContentForm";
 import Profile from "../components/Profile";
 import ChatRoom from "./ChatRoom";
+import YourProfile from "./YourProfile.js";
 
 function RoutesContainer() {
   return (
@@ -61,6 +62,9 @@ function RoutesContainer() {
         <Route path="/writeForm" element={<WriteForm> </WriteForm>}></Route>
         <Route path="/mypage/profile" element={<Profile></Profile>}></Route>
         <Route path="/chat" element={<ChatRoom></ChatRoom>}></Route>
+        <Route
+          path="/yourpage/profile"
+          element={<YourProfile></YourProfile>}></Route>
       </Routes>
     </div>
   );

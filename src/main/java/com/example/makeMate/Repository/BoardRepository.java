@@ -1,4 +1,3 @@
-
 package com.example.makeMate.Repository;
 
 import java.util.List;
@@ -35,4 +34,3 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
 //	
 //	
 //}
-

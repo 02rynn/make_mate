@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.WebSocketSession;
 
@@ -62,10 +63,17 @@ public class UserController {
 
 			UserEntity user = UserEntity.builder() // 요청을 이용해 저장할 사용자 (userEntity에 넣어주는듯 => 나중에 dto로 변환해서 전달)
 					// userDTO에 들어있는 정보를 user에 set해줄거
-					.id(0).email(userDTO.getEmail()).name(userDTO.getName()).birthDate(userDTO.getBirthDate())
-					.password(userDTO.getPassword()).passwordCheck(userDTO.getPasswordCheck())
-					.loginId(userDTO.getLoginId()).gender(userDTO.getGender()).age(age)
-					.userStatus(userDTO.getUserStatus()).phoneNum(userDTO.getPhoneNum()).build();
+					.id(0).email(userDTO.getEmail())
+					.name(userDTO.getName())
+					.birthDate(userDTO.getBirthDate())
+					.password(userDTO.getPassword())
+					.passwordCheck(userDTO.getPasswordCheck())
+					.loginId(userDTO.getLoginId())
+					.gender(userDTO.getGender())
+					.age(age)
+					.userStatus(userDTO.getUserStatus())
+					.phoneNum(userDTO.getPhoneNum())
+					.build();
 
 			// 서비스를 이용해 리파지토리에 사용자 저장 (회원가입) : 빈값체크, 비밀번호 체크 하고 회원가입 이루어짐
 			UserEntity registeredUser = userService.create(user);
@@ -73,11 +81,16 @@ public class UserController {
 
 			// 회원가입된 회원의 정보를 responseUserDTO에 담아 보내서 클라이언트한테 반환할거임
 			UserDTO responseUserDTO = userDTO.builder() // builder사용하면 setter생성을 반지하고, 불변객체로 만듦
-					.email(registeredUser.getEmail()).loginId(registeredUser.getLoginId())
-					.password(registeredUser.getPassword()).gender(registeredUser.getGender())
-					.age(registeredUser.getAge()).phoneNum(registeredUser.getPhoneNum())
-					.userStatus(registeredUser.getUserStatus()).birthDate(registeredUser.getBirthDate())
-					.name(registeredUser.getName()).build();
+					.email(registeredUser.getEmail())
+					.loginId(registeredUser.getLoginId())
+					.password(registeredUser.getPassword())
+					.gender(registeredUser.getGender())
+					.age(registeredUser.getAge())
+					.phoneNum(registeredUser.getPhoneNum())
+					.userStatus(registeredUser.getUserStatus())
+					.birthDate(registeredUser.getBirthDate())
+					.name(registeredUser.getName())
+					.build();
 
 //					        return responseUserDTO;
 			return ResponseEntity.ok().body(responseUserDTO);
@@ -108,26 +121,67 @@ public class UserController {
 		
 		UserEntity entity = userRepository.findByloginId(loginForm.getLoginId());
 //		
-		log.info("asd{}",entity.toString());
-		
+		if(entity != null) {
+			
+			log.info("유저정보 {}",entity.toString());
+		}
 		
 		if(entity != null) {
 			if(entity.getPassword().equals(loginForm.getPassword())) { 
 				HttpSession session = req.getSession(); 
 				session.setMaxInactiveInterval(1800);
 				session.setAttribute("user_name", entity);
-				System.out.println("세션 추가 될껄?");
-				log.info("{}",session.getAttribute("user_name"));
+				session.getAttribute("user_name");
+				log.info("로그인완료 {}" ,	session.getAttribute("user_name"));
 				return entity;
-			}
+			} else {
+			
+				
+				log.error("비밀번호 혹은 아이디가 일치하지 않습니다.");
+		}
 			
 		}
-	
-		
-		
-	
-		
 		return new UserEntity(); 
+		
 	}
+	
+@PostMapping("/signup/checkId")
+@ResponseBody      //여기로 정보 요청 ->보낸 아이디값과 일치하는 값이 있나요? -> 1 => 사용 가능한 아이디 
+public int checkId(@RequestBody String loginId) { 
+	
+	log.info("중복체크 요청 아이디dfd: {}", loginId);
+	log.info("중복체크 요청 아이디: {}", userRepository.existsByLoginId(loginId) );
+	
+	if(userRepository.existsByLoginId(loginId) == null) { //사용가능한 아이디 
+		
+		return 1;
+	}else {
+		
+		return 0;
+	}
+	
+}
+
+
+	
+	
+//	@PostMapping("/login")
+//	public ResponseEntity<?> login(@RequestBody UserDTO userDTO){
+//		UserEntity user = userService.getByCredentials(userDTO.getLoginId(), userDTO.getPassword());
+//		
+//		if(user != null) {
+//			final UserDTO responseDTO = UserDTO.builder()
+//					.password(user.getPassword())
+//					.id(user.getId())
+//					.build();
+//			return ResponseEntity.ok().body(responseDTO);
+//		} else {
+//			ResponseDTO responseDTO = ResponseDTO.builder()
+//					.error("Login falied.")
+//					.build();
+//			return ResponseEntity.badRequest().body(responseDTO);
+//								
+//		}
+	//}
 
 }
