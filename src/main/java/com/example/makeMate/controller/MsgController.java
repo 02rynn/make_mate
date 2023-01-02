@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.makeMate.Entity.MessageEntitiy;
 import com.example.makeMate.Repository.MsgRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,9 +32,10 @@ public class MsgController {
 
 	@GetMapping("/msgList")
 	@ResponseBody
-	public List<MessageEntitiy> list() {
+	public List<MessageEntitiy> list(HttpServletRequest req) {
 //		Long room_id = msgRepository.getMaxRoom_id();
 //		System.out.println(room_id);
+		System.out.println("세션아 나와라 여ㅑㅂ!"+req.getAttribute("user_name"));
 		String user = "asd";
 		log.info("요청 들어옴");
 
@@ -48,7 +50,7 @@ public class MsgController {
 		List<MessageEntitiy>list = msgRepository.findRecentMsg(user);
 		List<Long> unreadCount = new ArrayList<Long>();
 		for(MessageEntitiy msg : list) {
-		Long num =	(long) msgRepository.findAllByreciver_idAndread_ynAndRoom_id(msg.getRoom_id());	
+		Long num =	(long) msgRepository.findAllByreciver_idAndread_ynAndRoom_id(msg.getRoom_id(),user);	
 		unreadCount.add(num);
 			
 		}

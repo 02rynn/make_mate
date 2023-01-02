@@ -1,4 +1,6 @@
-import { API_BASE_URL } from "../app-config";
+import {
+  API_BASE_URL
+} from "../ContentForm-config";
 
 export function call(api, method, request) {
   let options = {

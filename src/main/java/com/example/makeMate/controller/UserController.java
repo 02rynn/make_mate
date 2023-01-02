@@ -2,6 +2,7 @@ package com.example.makeMate.controller;
 
 import java.time.LocalDate;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,6 +34,8 @@ public class UserController {
 	private UserRepository userRepository;
 	@Autowired
 	private  SessionManager sessionManager;
+	
+	public static final String SESSION_COOKIE_NAME = "tempSessionId";
 	
 
 	LocalDate now = LocalDate.now();
@@ -109,10 +112,12 @@ public class UserController {
 		
 		
 		if(entity != null) {
-			if(entity.getPassword().equals(loginForm.getPassword())) {
+			if(entity.getPassword().equals(loginForm.getPassword())) { 
 				HttpSession session = req.getSession(); 
 				session.setMaxInactiveInterval(1800);
 				session.setAttribute("user_name", entity);
+				System.out.println("세션 추가 될껄?");
+				log.info("{}",session.getAttribute("user_name"));
 				return entity;
 			}
 			
