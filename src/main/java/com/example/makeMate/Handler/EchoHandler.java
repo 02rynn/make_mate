@@ -44,7 +44,7 @@ public class EchoHandler extends TextWebSocketHandler implements WebSocketHandle
 //	   System.out.println("안읽은 메세지 수 "+unReadList.size());
 	   log.info("asd{}",user_name);
        System.out.println("연결 성공11111111");
-       sessionList.add(session);
+       sessionList.add(session);                                                             
    }
    
    @Override

@@ -11,6 +11,7 @@ import '../css/Main.css';
 
 function Main() {
   let navigate = useNavigate();
+  let sessionStorage = window.sessionStorage;
   const {Header, Content, Footer, Sider} = Layout;
   const {
     token: {colorBgContainer},
@@ -77,9 +78,10 @@ function Main() {
               }>
               <Meta
                 style={{textAlign: "center"}}
-                title="유저닉네임"
+                title={sessionStorage.getItem("loginId")}
+           
                 /><br/>
-                <p>유저 아이디</p>
+                <p>안녕하세요!</p>
                 <span style={{margin:'6%',
                               backgroundColor: '#ff7f27',
                               color: '#FFFFFF',
@@ -98,7 +100,8 @@ function Main() {
               }} 
                       onClick={() => {
                       navigate("/");
-                }}><a>로그아웃</a></span>
+                }}>
+                  <a onClick={sessionStorage.clear()}>로그아웃</a></span>
             </Card>
           </Sider>
           <Layout>

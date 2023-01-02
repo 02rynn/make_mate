@@ -3,9 +3,11 @@ package com.example.makeMate.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.example.makeMate.Entity.UserEntity;
 import com.example.makeMate.Repository.UserRepository;
+
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,21 +57,29 @@ public class UserService { //데이터베이스에 저장된 사용자를 가지
 		return userRepository.save(userEntity); 
 		
 	}
+
 	
+}
+	
+
+
 	
 	//로그인메소드 
-	public void getByCredentials(final String loginId, final String password) {
-		
+//	public UserEntity getByCredentials(final String loginId, final String password) {
+//		
 //		UserEntity user = userRepository.findByloginId(loginId);
-//		syotu//아이디로  레파지토리에 저장되어 있는 객체 찾기 
+//		//아이디로  레파지토리에 저장되어 있는 객체 찾기 
 //		if(user != null) { //아이디가 존재한다면
 //			if(user.getPassword().equals(password)) { //비밀번호 확인
 //				return user;
 //			}
 //		}
 //		return null;
-	}
+//	}
 
+//	 public UserEntity getByCredentials (final String loginId, final String password) {
+//		 return userRepository.findByLoginIdAndPassword(loginId, password);
+//	 }
 	
- 
-}
+
+

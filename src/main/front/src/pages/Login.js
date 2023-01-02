@@ -9,9 +9,9 @@ import {useNavigate} from "react-router-dom";
 function Login () {
     const navigate = useNavigate();
     const { Meta } = Card;
-    // const onFinish = (values) => {
-    //     console.log('Received values of form: ', values);
-    // };
+   
+    //로그인 메시지
+    const [loginMsg, setLoginMsg] = useState("");
 
      //세션
   let [loginId, setLoginId] = useState("");
@@ -24,21 +24,32 @@ function Login () {
  const onFinish = (values) => {
     console.log("try login");
     console.log("Received values of form: ", values);
-    /*여기서 이제 데이터로 넘어온 값으로 아이디 비번체크 */
     axios({
         method: "post",
         url: "http://localhost:8080/login", 
         data: values,
     }).catch((e) => {
         console.error(e.response.data);
-        })
-        .then((response) => {
+    })
+    .then((response) => {
+        
+        /*여기서 이제 데이터로 넘어온 값으로 아이디 비번체크*/
+        console.log(response.data);
 
-        sessionStorage.setItem("loginId",response.data.loginId );
+            if(response.data.loginId ==null || response.data.password == null){
+         //       로그인으로 가든, 메시지를 띄우든 해라 ...
+                alert(" 비밀번호 혹은 아이디가 일치하지 않습니다.");
+               
+            }else{
+                sessionStorage.setItem("loginId",response.data.loginId );
+                navigate("/");
+                response.preventDefault();
+            }
 
-        console.log(response.date);
+        
 
-        navigate('/');
+
+       
         });
   }
 
@@ -101,8 +112,7 @@ function Login () {
                     <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button" style={{backgroundColor: "#ff7f27"}}
                         onClick={ ()=>{
-                            // sessionStorage.setItem("loginId", loginId);
-                            // setSavedLoginId(sessionStorage.getItem("loginId"));
+
                         }}
                         >
                             Log in

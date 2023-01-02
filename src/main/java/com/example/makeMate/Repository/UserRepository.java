@@ -37,10 +37,15 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 	String existsByEmail(String email);
 	
 
-	@Query(value="SELECT loginId FROM USER_INFO WHERE LOGINID= ?1",nativeQuery = true)
+	@Query(value="SELECT LOGINID FROM USER_INFO WHERE LOGINID= ?1",nativeQuery = true)
 	String existsByLoginId(String loginId);
+	
+	
+//	@Query(value="select LOGIN_ID from user_info where loginid = ?1",  nativeQuery = true)
+//	String findLogin_idById(int id);
 
 //	UserEntity findByLoginIdAndPassword(String loginId, String password);
+	
 	
 	@Query(value="SELECT * FROM USER_INFO WHERE LOGINID= ?1 and PASSWORD=?1" ,nativeQuery = true)
 	UserEntity findByLoginIdAndPassword(String loginId, String password);

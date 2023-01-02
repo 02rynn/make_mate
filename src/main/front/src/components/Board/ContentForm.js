@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from 'react';
+import React, {useEffect,useState} from "react";
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
 import ButtonGroup from '@mui/material/ButtonGroup';
@@ -16,6 +16,9 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow'; 
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
+import {call} from '../../service/ApiService';
+
+
 
 function ContentForm() {
 
@@ -89,7 +92,7 @@ function ContentForm() {
         })
 
     }
-
+class contentForm extends React.component{
     componentDidMount() {
         call("/board", "GET", null).then((response) =>
           this.setState({ items: response.data })
@@ -114,13 +117,13 @@ function ContentForm() {
         );
       };
 
-
+    }
 
 
 
     return (
        
-        <Container component="main" maxWidth="md">
+        <Container component="contentForm" maxWidth="md">
         <Box
         sx={{
           marginTop: 8,

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.example.makeMate.controller;
 
 import java.util.List;
@@ -137,7 +137,7 @@ public class BoardController {
 	}
 
 }
-=======
+
 //package com.example.makeMate.controller;
 //
 //
@@ -277,4 +277,4 @@ public class BoardController {
 //	}
 //
 //}
->>>>>>> 6c11bd88f51561c39fff52a25d6bed59b4a9f75a
+

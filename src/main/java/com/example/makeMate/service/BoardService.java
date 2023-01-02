@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.example.makeMate.service;
 
 import java.util.List;
@@ -62,15 +62,7 @@ public class BoardService {
 			Board.setBoardCn(entity.getBoardCn());
 			Board.setBoardTtl(entity.getBoardTtl());
 
-			
-			
-			
-			
-			
-			
-			
-			
-			
+
 			
 			
 			// (4) 데이터베이스에 새 값을 저장한다.
@@ -101,7 +93,7 @@ public class BoardService {
 	}
 
 }
-=======
+
 //package com.example.makeMate.service;
 //
 //import java.util.List;
@@ -212,4 +204,4 @@ public class BoardService {
 //	}
 //
 //}
->>>>>>> 6c11bd88f51561c39fff52a25d6bed59b4a9f75a
+

@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 package com.example.makeMate.Repository;
 
 import java.util.List;
@@ -15,7 +15,7 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
 	
 	List<BoardEntity> findByBoardIdx(String boardIdx);
 }
-=======
+
 //package com.example.makeMate.Repository;
 //
 //import java.util.List;
@@ -36,4 +36,3 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
 //	
 //	
 //}
->>>>>>> 6c11bd88f51561c39fff52a25d6bed59b4a9f75a
