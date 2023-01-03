@@ -125,13 +125,6 @@ const ChatRoom = () => {
         <div className="chat-box">
           <div className="member-list">
             <ul>
-              <li
-                onClick={() => {
-                  setTab("CHATROOM");
-                }}
-                className={`member ${tab === "CHATROOM" && "active"}`}>
-                Chatroom
-              </li>
               {[...privateChats.keys()].map((name, index) => (
                 <li
                   onClick={() => {
@@ -153,23 +146,7 @@ const ChatRoom = () => {
                   position: "relative",
                   display: "flex",
                   flexDirection: "column-reverse",
-                }}>
-                {publicChats.map((chat, index) => (
-                  <li
-                    className={`message ${
-                      chat.senderName === userData.username && "self"
-                    }`}
-                    key={index}>
-                    {chat.senderName !== userData.username && (
-                      <div className="avatar">{chat.senderName}</div>
-                    )}
-                    <div className="message-data">{chat.message}</div>
-                    {chat.senderName === userData.username && (
-                      <div className="avatar self">{chat.senderName}</div>
-                    )}
-                  </li>
-                ))}
-              </ul>
+                }}></ul>
 
               <div className="send-message">
                 <input

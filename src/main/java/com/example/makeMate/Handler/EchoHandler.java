@@ -48,6 +48,9 @@ public class EchoHandler extends TextWebSocketHandler {
 //    }
 //	   System.out.println("안읽은 메세지 수 "+unReadList.size());
     
+
+       
+       
        Map<String,Object> map = session.getAttributes();
        String userId = (String)map.get("HTTP_SESSION_ID_ATTR_NAME");
        System.out.println("로그인 한 아이디 : " + userId);
