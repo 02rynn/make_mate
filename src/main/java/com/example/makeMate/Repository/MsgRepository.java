@@ -26,7 +26,7 @@ public interface MsgRepository extends JpaRepository<MessageEntitiy, Long> {
 	@Query(value="select room_id from msg where sender_id in (:id1,:id2) and reciver_id in (:id1,:id2) GROUP by room_id",  nativeQuery = true)
 	Long findRoom_IdbySender_idAndReciver_id(@Param(value = "id1")  String user,@Param(value = "id2")String user2);
 	
-	@Query(value="select LOGIN_ID from user_info where id = ?1",  nativeQuery = true)
+	@Query(value="select LOGINID from user_info where id = ?1",  nativeQuery = true)
 	String findLogin_idById(int id);
 
 	@Query(value="select * from msg where msg_id in(select max(msg_id) from msg where sender_id = ?1 or reciver_id = ?1 group by room_id)",nativeQuery = true)
@@ -47,8 +47,8 @@ public interface MsgRepository extends JpaRepository<MessageEntitiy, Long> {
 	int updateRead_yn(Long room_id);
 	
 	
-	@Query(value="select count(*) from msg where room_id=?1 and read_yn=0",nativeQuery = true)
-	int findAllByreciver_idAndread_ynAndRoom_id(Long long1);
+	@Query(value="select count(*) from msg where room_id=?1 and read_yn=0 and reciver_id = ?2",nativeQuery = true)
+	int findAllByreciver_idAndread_ynAndRoom_id(Long long1, String user);
 	
 	
 	

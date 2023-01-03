@@ -19,6 +19,7 @@ import ImgTest from "./../pages/imgTest";
 import WriteForm from "../components/Board/WriteForm";
 import ContentForm from "../components/Board/ContentForm";
 import Profile from "../components/Profile";
+import ChatRoom from "./ChatRoom";
 import YourProfile from "./YourProfile.js";
 
 function RoutesContainer() {
@@ -60,7 +61,10 @@ function RoutesContainer() {
           element={<ContentForm> </ContentForm>}></Route>
         <Route path="/writeForm" element={<WriteForm> </WriteForm>}></Route>
         <Route path="/mypage/profile" element={<Profile></Profile>}></Route>
-        <Route path="/yourpage/profile" element={<YourProfile></YourProfile>}></Route>
+        <Route path="/chat" element={<ChatRoom></ChatRoom>}></Route>
+        <Route
+          path="/yourpage/profile"
+          element={<YourProfile></YourProfile>}></Route>
       </Routes>
     </div>
   );

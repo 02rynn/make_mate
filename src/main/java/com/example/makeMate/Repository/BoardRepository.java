@@ -14,7 +14,6 @@ public interface BoardRepository extends JpaRepository<BoardEntity, String>{
 	
 	List<BoardEntity> findByBoardIdx(String boardIdx);
 }
-
 //package com.example.makeMate.Repository;
 //
 //import java.util.List;

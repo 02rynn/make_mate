@@ -28,7 +28,6 @@ function MsgModal(props) {
 
   function sendMsg() {
     console.log("버튼 눌림");
-
     const mmes = document.getElementById("msgbox").value;
 
     axios
