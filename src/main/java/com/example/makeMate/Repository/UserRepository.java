@@ -6,11 +6,15 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.example.makeMate.Entity.LoginForm;
 import com.example.makeMate.Entity.UserEntity;
 
+import jakarta.transaction.Transactional;
+
 //@EnableJpaRepositories
+@Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> { //entity와 id로 지정한 변수의 타입
 	//레파지토리는 JpaRepository라는 인터페이스를 통해 확장됨. <테이블에 맵핑되는 Entity, Entity기본키의 타입 >
 	
@@ -29,6 +33,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 	
 	List<UserEntity> findAll();
 	
+	//회원가입
 	@Modifying
 	UserEntity save(UserEntity user);
 	
@@ -36,7 +41,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 	@Query(value="SELECT email FROM USER_INFO WHERE EMAIL= ?1",nativeQuery = true)
 	String existsByEmail(String email);
 	
-
+	//로그인 아이디 중복확인
+	@Query(value="select LOGINID from user_info where LoginId = ?1",  nativeQuery = true)
+	String findLogin_idById(String loginId);
+	
+	//회원가입 아이디 중복확인
 	@Query(value="SELECT LOGINID FROM USER_INFO WHERE LOGINID= ?1",nativeQuery = true)
 	String existsByLoginId(String loginId);
 	
@@ -49,5 +58,13 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 	
 	@Query(value="SELECT * FROM USER_INFO WHERE LOGINID= ?1 and PASSWORD=?1" ,nativeQuery = true)
 	UserEntity findByLoginIdAndPassword(String loginId, String password);
+	
+	
+	//비밀번호 변경
+	@Modifying
+	@Transactional
+	@Query(value="update user_info set password=?1 where loginId = ?2",nativeQuery = true)
+	public void update_password(String password, String loginId);
+	
 	
 }

@@ -21,8 +21,10 @@ function Login () {
         /* { JSON.stringify(sessionStorage) } 이것의 역할은 무엇일까..? 일단 주석으로 남길게용
         글구 메인페이지 로그아웃 버튼에다가 로그아웃 추가해야함.  */
  
+
  const onFinish = (values) => {
     console.log("try login");
+    console.log(sessionStorage);
     console.log("Received values of form: ", values);
     axios({
         method: "post",
@@ -37,18 +39,18 @@ function Login () {
         console.log(response.data);
 
             if(response.data.loginId ==null || response.data.password == null){
-         //       로그인으로 가든, 메시지를 띄우든 해라 ...
+      //     로그인으로 가든, 메시지를 띄우든 해라 ...
                 alert(" 비밀번호 혹은 아이디가 일치하지 않습니다.");
                
             }else{
-                sessionStorage.setItem("loginId",response.data.loginId );
+                console.log("여기는 else");
+                sessionStorage.setItem("loginId", response.data.loginId );
+                sessionStorage.setItem("password", response.data.password );
+                
+
                 navigate("/");
                 response.preventDefault();
-            }
-
-        
-
-
+           }
        
         });
   }

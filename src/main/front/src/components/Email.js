@@ -4,6 +4,7 @@ import { useState ,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 import css from '../css/Section.css';
+import axios from "axios";
 
 function Email(){
 
@@ -11,11 +12,44 @@ function Email(){
    // 아니면 새로운 비번으로 저장되도록
    const navigate = useNavigate();
    const [password, setPassword] = useState("");
+
+
+
+   
+   const onFinish = (values) => {
+    console.log("onfinish");
+    console.log("Received values of form: ", values);
+  
+  
+
+    axios({
+      method: "post",
+      url: "http://localhost:8080/mypage/email?loginId=" +sessionStorage.getItem("loginId"), 
+      data: values, 
+    //  headers: {"Content-Type": "multipart/form-data"},
+    })
+      .catch((e) => {
+        console.error(e.response.data);
+      })
+      .then((response) => {
+        console.log(response);
+
+        //비밀번호가 세션의 비밀번호와 일치
+
+       alert("비밀번호가 변경되었습니다");
+       navigate("/mypage");
+
+              
+      });
+  };
+
+
      return(
         <>
         <div className='section_container'>
             <p className='section_title'> 이메일 변경</p>
-            <Form>
+            <Form
+               onFinish={onFinish}>
            
                   
                     <Form.Item
@@ -41,7 +75,7 @@ function Email(){
                         label="계정 비밀번호"
                         labelCol={{span:24}}
                         wrapperCol={{span: 24}}
-                        name="passwordCheck"
+                        name="password"
                         rules={[
                             {
                                 required: true,
@@ -58,7 +92,7 @@ function Email(){
                                 type="password"
                                 placeholder="Password"
                                 />
-                                < p style={{fontSize:'12px' ,color:'red'}}>현재 사용중인 비밀번호 입니다.</p>
+                                {/* < p style={{fontSize:'12px' ,color:'red'}}>현재 사용중인 비밀번호 입니다.</p> */}
                                 
                     </Form.Item>    
 

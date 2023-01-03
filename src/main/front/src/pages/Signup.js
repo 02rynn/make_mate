@@ -66,8 +66,8 @@ function Signup() {
   const checkId = ()=>{
     axios({
       method:"post",
-      url:"http://localhost:3000//signup/checkId",
-      data: loginId
+      url:"http://localhost:3000/signup/checkId",
+      data:loginId
     })
     .then((response)=>{
       console.log("아이디 확인중 ")
@@ -129,25 +129,6 @@ function Signup() {
      // e.preventdefault();
       return
     }
-
-
-    //const formData = new FormData();
-    //formData.append("file", fileImage);
-    // formData.append(
-    //   "values",
-    //   new Blob([JSON.stringify(values)], {
-    //     type: "application/json",
-    //   })
-    // );
-   // console.log(formData);
-
-    // axios
-    //   // .post("http://localhost:8080/signup", {values, fileImage} , {
-    //   .post("http://localhost:8080/signup", formData , {
-    //     headers: {
-    //       'Content-Type': 'multipart/form-data'
-    //     }
-    //   })
     axios({
       method: "post",
       url: "http://localhost:8080/signup", 

@@ -3,17 +3,30 @@ import css from '../css/MyPage.css';
 import css2 from '../css/Section.css';
 import logo from '../images/logoSimple.jpg';
 import {useState} from 'react';
-
+import {useNavigate} from 'react-router-dom';
 function MyPage () {
+
+    let navigate = useNavigate();
+
+    // 로그인 해야 이동가능한 페이지
+   // const sessionId = sessionStorage.getItem("loginId");
 
     return(
       <>
         <div className='container' style={{width:'60%'}}>
+
+            {/* if(sessionId == null){
+                alert("로그인 사용자만 접근 가능합니다.")
+            } */}
+            
             <div className="section_container" style={{  marginTop:'50px'}}>
             <section >
                 <div className='myInfo section' style={{display:"flex",flexDirection:'row' ,width:'100%'}}>
-                <h3 style={{width:'80%' ,textAlign:'left' ,marginLeft:'10px', fontWeight:'bold'}}>내 정보</h3>
-                <button className="logout" >로그아웃</button>
+                <h3 style={{width:'85%' ,textAlign:'left' ,marginLeft:'10px', fontWeight:'bold'}}>내 정보</h3>
+                <button className="logout" onClick={()=>{
+                    sessionStorage.clear();
+                    navigate("/");
+                }} >로그아웃</button>
                 </div>
                 <div className='profile' >
                     <div className='profileImg'>
