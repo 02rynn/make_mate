@@ -31,7 +31,7 @@ public class EchoHandler extends TextWebSocketHandler {
    
    @Override
    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-	  System.out.println("dmddod");
+
 
 	   String a = (String) session.getAttributes().get("user_name");
 	   System.out.println(a);

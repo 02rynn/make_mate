@@ -10,6 +10,7 @@ import org.springframework.web.socket.server.support.HttpSessionHandshakeInterce
 
 import com.example.makeMate.Handler.EchoHandler;
 //import com.example.makeMate.intercepter.HandshakeInterceptor;
+import com.example.makeMate.intercepter.HandshakeInterceptor;
 
 import lombok.RequiredArgsConstructor;
  
@@ -26,7 +27,9 @@ public class WebSocketConfig implements WebSocketConfigurer{
         .withSockJS()
         .setClientLibraryUrl(
           "https://cdn.jsdelivr.net/sockjs/latest/sockjs.min.js")
-        .setInterceptors(new HttpSessionHandshakeInterceptor());
+//        .setInterceptors(new HttpSessionHandshakeInterceptor());
+        .setInterceptors(new HandshakeInterceptor());
+        
     }
     
     

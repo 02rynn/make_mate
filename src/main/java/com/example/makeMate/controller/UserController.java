@@ -20,6 +20,7 @@ import com.example.makeMate.service.UserService;
 import com.example.makeMate.session.SessionManager;
 import com.example.makeMate.session.SessionVar;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -133,6 +134,8 @@ public class UserController {
 				session.setAttribute("user_name", entity);
 				session.getAttribute("user_name");
 				log.info("로그인완료 {}" ,	session.getAttribute("user_name"));
+				
+				resp.addCookie(new Cookie(SESSION_COOKIE_NAME, entity.getLoginId()));
 				return entity;
 			} else {
 			

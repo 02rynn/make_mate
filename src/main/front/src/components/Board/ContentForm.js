@@ -1,24 +1,22 @@
-import React, {useEffect,useState} from "react";
-import axios from 'axios';
-import { Link, useLocation } from 'react-router-dom';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Button from '@mui/material/Button';
-import Grid from '@mui/material/Grid';
-import TextField from '@mui/material/TextField';
-import { useNavigate } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow'; 
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import {call} from '../../service/ApiService';
-
-
+import React, {useEffect, useState} from "react";
+import axios from "axios";
+import {Link, useLocation} from "react-router-dom";
+import ButtonGroup from "@mui/material/ButtonGroup";
+import Button from "@mui/material/Button";
+import Grid from "@mui/material/Grid";
+import TextField from "@mui/material/TextField";
+import {useNavigate} from "react-router-dom";
+import Box from "@mui/material/Box";
+import Container from "@mui/material/Container";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TableRow from "@mui/material/TableRow";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import {call} from "../../service/ApiService";
 
 function ContentForm() {
   const location = useLocation();
@@ -75,79 +73,36 @@ function ContentForm() {
       });
   };
 
-    const location = useLocation();
-    const keyword = getBoardIdx(location);
-    const navigate = useNavigate();
-
-
-    const [board, setBoard] = useState({
-        board_idx : '',
-        board_name: '',
-        board_ttl : '',
-        board_cn : '',
-        board_date : ''
-            
-    });
-
-    const [replyList, setReplyList] = useState([{
-        reply_idx : '',
-        reply_name :'',
-        reply_cn: '',
-        reply_date:'',
-        reply_board_idx :''
-    }]);
-
-
-    const handleChange = (event) => {
-        const { name, value } = event.target;
-       setBoard(values => ({ ...values, [name]: value }));
-    }
-
-    //게시글 상세조회 
-    useEffect(() => {
-        axios.get("/contentForm", {
-            params : {
-                board_idx : parseInt(keyword)           
-             }
-        })
-       .then((resp) => {
-        setBoard(resp.data.board)
-        setReplyList(resp.data.replyList)
-       })
-    }, []);
-    
-
-    //게시글 수정 
-    const handleSubmit = () => {  
-        axios.post("/contentForm", {
-            board_name : board.board_name,
-            board_ttl : board.board_ttl,
-            board_cn : board.board_cn
-        }).then((resp) => {
-           console.log(resp);
-        })
-    }
-
-
-   // 게시글 댓글 달기.
-    const submitList = () => {
-        axios.post("/contentForm", {
-            reply_cn : replyList.reply_cn,
-            reply_name : replyList.reply_name
-        }).then((resp) => {
-           console.log(resp);
-           alert('댓글달기 성공');
-        })
-
-    }
-class contentForm extends React.component{
+  // 게시글 댓글 달기.
+  const submitList = () => {
+    axios
+      .post("/contentForm", {
+        reply_cn: replyList.reply_cn,
+        reply_name: replyList.reply_name,
+      })
+      .then((resp) => {
+        console.log(resp);
+        alert("댓글달기 성공");
+      });
+  };
+  class contentForm extends React.component {
     componentDidMount() {
       call("/board", "GET", null).then((response) =>
         this.setState({items: response.data})
       );
     }
 
-    }
+    add = (item) => {
+      call("/board", "POST", item).then((response) =>
+        this.setState({items: response.data})
+      );
+    };
+
+    delete = (item) => {
+      call("/board", "DELETE", item).then((response) =>
+        this.setState({items: response.data})
+      );
+    };
 
     update = (item) => {
       call("/board", "PUT", item).then((response) =>
@@ -156,11 +111,9 @@ class contentForm extends React.component{
     };
   }
 
-
-    return (
-       
-        <Container component="contentForm" maxWidth="md">
-        <Box
+  return (
+    <Container component="contentForm" maxWidth="md">
+      <Box
         sx={{
           marginTop: 8,
           display: "flex",
