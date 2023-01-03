@@ -7,10 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.socket.WebSocketSession;
 
+import com.example.makeMate.DTO.PasswordDTO;
 import com.example.makeMate.DTO.ResponseDTO;
 import com.example.makeMate.DTO.UserDTO;
 import com.example.makeMate.Entity.LoginForm;
@@ -18,7 +19,6 @@ import com.example.makeMate.Entity.UserEntity;
 import com.example.makeMate.Repository.UserRepository;
 import com.example.makeMate.service.UserService;
 import com.example.makeMate.session.SessionManager;
-import com.example.makeMate.session.SessionVar;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -153,9 +153,8 @@ public class UserController {
 public int checkId(@RequestBody String loginId) { 
 	
 	log.info("중복체크 요청 아이디dfd: {}", loginId);
-	log.info("중복체크 요청 아이디: {}", userRepository.existsByLoginId(loginId) );
 	
-	if(userRepository.existsByLoginId(loginId) == null) { //사용가능한 아이디 
+	if(userRepository.findLogin_idById(loginId) == null) { //사용가능한 아이디 
 		
 		return 1;
 	}else {
@@ -164,6 +163,34 @@ public int checkId(@RequestBody String loginId) {
 	}
 	
 }
+
+
+@PostMapping("/mypage/password")
+@ResponseBody     
+public void update_password(@RequestBody PasswordDTO passwordDTO
+							,@RequestParam String loginId) { 
+	log.info("기존비번 {}, 비번체크 {}, 새비번{}, 아이디{}" ,passwordDTO.getOldPassword()
+													,passwordDTO.getPasswordCheck()
+													,passwordDTO.getNewPassword()
+													, loginId);
+	
+	//기존비밀번호랑 같으면 안됨 
+	if(passwordDTO.getOldPassword()==passwordDTO.getNewPassword()) {
+		log.warn("기존 비밀번호와 새 비밀번호가 일치합니다 {} , {}" ,passwordDTO.getOldPassword(), passwordDTO.getNewPassword());
+		throw new RuntimeException("기존 비밀번호와 새 비밀번호가 일치합니다");
+	}
+	
+	//비밀번호 확인
+	if(! passwordDTO.getNewPassword().equals(passwordDTO.getPasswordCheck())) { 
+		log.warn("비밀번호가 확인비밀번호와 일치하지 않습니다 {} , {}" , passwordDTO.getNewPassword(), passwordDTO.getPasswordCheck());
+		throw new RuntimeException("password is not same");
+	}
+	
+	//새로운 비밀번호 업데이트
+	userRepository.update_password(passwordDTO.getNewPassword(),loginId);
+	
+	
+	}
 
 
 	

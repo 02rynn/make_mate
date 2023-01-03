@@ -11,7 +11,7 @@ import '../css/Main.css';
 
 function Main() {
   let navigate = useNavigate();
-  let sessionStorage = window.sessionStorage;
+ // let sessionStorage = window.sessionStorage;
   const {Header, Content, Footer, Sider} = Layout;
   const {
     token: {colorBgContainer},
@@ -97,11 +97,8 @@ function Main() {
                               color: '#FFFFFF',
                               padding:'1%',
                               borderRadius:'10%'
-              }} 
-                      onClick={() => {
-                      navigate("/");
-                }}>
-                  <a onClick={sessionStorage.clear()}>로그아웃</a></span>
+              }} onClick={()=>{sessionStorage.clear()}}>
+                  로그아웃</span>
             </Card>
           </Sider>
           <Layout>
