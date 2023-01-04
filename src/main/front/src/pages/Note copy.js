@@ -9,6 +9,22 @@ import {over} from "stompjs";
 var stompClient = null;
 
 function NoteCopy() {
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/test")
+      .then((response) => {
+        // setMap(response.data);
+        let key = Object.keys(response.data);
+        privateChats.set(key[0], response.data[key[0]]);
+        privateChats.set(key[1], response.data[key[1]]);
+        console.log(response.data[key[0]]);
+        console.log(privateChats);
+        console.log(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  const [map, setMap] = useState(new Map());
   const userId = sessionStorage.getItem("loginId");
   const [privateChats, setPrivateChats] = useState(new Map());
   const [publicChats, setPublicChats] = useState([]);
@@ -36,26 +52,27 @@ function NoteCopy() {
       "/user/" + userData.username + "/private",
       onPrivateMessage
     );
-    userJoin();
+
+    // userJoin();
   };
 
-  const userJoin = () => {
-    var chatMessage = {
-      senderName: userData.username,
-      status: "JOIN",
-    };
-    stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
-  };
+  // const userJoin = () => {
+  //   var chatMessage = {
+  //     senderName: userData.username,
+  //     status: "JOIN",
+  //   };
+  //   stompClient.send("/app/message", {}, JSON.stringify(chatMessage));
+  // };
 
   const onMessageReceived = (payload) => {
     var payloadData = JSON.parse(payload.body);
     switch (payloadData.status) {
-      // case "JOIN":
-      //   if (!privateChats.get(payloadData.senderName)) {
-      //     privateChats.set(payloadData.senderName, []);
-      //     setPrivateChats(new Map(privateChats));
-      //   }
-      //   break;
+      case "JOIN":
+        if (!privateChats.get(payloadData.senderName)) {
+          privateChats.set(payloadData.senderName, []);
+          setPrivateChats(new Map(privateChats));
+        }
+        break;
       case "MESSAGE":
         publicChats.push(payloadData);
         setPublicChats([...publicChats]);

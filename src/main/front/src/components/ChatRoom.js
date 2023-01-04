@@ -5,11 +5,12 @@ import css from "../css/Chat.css";
 
 var stompClient = null;
 const ChatRoom = () => {
+  const user = sessionStorage.getItem("loginId");
   const [privateChats, setPrivateChats] = useState(new Map());
   const [publicChats, setPublicChats] = useState([]);
   const [tab, setTab] = useState("CHATROOM");
   const [userData, setUserData] = useState({
-    username: "",
+    username: user,
     receivername: "",
     connected: false,
     message: "",
@@ -31,7 +32,7 @@ const ChatRoom = () => {
       "/user/" + userData.username + "/private",
       onPrivateMessage
     );
-    userJoin();
+    // userJoin();
   };
 
   const userJoin = () => {
@@ -125,6 +126,13 @@ const ChatRoom = () => {
         <div className="chat-box">
           <div className="member-list">
             <ul>
+              <li
+                onClick={() => {
+                  setTab("CHATROOM");
+                }}
+                className={`member ${tab === "CHATROOM" && "active"}`}>
+                Chatroom
+              </li>
               {[...privateChats.keys()].map((name, index) => (
                 <li
                   onClick={() => {
@@ -146,7 +154,23 @@ const ChatRoom = () => {
                   position: "relative",
                   display: "flex",
                   flexDirection: "column-reverse",
-                }}></ul>
+                }}>
+                {publicChats.map((chat, index) => (
+                  <li
+                    className={`message ${
+                      chat.senderName === userData.username && "self"
+                    }`}
+                    key={index}>
+                    {chat.senderName !== userData.username && (
+                      <div className="avatar">{chat.senderName}</div>
+                    )}
+                    <div className="message-data">{chat.message}</div>
+                    {chat.senderName === userData.username && (
+                      <div className="avatar self">{chat.senderName}</div>
+                    )}
+                  </li>
+                ))}
+              </ul>
 
               <div className="send-message">
                 <input
@@ -217,7 +241,7 @@ const ChatRoom = () => {
             placeholder="Enter your name"
             name="userName"
             value={userData.username}
-            onChange={handleUsername}
+            // onChange={handleUsername}
             margin="normal"
           />
           <button type="button" onClick={registerUser}>
