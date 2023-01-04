@@ -22,40 +22,28 @@ import Profile from "../components/Profile";
 import ChatRoom from "./ChatRoom";
 import YourProfile from "./YourProfile.js";
 import NoteCopy from "../pages/Note copy";
+import NotFound from "../pages/NotFound";
+import MapContainer from "../components/MapContainer";
+import MapSearch from "../components/MapSearch";
 
 function RoutesContainer() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<Main />}>
-          {" "}
-        </Route>{" "}
-        <Route path="/bulletinBoard/study" element={<StudyBoard />}>
-          {" "}
-        </Route>{" "}
-        <Route path="/bulletinBoard/hobby" element={<Board />}>
-          {" "}
-        </Route>{" "}
-        <Route path="/bulletinBoard/sports" element={<SportsBoard />}>
-          {" "}
-        </Route>{" "}
-        <Route path="/bulletinBoard/mate" element={<MateBoard />}>
-          {" "}
-        </Route>{" "}
-        <Route path="/ContentForm" element={<ContentForm />} />{" "}
-        <Route path="/WriteForm" element={<WriteForm />} />{" "}
-        <Route path="/login" element={<Login />}>
-          {" "}
-        </Route>{" "}
-        <Route path="/signup" element={<Signup />}>
-          {" "}
-        </Route>{" "}
-        <Route path="/note" element={<Note />}>
-          {" "}
-        </Route>{" "}
-        <Route path="/mypage" element={<MyPage />}>
-          {" "}
-        </Route>{" "}
+        <Route path="/" element={<Main />}></Route>
+        <Route path="/*" element={<NotFound />}></Route>
+        <Route path="/map" element={<MapContainer />}></Route>
+        <Route path="/mapsearch" element={<MapSearch />}></Route>
+        <Route path="/bulletinBoard/study" element={<StudyBoard />}></Route>
+        <Route path="/bulletinBoard/hobby" element={<Board />}></Route>
+        <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route>
+        <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route>
+        <Route path="/ContentForm" element={<ContentForm />} />
+        <Route path="/WriteForm" element={<WriteForm />} />
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/signup" element={<Signup />}></Route>
+        <Route path="/note" element={<Note />}></Route>
+        <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/mypage/nickname" element={<Nickname> </Nickname>}></Route>
         <Route
           Route

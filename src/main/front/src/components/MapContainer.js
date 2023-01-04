@@ -49,7 +49,7 @@ const MapContainer = () => {
                 //마커가 표시 될 위치
                 position: new kakao.maps.LatLng(el.lat, el.lng),
                 //마커에 hover시 나타날 title
-                title: el.title,
+                title: el.title
             });
             });
         };
