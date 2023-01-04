@@ -22,6 +22,9 @@ import Profile from "../components/Profile";
 import ChatRoom from "./ChatRoom";
 import YourProfile from "./YourProfile.js";
 import NotFound from "../pages/NotFound";
+import MapContainer from '../components/MapContainer';
+import MapSearch from '../components/MapSearch';
+
 
 function RoutesContainer() {
   return (
@@ -29,6 +32,8 @@ function RoutesContainer() {
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
+        <Route path="/map" element={<MapContainer />}></Route>
+        <Route path="/mapsearch" element={<MapSearch />}></Route>
         <Route path="/bulletinBoard/study" element={<StudyBoard />}></Route>
         <Route path="/bulletinBoard/hobby" element={<Board />}></Route>
         <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route>
