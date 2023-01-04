@@ -45,16 +45,18 @@ function Note() {
   //   //예시 - 데이터 보낼때 json형식을 맞추어 보낸다.
   //   stomp.send("/pub/chat/message", token, JSON.stringify(data));
   // };
-  const user = "asd";
+
   const [message, setMessage] = useState([]);
   const [view, setView] = useState();
   const [messages, setMessages] = useState([]);
   const [count, setCount] = useState([]);
   const [content1, setContent] = useState(null);
   console.log("asdasd" + view);
+
+  const user = sessionStorage.getItem("loginId");
   useEffect(() => {
     axios
-      .get("http://localhost:8080/msgList")
+      .get("http://localhost:8080/msgList?user=" + user)
       .then((response) => {
         setMessage(response.data);
         console.log(response.data);
@@ -62,7 +64,7 @@ function Note() {
       .catch((error) => console.log(error));
 
     axios
-      .get("http://localhost:8080/msgListUnRead")
+      .get("http://localhost:8080/msgListUnRead?user=" + user)
       .then((response) => {
         setCount(response.data);
         console.log(response.data);

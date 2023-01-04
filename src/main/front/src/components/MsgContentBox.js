@@ -6,6 +6,8 @@ import MsgModal from "../components/MsgModal";
 function MsgContentBox(props) {
   let [modal, setModal] = useState(false);
   let [mess, setMess] = useState("");
+
+  const user = sessionStorage.getItem("loginId");
   return (
     <div
       className="msgContentBox"
@@ -57,7 +59,7 @@ function MsgContentBox(props) {
 
               boxSizing: "border-box",
             }}>
-            {data.sender_id === props.user ? (
+            {data.sender_id === user ? (
               <p style={{color: "orange", float: "left", fontWeight: "bolder"}}>
                 보낸 메세지
               </p>

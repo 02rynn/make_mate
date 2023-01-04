@@ -4,6 +4,7 @@ import {useState, useEffect} from "react";
 import SockJS from "sockjs-client";
 
 function MsgModal(props) {
+  const user = sessionStorage.getItem("loginId");
   let [message, setMsgStr] = useState("");
   let [socket, setSocket] = useState(null);
   // var socket = null;
@@ -29,9 +30,13 @@ function MsgModal(props) {
   function sendMsg() {
     console.log("버튼 눌림");
     const mmes = document.getElementById("msgbox").value;
-
+    const reciver_id = document.getElementById("reciver_id").value;
     axios
-      .post("http://localhost:8080/sendMsg", {content: mmes})
+      .post("http://localhost:8080/sendMsg", {
+        content: mmes,
+        sender_id: user,
+        reciver_id: reciver_id,
+      })
       .then((response) => {
         console.log(response.data);
         alert("쪽지가 성공적으로 전송되었습니다");
@@ -52,7 +57,8 @@ function MsgModal(props) {
           action="/msg"
           method="post"
           name="msgModalBox">
-          <p> 쪽지 보내기 </p>{" "}
+          <p> 쪽지 보내기 </p>
+          <input type="text" id="reciver_id"></input>
           <a
             style={{
               float: "right",
@@ -88,9 +94,7 @@ function MsgModal(props) {
               setMsgStr(e.target.value);
               console.log(e.target.value);
               // console.log(e);
-            }}>
-            {" "}
-          </textarea>{" "}
+            }}></textarea>
           <input
             value="전송"
             type="submit"
