@@ -1,10 +1,10 @@
 import {useState} from 'react';
 import { Map, MapMarker } from "react-kakao-maps-sdk";
 
-
 const { kakao } = window;
 
 function MapSearch() {
+
     const [state, setState] = useState({
   // 지도의 초기 위치
     center: { lat: 37.49676871972202, lng: 127.02474726969814 },
@@ -25,15 +25,12 @@ const SearchMap = () => {
     }
     };
     ps.keywordSearch(`${searchAddress}`, placesSearchCB); 
-}
+}   
 
-
-        
-        const handleSearchAddress = (e) => {
+    const handleSearchAddress = (e) => {
         SetSearchAddress(e.target.value)
     }
 
-    
     return (
             <div>
                 <Map // 지도를 표시할 Container
@@ -45,10 +42,14 @@ const SearchMap = () => {
                         height: "450px",
                         }}
                     level={3} // 지도의 확대 레벨
-                />
+                >
+                <MapMarker position={ state.center } >
+                    <div>{searchAddress}</div> 
+                </MapMarker>
+                </Map>
                 <div>
-                    <input style={{border:'1px solid green'}} onChange={handleSearchAddress}></input>
-                    <button  onClick={SearchMap}>클릭</button>
+                    <input style={{border:'1px solid orange'}} onChange={handleSearchAddress}></input>
+                    <button  onClick={SearchMap}  style={{backgroundColor:'orange'}}>검색</button>
                 </div>
             </div>
     );
