@@ -33,16 +33,20 @@ import jakarta.persistence.Table;
 @Data
 @Entity
 @Table(name = "board")
-public class BoardEntity {
+public class Bbs {
 
 	@Id
-	@GeneratedValue(generator="boardIdx")
-	private String boardIdx;
-	private String boardName;
-	private String boardTtl;
-	private String boardCn;
-	private LocalDateTime boardDate; 
-	
+	@GeneratedValue(generator="seq")
+	 private int seq;
+	   private String id; // id
+	   private int ref; // 답변글이 참조하는 원본 번호
+	   private int step; //답변글 출력순서
+	   private int depth; //답변글의 깊이
+	   private String title; // 제목
+	   private String content; //내용
+	   private LocalDateTime createdAt; // 작성일
+	   private int del; // 삭제
+	   private int readCount; // 조회수
 }
 
 
