@@ -11,7 +11,7 @@ var stompClient = null;
 function NoteCopy() {
   useEffect(() => {
     axios
-      .get("http://localhost:8080/test")
+      .get("http://localhost:8080/test/" + userId)
       .then((response) => {
         // setMap(response.data);
         let key = Object.keys(response.data);

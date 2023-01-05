@@ -10,6 +10,8 @@ import org.springframework.data.jpa.repository.QueryHints;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.example.makeMate.DTO.MessageDTO;
+import com.example.makeMate.Entity.Message;
 import com.example.makeMate.Entity.MessageEntitiy;
 
 import jakarta.persistence.LockModeType;
@@ -17,11 +19,13 @@ import jakarta.persistence.QueryHint;
 
 
 @Repository
-public interface MsgRepository extends JpaRepository<MessageEntitiy, Long> {
+public interface MsgRepository extends JpaRepository<Message, Long> {
 
-	List<MessageEntitiy> findAll();
+//	List<MessageEntitiy> findAll();
 
-	MessageEntitiy save(MessageEntitiy message);
+//	MessageEntitiy save(MessageEntitiy message);
+	
+	Message save(Message message);
 	
 	@Query(value="select room_id from msg where sender_id in (:id1,:id2) and reciver_id in (:id1,:id2) GROUP by room_id",  nativeQuery = true)
 	Long findRoom_IdbySender_idAndReciver_id(@Param(value = "id1")  String user,@Param(value = "id2")String user2);
@@ -50,7 +54,11 @@ public interface MsgRepository extends JpaRepository<MessageEntitiy, Long> {
 	@Query(value="select count(*) from msg where room_id=?1 and read_yn=0 and reciver_id = ?2",nativeQuery = true)
 	int findAllByreciver_idAndread_ynAndRoom_id(Long long1, String user);
 	
+	@Query(value="select case when sendername = ?1 then receivername when receivername = ?1 then sendername end  from message where sendername = ?1 or receivername = ?1",nativeQuery = true)
+	List<String> findConnectedUserList(String user);
 	
 	
+	@Query(value="select * from message where (receivername= ?1 and sendername= ?2) or (receivername= ?2 or sendername= ?1)",nativeQuery = true)
+	List<Message> findMsgListDemo(String user,String conUser);
 	
 }
