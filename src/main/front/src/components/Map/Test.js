@@ -1,5 +1,6 @@
 import MapShow from "./MapShow";
 import MapSearch from "./MapSearch";
+import TestComponent from "./TestComponent";
 
 function test () {
     return(
@@ -7,6 +8,8 @@ function test () {
             <MapSearch/>
             <br/>
             <MapShow/>
+            <br/>
+            <TestComponent/>
         </div>
     )
 }

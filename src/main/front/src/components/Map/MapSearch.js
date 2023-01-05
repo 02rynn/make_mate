@@ -1,5 +1,6 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import { Map, MapMarker } from "react-kakao-maps-sdk";
+import axios from 'axios';
 
 const { kakao } = window;
 
@@ -44,7 +45,7 @@ const SearchMap = () => {
                     level={3} // 지도의 확대 레벨
                 >
                 <MapMarker position={ state.center } >
-                    {/* <div>{searchAddress}</div>  */}
+                    <div>{searchAddress}</div> 
                 </MapMarker>
                 </Map>
                 <div>
