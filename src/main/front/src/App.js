@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Header from "./components/Header"; //navbar 호출
 import RoutesContainer from "./components/RoutesContainer"; //PageRoutes 호출
-import ListForm from "./components/Board/WriteForm";
+
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 
 function App() {
