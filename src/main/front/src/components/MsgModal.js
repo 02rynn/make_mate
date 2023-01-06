@@ -8,46 +8,7 @@ function MsgModal(props) {
   let [message, setMsgStr] = useState("");
   let [socket, setSocket] = useState(null);
   // var socket = null;
-  function connectWS() {
-    var sock = new SockJS("http://localhost:8080/echo");
-    setSocket(sock);
-    // socket = sock;
-    sock.onopen = function () {
-      console.log("info: connection opened.");
-    };
-    sock.onmessage = function (e) {
-      console.log(e);
-      //             var strArray = e.data.split(":");
-      //             if(e.data.indexof(":") > -1){
-      //                 $(".chat_start_main").text(strArray[0]+"님이 메세지를 보냈습니다.");
-      //             }
-      //             else{
-      //             }
-      // $("#chat").append(e.data + "<br/>");
-    };
-  }
-
-  function sendMsg() {
-    console.log("버튼 눌림");
-    const mmes = document.getElementById("msgbox").value;
-    const reciver_id = document.getElementById("reciver_id").value;
-    axios
-      .post("http://localhost:8080/sendMsg", {
-        content: mmes,
-        sender_id: user,
-        reciver_id: reciver_id,
-      })
-      .then((response) => {
-        console.log(response.data);
-        alert("쪽지가 성공적으로 전송되었습니다");
-        window.location.replace("/note"); // 이거임 여기서 요청 보내는데 이거 우짬?
-      })
-      .catch((error) => console.log(error));
-  }
-
-  useEffect(() => {
-    connectWS();
-  }, []);
+  console.log(props.tab);
 
   return (
     <div className="msgModal" style={{backgroundColor: "rgba(1,1,1,0.5)"}}>
@@ -58,7 +19,7 @@ function MsgModal(props) {
           method="post"
           name="msgModalBox">
           <p> 쪽지 보내기 </p>
-          <input type="text" id="reciver_id"></input>
+          <input type="text" id="reciver_id" value={props.tab}></input>
           <a
             style={{
               float: "right",
@@ -74,6 +35,8 @@ function MsgModal(props) {
             className="message"
             placeholder="내용을 입력해주세요."
             id="msgbox"
+            value={props.userData.message}
+            onChange={props.handleMessage}
             onKeyDown={(e) => {
               if (e.keyCode === 13) {
                 // axios
@@ -85,13 +48,11 @@ function MsgModal(props) {
                 //   })
                 //   .catch(() => {
                 //     console.log("fail");
-                //   });
-                sendMsg();
-                socket.send(message);
+                props.sendPrivateValue();
 
                 props.setModal(false);
               }
-              setMsgStr(e.target.value);
+
               console.log(e.target.value);
               // console.log(e);
             }}></textarea>
@@ -111,10 +72,10 @@ function MsgModal(props) {
               //   .catch(() => {
               //     console.log("fail");
               //   });
-              sendMsg();
-              socket.send(message);
+              props.sendPrivateValue();
 
               props.setModal(false);
+
               // document.form.msgModalBox.submit();
             }}
           />{" "}

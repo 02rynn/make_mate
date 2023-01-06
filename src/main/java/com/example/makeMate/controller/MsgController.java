@@ -6,17 +6,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.makeMate.DTO.MessageDTO;
 import com.example.makeMate.Entity.Message;
 import com.example.makeMate.Entity.MessageEntitiy;
 import com.example.makeMate.Entity.Status;
@@ -120,7 +123,7 @@ public class MsgController {
 		
 		
 		
-		msgRepository.save(message);
+//		msgRepository.save(message);
 		
 		
 		return message;
@@ -155,44 +158,26 @@ public class MsgController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/test")
-	public Map<String,List<Message>> ssd(){
+	@GetMapping("/test/{user}")
+	public Map<String,List<Message>> ssd(@PathVariable(name="user") String user){
 		
 		Map<String,List<Message>> map = new HashMap<>();
 		
-		
+		//유저 메세지 리스트 상대방을 담는 리스트 
+		List<String> connectedUserList = msgRepository.findConnectedUserList(user);
 		List<Message> arr = new ArrayList<>();
+//		System.out.println(connectedUserList); 확인
 	
-		System.out.println("asdasd");
-		Message msg = new Message();
-		msg.setMessage("asdasd");
-		msg.setSenderName("1111");
-		msg.setReceiverName("asd");
-		msg.setStatus(Status.MESSAGE);
-		arr.add(msg);
-		Message msg2 = new Message();
-		msg2.setMessage("ssssssss");
-		msg2.setSenderName("1111");
-		msg2.setReceiverName("asd");
-		msg2.setStatus(Status.MESSAGE);
-		arr.add(msg2);
-		map.put("병신", arr);
-		
-		
-		List<Message> arr2 = new ArrayList<>();
-		
-		Message msg3 = new Message();
-		msg3.setMessage("asdasd333333");
-		msg3.setSenderName("1111");
-		msg3.setReceiverName("asd");
-		msg3.setStatus(Status.MESSAGE);
-		arr2.add(msg3);
-		
-		map.put("응가", arr2);
-		
+		List<String> newList = connectedUserList.stream().distinct().collect(Collectors.toList());
 
-
+//		System.out.println(newList);확인
 		
+		
+		for(String conUser : newList) {
+			List<Message> arr2 = msgRepository.findMsgListDemo(user,conUser);
+			map.put(conUser, arr2);
+		}
+//		System.out.println(msgRepository.findMsgListDemo(user,"asd"));
 		
 		
 		
