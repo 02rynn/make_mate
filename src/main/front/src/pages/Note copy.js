@@ -24,7 +24,6 @@ function NoteCopy() {
       .catch((error) => console.log(error));
   }, []);
 
-  const [map, setMap] = useState(new Map());
   const userId = sessionStorage.getItem("loginId");
   const [privateChats, setPrivateChats] = useState(new Map());
   const [publicChats, setPublicChats] = useState([]);
@@ -253,7 +252,7 @@ function NoteCopy() {
               display: "flex",
               flexDirection: "column-reverse",
             }}>
-            {[...privateChats.get(tab)].reverse().map((chat, index) => (
+            {[...privateChats.get(tab)].map((chat, index) => (
               <li
                 className={`message ${
                   chat.senderName === userData.username && "self"
