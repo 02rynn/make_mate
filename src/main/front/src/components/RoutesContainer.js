@@ -23,8 +23,8 @@ import ChatRoom from "./ChatRoom";
 import YourProfile from "./YourProfile.js";
 import NoteCopy from "../pages/Note copy";
 import NotFound from "../pages/NotFound";
-import MapContainer from "../components/MapContainer";
-import MapSearch from "../components/MapSearch";
+import Test from './Map/Test';
+
 
 import BbsWrite from "./bbs/BbsWrite";
 import BbsDetail from "./bbs/BbsDetail";
@@ -44,8 +44,8 @@ function RoutesContainer() {
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
-        <Route path="/map" element={<MapContainer />}></Route>
-        <Route path="/mapsearch" element={<MapSearch />}></Route>
+        {/* <Route path="/map" element={<MapContainer />}></Route>
+        <Route path="/mapsearch" element={<MapSearch />}></Route> */}
         <Route path="/bulletinBoard/study" element={<BbsList />}></Route>
         <Route path="/bulletinBoard/hobby" element={<Board />}></Route>
         <Route path="/bbswrite" element={<BbsWrite />}></Route>
