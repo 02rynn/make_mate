@@ -16,27 +16,23 @@ import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
 import ImgTest from "./../pages/imgTest";
-
+import TestAra from "../pages/Notification";
 
 import Profile from "../components/Profile";
 import ChatRoom from "./ChatRoom";
 import YourProfile from "./YourProfile.js";
 import NoteCopy from "../pages/Note copy";
 import NotFound from "../pages/NotFound";
-import Test from './Map/Test';
-
+import Test from "./Map/Test";
 
 import BbsWrite from "./bbs/BbsWrite";
 import BbsDetail from "./bbs/BbsDetail";
-import BbsUpdate from './bbs/BbsUpdate';
-import BbsAnswer from './bbs/BbsAnswer'
+import BbsUpdate from "./bbs/BbsUpdate";
+import BbsAnswer from "./bbs/BbsAnswer";
 
 import CreateBoardComponent from "./Board/CreateBoardComponent";
-import ReadBoardComponent from './Board/ReadBoardComponent';
-import UpdateBoardComponent from './Board/UpdateBoardComponent';
-
-
-
+import ReadBoardComponent from "./Board/ReadBoardComponent";
+import UpdateBoardComponent from "./Board/UpdateBoardComponent";
 
 function RoutesContainer() {
   return (
@@ -49,24 +45,17 @@ function RoutesContainer() {
         <Route path="/bulletinBoard/study" element={<BbsList />}></Route>
         <Route path="/bulletinBoard/hobby" element={<Board />}></Route>
         <Route path="/bbswrite" element={<BbsWrite />}></Route>
-				<Route path="/bbsdetail/:seq" element={<BbsDetail />}></Route>
-				<Route path="/bbsupdate" element={<BbsUpdate />}></Route>
-				<Route path="/bbsanswer/:parentSeq" element={<BbsAnswer />}></Route>
-
-
-        
-              <Route path = "/board" element = {<Board/>}></Route>
-              <Route path = "/create-board" element = {<CreateBoardComponent/>}></Route>
-              <Route path = "/read-board/:no" element = {<ReadBoardComponent/>}></Route>
-              <Route path = "/update-board/:no" element = {<UpdateBoardComponent />}></Route>
-
-
-
-
+        <Route path="/bbsdetail/:seq" element={<BbsDetail />}></Route>
+        <Route path="/bbsupdate" element={<BbsUpdate />}></Route>
+        <Route path="/bbsanswer/:parentSeq" element={<BbsAnswer />}></Route>
+        <Route path="/board" element={<Board />}></Route>
+        <Route path="/create-board" element={<CreateBoardComponent />}></Route>
+        <Route path="/read-board/:no" element={<ReadBoardComponent />}></Route>
+        <Route
+          path="/update-board/:no"
+          element={<UpdateBoardComponent />}></Route>
         <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route>
         <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route>
-      
-   
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/note" element={<Note />}></Route>
@@ -91,8 +80,6 @@ function RoutesContainer() {
         {/* 섹션확인용 */}{" "}
         <Route path="/mypage/section" element={<Address> </Address>}></Route>
         <Route Route path="/imgUpLoad" element={<ImgTest> </ImgTest>}></Route>
-       
-       
         <Route
           Route
           path="/mypage/profile"
@@ -101,7 +88,7 @@ function RoutesContainer() {
         <Route
           path="/yourpage/profile"
           element={<YourProfile> </YourProfile>}></Route>
-        <Route path="/noteDemo" element={<NoteCopy> </NoteCopy>}></Route>
+        <Route path="/noteDemo" element={<TestAra />}></Route>
       </Routes>{" "}
     </div>
   );

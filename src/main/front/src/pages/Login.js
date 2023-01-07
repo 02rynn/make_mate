@@ -6,6 +6,7 @@ import logo from "../images/logoSimple.jpg";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
+var stompClient = null;
 function Login() {
   //여기 위로 쪽지 함수
   const navigate = useNavigate();
@@ -46,7 +47,7 @@ function Login() {
           sessionStorage.setItem("loginId", response.data.loginId);
           sessionStorage.setItem("password", response.data.password);
 
-          // navigate("/");
+          navigate("/");
           response.preventDefault();
         }
       });

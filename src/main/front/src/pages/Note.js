@@ -6,33 +6,33 @@ import {useState, useEffect} from "react";
 import SockJS from "sockjs-client";
 import axios from "axios";
 import {over} from "stompjs";
-
 import MsgModal from "../components/MsgModal";
-import {Button, Modal} from "antd";
 
 var stompClient = null;
 
 function Note() {
-  //noteModal 창
-  const [open, setOpen] = useState(false);
-  const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState("Content of the modal");
-  const showModal = () => {
-    setOpen(true);
+  const useNotification = (title, options) => {
+    if (!("Notification" in window)) {
+      console.log("알림 지원 안하는 것");
+      return;
+    }
+    const triggerNotification = () => {
+      console.log("asd");
+      if (Notification.permission !== "granted") {
+        Notification.requestPermission().then((permission) => {
+          if (permission === "granted") {
+            console.log("granted");
+            new Notification(title, options);
+          } else {
+            console.log("거부");
+            return;
+          }
+        });
+      }
+    };
+    return triggerNotification;
   };
-  const handleOk = () => {
-    setModalText("The modal will be closed after two seconds");
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
-  const handleCancel = () => {
-    console.log("Clicked cancel button");
-    setOpen(false);
-  };
-
+  const triggerNotification = useNotification("새로운 쪽지 도착!!");
   useEffect(() => {
     axios
       .get("http://localhost:8080/test/" + userId)
@@ -119,6 +119,7 @@ function Note() {
   };
   const onPrivateMessage = (payload) => {
     console.log(payload);
+    triggerNotification();
     var payloadData = JSON.parse(payload.body);
     if (privateChats.get(payloadData.senderName)) {
       privateChats.get(payloadData.senderName).push(payloadData);
@@ -171,9 +172,9 @@ function Note() {
   };
 
   ///맨 처음 소켓 연결
-  // useEffect(() => {
-  //   connect();
-  // }, []);
+  useEffect(() => {
+    connect();
+  }, []);
 
   const user = sessionStorage.getItem("loginId");
   // useEffect(() => {
@@ -250,24 +251,9 @@ function Note() {
               class="bi bi-plus-circle-fill"
               viewBox="0 0 16 16"
               style={{margin: "5px"}}
-              onClick={showModal}>
+              onClick={() => {}}>
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
             </svg>
-            <Modal
-              title="쪽지함"
-              open={open}
-              onOk={handleOk}
-              confirmLoading={confirmLoading}
-              onCancel={handleCancel}>
-              <input
-                type="text"
-                style={{
-                  border: "1px solid black",
-                  width: "100%",
-                  minHeight: "200px",
-                }}
-              />
-            </Modal>
           </h3>
         </div>
         <div className="msgItems">
