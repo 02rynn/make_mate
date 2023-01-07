@@ -35,10 +35,9 @@ function MapShow() {
   // 지도 위치 변경시 panto를 이용할지(부드럽게 이동)
     isPanto: true,
 });
-const [searchAddress, SetSearchAddress] = useState();
+
 
 // 키워드 입력후 검색 클릭 시 원하는 키워드의 주소로 이동
-
     const ps = new kakao.maps.services.Places()
     const placesSearchCB = function(data, status) {
     if (status === kakao.maps.services.Status.OK) {
@@ -48,11 +47,7 @@ const [searchAddress, SetSearchAddress] = useState();
         })
     }
     };
-    ps.keywordSearch(`${searchAddress}`, placesSearchCB);
-    
-    // const handleSearchAddress = (e) => {
-    //     SetSearchAddress(e.target.value) 
-    // }
+    ps.keywordSearch('두정역', placesSearchCB);
 
 
     return (
@@ -60,6 +55,7 @@ const [searchAddress, SetSearchAddress] = useState();
                 <Map // 지도를 표시할 Container
                     center={state.center}
                     isPanto={state.isPanto}
+                    
                     style={{
                     // 지도의 크기
                         width: "100%",
