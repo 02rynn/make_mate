@@ -2,6 +2,7 @@ package com.example.makeMate.controller;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,8 +32,9 @@ import com.example.makeMate.service.BbsService;
 @RequestMapping("/bbs")
 public class BbsController {
 
+	@Autowired
 	private final BbsService service;
-
+	@Autowired
 	public BbsController(BbsService service) {
 		this.service = service;
 	}

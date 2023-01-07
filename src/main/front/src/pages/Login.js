@@ -7,6 +7,7 @@ import axios from "axios";
 import {useNavigate} from "react-router-dom";
 
 function Login() {
+  //여기 위로 쪽지 함수
   const navigate = useNavigate();
   const {Meta} = Card;
 
