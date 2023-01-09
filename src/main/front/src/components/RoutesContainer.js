@@ -86,7 +86,7 @@ function RoutesContainer() {
           element={<Profile> </Profile>}></Route>
         <Route path="/chat" element={<ChatRoom> </ChatRoom>}></Route>
         <Route
-          path="/yourpage/profile"
+          path="/yourpage/:id"
           element={<YourProfile> </YourProfile>}></Route>
         <Route path="/noteDemo" element={<TestAra />}></Route>
       </Routes>{" "}

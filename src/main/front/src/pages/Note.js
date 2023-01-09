@@ -7,10 +7,21 @@ import SockJS from "sockjs-client";
 import axios from "axios";
 import {over} from "stompjs";
 import MsgModal from "../components/MsgModal";
+import {useNavigate} from "react-router-dom";
 
 var stompClient = null;
-
 function Note() {
+  const navigate = useNavigate();
+
+  //로그인 여부 확인
+  useEffect(()=>{
+    // alert(loginId);
+     if(sessionStorage.getItem("loginId")==null){
+         alert("로그인이 필요한 서비스 입니다.")
+         navigate("/login")
+     }},[])
+ 
+
   const useNotification = (title, options) => {
     if (!("Notification" in window)) {
       console.log("알림 지원 안하는 것");

@@ -57,6 +57,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 	
 	//@Query(value="SELECT PULLPATH FROM USERIMAGE WHERE ID=()",nativeQuery = true)
 	
+	//프로필사진 업데이트 
+	@Modifying
+	@Query(value="update USERIMAGE set pullpath=?1 where id = ?2", nativeQuery = true)
+	String update_profile(String pullpath, int id);
+	
 
 	//비밀번호 변경
 	@Modifying

@@ -24,7 +24,7 @@ class ImgTest extends Component {
   upload = (e) => {
     e.preventDefault();
     this.fileUpload(this.state.file).then((response) => {
-      console.log(response.data);
+      console.log(response.data); //여기로 IMAGEPATH 넘어옴
     });
   };
   fileChange = (e) => {

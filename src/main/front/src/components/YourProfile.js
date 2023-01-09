@@ -3,13 +3,14 @@ import css from '../css/MyPage.css';
 import css2 from '../css/Section.css';
 import logo from '../images/logoSimple.jpg';
 import {useState,useEffect} from 'react';
+import { useParams } from "react-router-dom";
 
 function YourProfile () {
 
     /*세션으로 정보확인해서 본인이 아니면 여기로 이동
         클릭하는 사람의 정보를 가져와서 여기다가 넣어줘야할듯 
     */
-
+        const {id} = useParams();
       
     return(
       <>
@@ -25,7 +26,7 @@ function YourProfile () {
                         <img src={logo} style={{marginLeft:'10px'}}/>
                     </div>
                     <div className='userInfo'>
-                    <h6 style={{fontWeight:'bold'}}>flsgp123</h6>
+                    <h6 style={{fontWeight:'bold'}}>{id}</h6>
                     <p style={{marginLeft:'5px'}}>정혜린/나이?</p>
                     </div>
                 </div>

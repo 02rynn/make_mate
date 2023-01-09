@@ -14,6 +14,8 @@ function Login() {
   //여기 위로 쪽지 함수
   const navigate = useNavigate();
   const {Meta} = Card;
+  const dispatch = useDispatch();
+ 
 
   //로그인 메시지
   const [loginMsg, setLoginMsg] = useState("");
@@ -25,6 +27,9 @@ function Login() {
   let sessionStorage = window.sessionStorage;
   /* { JSON.stringify(sessionStorage) } 이것의 역할은 무엇일까..? 일단 주석으로 남길게용
         글구 메인페이지 로그아웃 버튼에다가 로그아웃 추가해야함.  */
+
+   //리덕스 아이디가 같은디...?
+  // let loginId2 = useSelector((state)=>{return state.loginId})
 
   const onFinish = (values) => {
     console.log("try login");
@@ -52,10 +57,10 @@ function Login() {
                 sessionStorage.setItem("password", response.data.password );
                 sessionStorage.setItem("email" , response.data.email);
                 sessionStorage.setItem("id" , response.data.id);
-                dispatch(setLoginId(response.data.loginId));
+             //   dispatch(setLoginId(response.data.loginId));
 
-          navigate("/");
-          response.preventDefault();
+                navigate("/");
+        //   response.preventDefault();
         }
       });
   };
