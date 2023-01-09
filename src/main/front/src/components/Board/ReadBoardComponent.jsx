@@ -8,7 +8,6 @@ const ReadBoardComponent = () => {
     const no = location.state.no;
     const title = location.state.title;
     const content = location.state.content;
-    const memberNo = location.state.memberNo;
     const createdTime = location.state.createdTime;
     const updatedTime = location.state.updatedTime;
     const likes = location.state.likes;
@@ -26,10 +25,7 @@ const ReadBoardComponent = () => {
                         <th> 글제목 </th>
                         <td> {title} </td>
                     </tr>
-                    <tr>
-                        <th>작성자 </th>
-                        <td> {memberNo}</td>
-                    </tr>
+                  
                     <tr>
                         <th>최근등록일 </th>
                         <td> {createdTime} </td>
@@ -53,8 +49,8 @@ const ReadBoardComponent = () => {
                     </thead>
                 </table>
                 <div className='container'>
-                <button className='btn btn-primary' onClick={()=>{navigate("/update-board/"+no)}}>수정 </button>
-                <button className='btn btn-danger'>삭제</button>
+                <button type="submit" className='btn btn-primary' onClick={()=>{navigate("/update-board/"+no)}}>수정 </button>
+                <button type="submit" className='btn btn-danger'onClick={()=>{navigate("/delet-board/"+no)}}>삭제</button>
                 </div>
             </div>
         </div>

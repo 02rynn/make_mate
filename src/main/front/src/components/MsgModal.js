@@ -35,7 +35,7 @@ function MsgModal(props) {
             className="message"
             placeholder="내용을 입력해주세요."
             id="msgbox"
-            defaultValue={props.userData.message}
+            value={props.userData.message}
             onChange={props.handleMessage}
             onKeyDown={(e) => {
               if (e.keyCode === 13) {

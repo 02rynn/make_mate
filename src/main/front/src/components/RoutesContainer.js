@@ -1,9 +1,9 @@
 import {Routes, Route} from "react-router-dom";
 import Main from "../pages/Main";
-import BbsList from "../pages/BbsList";
-import Board from "../pages/Board";
-import SportsBoard from "../pages/SportsBoard";
-import MateBoard from "../pages/MateBoard";
+import MJBoard from "../pages/MJBoard";
+import JHBoard from "../pages/JHBoard";
+import HRBoard from "../pages/HRBoard";
+import GJBoard from "../pages/GJBoard";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import Note from "../pages/Note";
@@ -12,29 +12,29 @@ import Email from "../components/Email";
 import Nickname from "../components/Nickname";
 import Password from "../components/Password";
 import MyArticle from "../components/MyArticle";
-import YourArticle  from "../components/YourArticle";
-import YourComment  from "../components/YourComment";
 import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
 import ImgTest from "./../pages/imgTest";
-import TestAra from "../pages/Notification";
+
 
 import Profile from "../components/Profile";
 import ChatRoom from "./ChatRoom";
 import YourProfile from "./YourProfile.js";
 import NoteCopy from "../pages/Note copy";
 import NotFound from "../pages/NotFound";
-import Test from "./Map/Test";
 
-import BbsWrite from "./bbs/BbsWrite";
-import BbsDetail from "./bbs/BbsDetail";
-import BbsUpdate from "./bbs/BbsUpdate";
-import BbsAnswer from "./bbs/BbsAnswer";
+
+
+
 
 import CreateBoardComponent from "./Board/CreateBoardComponent";
-import ReadBoardComponent from "./Board/ReadBoardComponent";
-import UpdateBoardComponent from "./Board/UpdateBoardComponent";
+import ReadBoardComponent from './Board/ReadBoardComponent';
+import UpdateBoardComponent from './Board/UpdateBoardComponent';
+import DeleteBoard from "./Board/DeleteBoard";
+
+
+
 
 function RoutesContainer() {
   return (
@@ -44,20 +44,24 @@ function RoutesContainer() {
         <Route path="/*" element={<NotFound />}></Route>
         {/* <Route path="/map" element={<MapContainer />}></Route>
         <Route path="/mapsearch" element={<MapSearch />}></Route> */}
-        <Route path="/bulletinBoard/study" element={<BbsList />}></Route>
-        <Route path="/bulletinBoard/hobby" element={<Board />}></Route>
-        <Route path="/bbswrite" element={<BbsWrite />}></Route>
-        <Route path="/bbsdetail/:seq" element={<BbsDetail />}></Route>
-        <Route path="/bbsupdate" element={<BbsUpdate />}></Route>
-        <Route path="/bbsanswer/:parentSeq" element={<BbsAnswer />}></Route>
-        <Route path="/board" element={<Board />}></Route>
-        <Route path="/create-board" element={<CreateBoardComponent />}></Route>
-        <Route path="/read-board/:no" element={<ReadBoardComponent />}></Route>
-        <Route
-          path="/update-board/:no"
-          element={<UpdateBoardComponent />}></Route>
-        <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route>
-        <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route>
+        <Route path="/bulletinBoard/study" element={<MJBoard />}></Route>
+        <Route path="/bulletinBoard/hobby" element={<JHBoard />}></Route>
+    
+
+
+        
+              
+              <Route path = "/create-board" element = {<CreateBoardComponent/>}></Route>
+              <Route path = "/read-board/:no" element = {<ReadBoardComponent/>}></Route>
+              <Route path = "/update-board/:no" element = {<UpdateBoardComponent />}></Route>
+              <Route path = "/delete-board/:no" element = {<DeleteBoard />}></Route>
+
+
+
+        <Route path="/bulletinBoard/sports" element={<HRBoard />}></Route>
+        <Route path="/bulletinBoard/mate" element={<GJBoard />}></Route>
+      
+   
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
         <Route path="/note" element={<Note />}></Route>
@@ -82,21 +86,17 @@ function RoutesContainer() {
         {/* 섹션확인용 */}{" "}
         <Route path="/mypage/section" element={<Address> </Address>}></Route>
         <Route Route path="/imgUpLoad" element={<ImgTest> </ImgTest>}></Route>
+       
+       
         <Route
           Route
           path="/mypage/profile"
           element={<Profile> </Profile>}></Route>
         <Route path="/chat" element={<ChatRoom> </ChatRoom>}></Route>
         <Route
-          path="/yourpage/:id"
+          path="/yourpage/profile"
           element={<YourProfile> </YourProfile>}></Route>
-          <Route
-          path="/yourpage/yourarticle/:id"
-          element={<YourArticle> </YourArticle>}></Route> 
-            <Route
-          path="/yourpage/yourcomment/:id"
-          element={<YourComment> </YourComment>}></Route>
-        <Route path="/noteDemo" element={<TestAra />}></Route>
+        <Route path="/noteDemo" element={<NoteCopy> </NoteCopy>}></Route>
       </Routes>{" "}
     </div>
   );

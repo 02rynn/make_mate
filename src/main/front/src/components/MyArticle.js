@@ -1,6 +1,6 @@
 
 import { useState ,useEffect} from 'react';
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 
 import css from '../css/Section.css';
@@ -8,7 +8,7 @@ import css from '../css/Section.css';
 function MyArticle(){
 
   
-  
+
   const selectComponent = {
     list: [
       {name1: "second", time: "22/12/18 23:12"},
@@ -62,12 +62,10 @@ function Article(props){
   const [isDisabled ,setIsDisabled] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [finishMSG, setFinishMSG] = useState("");
-  const [condition, setCondition] = useState(0);
   const click = ()=>{
-    setIsDisabled(true); 
+    setIsDisabled(true);
+    
   }
-
-  const navigate = useNavigate();
 
     return(
       //나중에 a태그로 바꾸고 해당 게시글로 이동할 수 있도록 변경 
@@ -79,14 +77,9 @@ function Article(props){
       <div style={{display:'flex' , flexDirection:'row' ,justifyContent:'center'}}>
         <button className='withdrawal_check_btn' style={{margin:'8px 5px'}} disabled={isDisabled}
         onClick={()=>{
-        if(condition ==0){
           setReview('메이트 후기 쓰기');
           setIsModalOpen(true);
           setFinishMSG("모집 완료로 변경하시겠습니까?");
-         } else {
-          setIsModalOpen(true);
-          setFinishMSG("후기를 쓰시겠습니까?");
-         }
          //버튼 누르면 -> 후기쓰기로 이름 바뀌고 -> 다시 클릭하면 모달창 띄우기
 
          //setReview의 값이 후기쓰기 -> 클릭 -> 후기 모달창 띄우기 
@@ -100,11 +93,8 @@ function Article(props){
         >
           <p>{finishMSG}</p>
           <button onClick={()=>{
-            if(condition ==1){
-            navigate("/");
-            }
             setIsModalOpen(false);
-            setCondition(1); //컨디션이 1이면 => 후기쓰기로 모달 보이도록 
+           
           }}> 확인</button>
         </Modal>
       </div>

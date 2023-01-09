@@ -20,7 +20,7 @@ class BoardService {
     }
 
     DeleteBoard(board){
-        return axios.post(BOARD_API_BASE_URL+/delete-board/, board);
+        return axios.post(BOARD_API_BASE_URL+'/delete-board/', board);
     }
 
 }
