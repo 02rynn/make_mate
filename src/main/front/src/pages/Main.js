@@ -1,21 +1,34 @@
-import React from 'react';
-import { Layout, theme, Card } from 'antd';
-import { useState, useEffect } from 'react';
+import React from "react";
+import {Layout, theme, Card} from "antd";
+import {useState, useEffect} from "react";
+import axios from "axios";
 // import MapContainer from '../components/MapContainer';
 // import ProfileImgContainer from '../components/ProfileImgContainer';
-import user from '../images/user.jpg';
+import user from "../images/user.jpg";
 import {useNavigate} from "react-router-dom";
-import MainGrap from '../components/MainGraf/MainGrap';
-import '../css/Main.css';
-import {useSelector, useDispatch} from 'react-redux';
-import { setLoginId, removeLoginId } from '../store';
-
+import MainGrap from "../components/MainGraf/MainGrap";
+import "../css/Main.css";
+import {useSelector, useDispatch} from "react-redux";
+import {setLoginId, removeLoginId} from "../store";
 
 function Main() {
+  const [imgPath, setImgPath] = useState();
+  const userId = sessionStorage.getItem("id");
+  useEffect(() => {
+    if (userId != null) {
+      axios
+        .get("http://localhost:8080/img/" + userId)
+        .then((response) => {
+          setImgPath(response.data.userUploadPath);
+          console.log(response.data);
+        })
+        .catch((error) => console.log(error));
+    }
+  }, []);
   let navigate = useNavigate();
 
   let dispatch = useDispatch();
- // let sessionStorage = window.sessionStorage;
+  // let sessionStorage = window.sessionStorage;
   const {Header, Content, Footer, Sider} = Layout;
   const {
     token: {colorBgContainer},
@@ -52,6 +65,7 @@ function Main() {
     setCount(0);
     setTitle("");
   }
+
   return (
     <div className="mainContainer">
       <div className="sideBar">
@@ -73,41 +87,50 @@ function Main() {
               }}
               cover={
                 <img
-                  style={{padding:'3%',
-                          borderRadius:'10%'
-                }}
+                  style={{padding: "3%", borderRadius: "10%"}}
                   alt="example"
-                  src={user} //이미지 넣어야함 
+                  src={
+                    imgPath === undefined
+                      ? user
+                      : process.env.PUBLIC_URL + "/profile/" + imgPath
+                  } //이미지 넣어야함
                 />
               }>
               <Meta
                 style={{textAlign: "center"}}
                 title={sessionStorage.getItem("loginId")}
-           
-                /><br/>
-                <p>안녕하세요!</p>
-                <span style={{margin:'6%',
-                              backgroundColor: '#ff7f27',
-                              color: '#FFFFFF',
-                              padding:'1%',
-                              borderRadius:'10%'
-                
-                  }} 
-                      onClick={() => {
-                      navigate("mypage"); 
-                        //여기도 세션값이 내가 아니라면 그 사람의 마이페이지로 이동 
-                      
-                }}><a>내정보</a></span>
-                <span style={{margin:'6%',
-                              backgroundColor: '#ff7f27',
-                              color: '#FFFFFF',
-                              padding:'1%',
-                              borderRadius:'10%'
-              }} onClick={()=>{
-                sessionStorage.clear();
-                dispatch(removeLoginId());
+              />
+              <br />
+              <p>안녕하세요!</p>
+              <span
+                style={{
+                  margin: "6%",
+                  backgroundColor: "#ff7f27",
+                  color: "#FFFFFF",
+                  padding: "1%",
+                  borderRadius: "10%",
+                }}
+                onClick={() => {
+                  navigate("mypage");
+                  //여기도 세션값이 내가 아니라면 그 사람의 마이페이지로 이동
                 }}>
-                  로그아웃</span>
+                <a>내정보</a>
+              </span>
+              <span
+                style={{
+                  margin: "6%",
+                  backgroundColor: "#ff7f27",
+                  color: "#FFFFFF",
+                  padding: "1%",
+                  borderRadius: "10%",
+                }}
+                onClick={() => {
+                  sessionStorage.clear();
+                  navigate("/");
+                  dispatch(removeLoginId());
+                }}>
+                로그아웃
+              </span>
             </Card>
           </Sider>
           <Layout>
@@ -139,12 +162,13 @@ function Main() {
                       <span>MakeMate</span>에 오신걸 환영합니다
                     </div>
                     <div className="home-contents">
-                      자유롭게 게시판에 글을 작성하고📝<br/>
+                      자유롭게 게시판에 글을 작성하고📝
+                      <br />
                       댓글로 여러 의견을 나눠보세요✏️
                     </div>
-                  <MainGrap/>
+                    <MainGrap />
                   </div>
-              </div>
+                </div>
               </div>
             </Content>
             <Footer

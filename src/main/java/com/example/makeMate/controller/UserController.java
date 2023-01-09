@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.WebSocketSession;
@@ -19,6 +20,8 @@ import com.example.makeMate.DTO.ResponseDTO;
 import com.example.makeMate.DTO.UserDTO;
 import com.example.makeMate.Entity.LoginForm;
 import com.example.makeMate.Entity.UserEntity;
+import com.example.makeMate.Entity.UserImage;
+import com.example.makeMate.Repository.ImageRepository;
 import com.example.makeMate.Repository.UserRepository;
 //import com.example.makeMate.service.EmailService;
 //import com.example.makeMate.security.TokenProvider;
@@ -44,7 +47,8 @@ public class UserController {
 	private  SessionManager sessionManager;
 //	@Autowired
 //	private  EmailService emailService;
-	
+	@Autowired
+	private ImageRepository imgRepository;
 	
 	public static final String SESSION_COOKIE_NAME = "tempSessionId";
 	
@@ -121,39 +125,40 @@ public class UserController {
 
 
 	//로그인 메소드
-//	@PostMapping("/login")
-//	public UserEntity login(@RequestBody LoginForm loginForm
-//								,HttpServletRequest req
-//								,HttpServletResponse resp
-//							) {
-//
-//		log.info("login user: {},{}",loginForm.getLoginId(),loginForm.getPassword());
-//		
-	// 	if(entity != null) {
-			
-	// 		log.info("유저정보 {}",entity.toString());
-	// 	}
+	@PostMapping("/login")
+	public UserEntity login(@RequestBody LoginForm loginForm
+								,HttpServletRequest req
+								,HttpServletResponse resp
+							) {
+
+		log.info("login user: {},{}",loginForm.getLoginId(),loginForm.getPassword());
 		
-	// 	if(entity != null) {
-	// 		if(entity.getPassword().equals(loginForm.getPassword())) { 
-	// 			HttpSession session = req.getSession(); 
-	// 			session.setMaxInactiveInterval(1800);
-	// 			session.setAttribute("user_name", entity);
-	// 			session.getAttribute("user_name");
-	// 			log.info("로그인완료 {}" ,	session.getAttribute("user_name"));
-				
-	// 			resp.addCookie(new Cookie(SESSION_COOKIE_NAME, entity.getLoginId()));
-	// 			return entity;
-	// 		} else {
+		UserEntity entity = userRepository.findByloginId(loginForm.getLoginId());
+	 	if(entity != null) {
 			
-				
-	// 			log.error("비밀번호 혹은 아이디가 일치하지 않습니다.");
-	// 	}
-			
-	// 	}
-	// 	return new UserEntity(); 
+	 		 		log.info("유저정보 {}",entity.toString());
+	 	}
 		
-	// }
+	 	if(entity != null) {
+	 		if(entity.getPassword().equals(loginForm.getPassword())) { 
+	 			HttpSession session = req.getSession(); 
+	 			session.setMaxInactiveInterval(1800);
+	 			session.setAttribute("user_name", entity);
+	 			session.getAttribute("user_name");
+	 			log.info("로그인완료 {}" ,	session.getAttribute("user_name"));
+				
+	 			resp.addCookie(new Cookie(SESSION_COOKIE_NAME, entity.getLoginId()));
+	 			return entity;
+	 		} else {
+			
+				
+	 			log.error("비밀번호 혹은 아이디가 일치하지 않습니다.");
+	 	}
+			
+	 	}
+	 	return new UserEntity(); 
+		
+	 }
 	
 @PostMapping("/signup/checkId")
 @ResponseBody      //여기로 정보 요청 ->보낸 아이디값과 일치하는 값이 있나요? -> 1 => 사용 가능한 아이디 
@@ -270,26 +275,41 @@ public void delete_user(@RequestBody Map<String, Object> asd) {
 
 	
 	
-	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody UserDTO userDTO){
-		UserEntity user = userService.getByCredentials(userDTO.getLoginId(), userDTO.getPassword());
+//	@PostMapping("/login")
+//	public ResponseEntity<?> login(@RequestBody UserDTO userDTO){
+//		UserEntity user = userService.getByCredentials(userDTO.getLoginId(), userDTO.getPassword());
+//		
+//		if(user != null) {
+////			final String token = tokenProvider.create(user);
+//			final UserDTO responseDTO = UserDTO.builder()
+//					.password(user.getPassword())
+//					.loginId(user.getLoginId())
+//					//.token(token)
+//					.build();
+//			return ResponseEntity.ok().body(responseDTO);
+//		} else {
+//			ResponseDTO responseDTO = ResponseDTO.builder()
+//					.error("Login falied.")
+//					.build();
+//			return ResponseEntity.badRequest().body(responseDTO);
+//								
+//		}
+//	}
+
+@GetMapping("/img/{userId}")
+public UserImage findImg(@PathVariable String userId) {
+	System.out.println(userId.getClass());
+
 		
-		if(user != null) {
-//			final String token = tokenProvider.create(user);
-			final UserDTO responseDTO = UserDTO.builder()
-					.password(user.getPassword())
-					.loginId(user.getLoginId())
-					//.token(token)
-					.build();
-			return ResponseEntity.ok().body(responseDTO);
-		} else {
-			ResponseDTO responseDTO = ResponseDTO.builder()
-					.error("Login falied.")
-					.build();
-			return ResponseEntity.badRequest().body(responseDTO);
-								
-		}
-	}
+	
+	return imgRepository.findUSERUPLOADPATHByID(userId);
+
+	
+
+	
+ }
+
+
 }
 	
 
