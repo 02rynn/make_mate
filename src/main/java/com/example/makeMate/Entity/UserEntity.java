@@ -32,6 +32,7 @@ public class UserEntity implements Serializable{ //자바클래스를 Entity로 
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="user_seq")
+//	@GeneratedValue(strategy = GenerationType.AUTO, generator ="user_seq")
 	@SequenceGenerator(name = "user_seq",sequenceName = "USER_SEQ",initialValue = 1, allocationSize = 1)
 	private long id;
 	
@@ -59,7 +60,7 @@ public class UserEntity implements Serializable{ //자바클래스를 Entity로 
 	
 	@Column(name = "name")
 	@NotNull(message="아이디을 입력해주세요")
-	@Pattern(regexp="^[가-힣]{2,5}*$", message = "이름은 2-5글자 사이의 한글입니다.")
+	@Pattern(regexp="^[가-힣]{2,5}$", message = "이름은 2-5글자 사이의 한글입니다.")
 	private String name;
 	
 	@Column(name = "age")

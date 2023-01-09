@@ -2,7 +2,7 @@
 import css from '../css/MyPage.css';
 import css2 from '../css/Section.css';
 import logo from '../images/logoSimple.jpg';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 
 function YourProfile () {
 
@@ -10,6 +10,7 @@ function YourProfile () {
         클릭하는 사람의 정보를 가져와서 여기다가 넣어줘야할듯 
     */
 
+      
     return(
       <>
         <div className='container' style={{width:'60%'}}>

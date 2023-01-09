@@ -30,6 +30,8 @@ public class UserDTO {
 	private String birthDate; 
 	private String phoneNum;
 	private int userStatus;
+	//private String token;
+	//private String emailCheck;
 	
 
 }

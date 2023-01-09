@@ -11,47 +11,65 @@ function Email(){
    // 서버에서 비밀번호가지고 와가지고 그거랑 같으면 -> 현재 사용중인 번호입니다.
    // 아니면 새로운 비번으로 저장되도록
    const navigate = useNavigate();
-   const [password, setPassword] = useState("");
+   const [ispassword, setIsPassword] = useState("");
+   const [isemail, setIsEmail] = useState("") ;
 
+    const onChangePassword= (e) => {
+        const changePassword = e.target.value;
+        setIsPassword(changePassword);
+    }
 
-
+    const onChangeEmail = (e) => {
+        const changeEmail = e.target.value;
+        setIsEmail(changeEmail);
+    }
    
    const onFinish = (values) => {
     console.log("onfinish");
     console.log("Received values of form: ", values);
-  
+   
+
+    //비밀번호가 세션의 비밀번호와 일치
+    if(sessionStorage.getItem("password")!=ispassword){
+        console.log("???왜안됨")
+        alert("비밀번호가 일치하지 않습니다");
+        return;
+    }
+
+    //이메일이 기존 이메일과 동일
+    if(sessionStorage.getItem("email")==isemail){
+        console.log("???왜안됨이멜");
+        alert("기존 이메일과 동일한 이메일 입니다.");
+        return;
+    }
   
 
     axios({
-      method: "post",
-      url: "http://localhost:8080/mypage/email?loginId=" +sessionStorage.getItem("loginId"), 
-      data: values, 
+        method: "post",
+        url: "http://localhost:8080/mypage/email?loginId=" +sessionStorage.getItem("loginId"), 
+        data: values, 
     //  headers: {"Content-Type": "multipart/form-data"},
     })
-      .catch((e) => {
+    .catch((e) => {
         console.error(e.response.data);
-      })
-      .then((response) => {
+        })
+    .then((response) => {
         console.log(response);
 
-        //비밀번호가 세션의 비밀번호와 일치
+        alert("이메일이 변경되었습니다");
+        navigate("/mypage");
 
-       alert("비밀번호가 변경되었습니다");
-       navigate("/mypage");
-
-              
-      });
-  };
+        });
+    };
 
 
-     return(
+    return(
         <>
         <div className='section_container'>
             <p className='section_title'> 이메일 변경</p>
             <Form
-               onFinish={onFinish}>
-           
-                  
+                onFinish={onFinish}>
+
                     <Form.Item
                         label="새로운 이메일"
                         labelCol={{span:24}}
@@ -66,8 +84,12 @@ function Email(){
                                 message: "이메일 형식이 아닙니다."
                             }, 
                         ]}>
-                           <Input prefix={<MailOutlined />} placeholder='email'/>
-                       </Form.Item>
+                            <Input prefix={<MailOutlined />} placeholder='email'
+                            onChange={(e)=>{
+                            onChangeEmail(e);
+                            }}
+                            />
+                    </Form.Item>
 
 
                         {/* 비밀번호 확인 */}
@@ -91,16 +113,15 @@ function Email(){
                         <Input prefix={<LockOutlined className="site-form-item-icon" />}
                                 type="password"
                                 placeholder="Password"
-                                />
+                               onChange={(e)=>{
+                                onChangePassword(e)
+                               }} />
                                 {/* < p style={{fontSize:'12px' ,color:'red'}}>현재 사용중인 비밀번호 입니다.</p> */}
                                 
                     </Form.Item>    
 
                     <Form.Item>
                         <Button style={{backgroundColor:'#ff7f27' ,fontWeight:'bold'}} htmlType='submit'
-                           onClick={()=>{
-                              navigate('/mypage');
-                           }}
                         > 이메일 변경</Button>
                     </Form.Item>
 
