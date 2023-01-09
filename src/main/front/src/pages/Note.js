@@ -39,12 +39,12 @@ function Note() {
       .then((response) => {
         // setMap(response.data);
         let key = Object.keys(response.data);
-        // let tempMap = new Map();
-        // tempMap.set(key[0], response.data[key[0]]);
-        // tempMap.set(key[1], response.data[key[1]]);
-        // setPrivateChats(tempMap);
-        privateChats.set(key[0], response.data[key[0]]);
-        privateChats.set(key[1], response.data[key[1]]);
+
+        for (let i = 0; i < key.length; i++) {
+          privateChats.set(key[i], response.data[key[i]]);
+        }
+        // privateChats.set(key[1], response.data[key[1]]);
+        // privateChats.set(key[0], response.data[key[0]]);
         console.log(response.data[key[0]]);
         console.log(privateChats);
         console.log(response.data);
@@ -270,15 +270,23 @@ function Note() {
                     console.log("setTab String : " + data);
                     setTab(data);
                   }}>
-                  {/* <MessageBox
-                    sender_id={
-                      data.sender_id === user ? data.reciver_id : data.sender_id
-                    }
-                    content={data.content}
-                    time={data.send_time}
-                    count={count[index]}
-                    setCount={setCount}></MessageBox> */}
-                  {data}
+                  <div class="msgItem">
+                    <div>
+                      <h4
+                        style={{
+                          color: "#292929",
+                          fontSize: "14px",
+                          fontWeight: "bold",
+                          display: "inline-block",
+                        }}>
+                        {data}
+                      </h4>
+                    </div>
+                    <div
+                      style={{
+                        clear: "both",
+                      }}></div>
+                  </div>
                 </li>
               );
             })}
