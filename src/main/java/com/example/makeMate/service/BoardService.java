@@ -61,8 +61,6 @@ public class BoardService {
 			Board.setBoardCn(entity.getBoardCn());
 			Board.setBoardTtl(entity.getBoardTtl());
 
-
-			
 			
 			// (4) 데이터베이스에 새 값을 저장한다.
 			repository.save(Board);
@@ -71,17 +69,6 @@ public class BoardService {
 		// 2.3.2 Retrieve Board에서 만든 메서드를 이용해 유저의 모든 Board 리스트를 리턴한다.
 		return retrieve(entity.getBoardIdx());
 	}
-
-
-         
-         
-         // (4) 데이터베이스에 새 값을 저장한다.
-         repository.save(Board);
-      });
-
-      // 2.3.2 Retrieve Board에서 만든 메서드를 이용해 유저의 모든 Board 리스트를 리턴한다.
-      return retrieve(entity.getBoardIdx());
-   }
 
 
    public List<BoardEntity> delete(final BoardEntity entity) {
@@ -214,7 +201,3 @@ public class BoardService {
 //   }
 //
 //}
-<<<<<<< HEAD
-=======
-
->>>>>>> 5abd8963cf6bb5c7bfd30b2d8ae7306484a8c908

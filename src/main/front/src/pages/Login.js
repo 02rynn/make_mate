@@ -5,16 +5,22 @@ import loginBg from '../videos/loginBg.mp4';
 import logo from '../images/logoSimple.jpg';
 import axios from 'axios';
 import {useNavigate} from "react-router-dom";
+import {useSelector, useDispatch} from 'react-redux';
+import { setLoginId } from '../store';
+
 
 function Login () {
     const navigate = useNavigate();
     const { Meta } = Card;
+
+    let loginId = useSelector((state)=>{return state.loginId});
+    let dispatch = useDispatch();
    
     //로그인 메시지
     const [loginMsg, setLoginMsg] = useState("");
 
      //세션
-  let [loginId, setLoginId] = useState("");
+//   let [loginId, setLoginId] = useState("");
   let [savedLoginId, setSavedLoginId] = useState("");
  
   let sessionStorage = window.sessionStorage;
@@ -46,7 +52,9 @@ function Login () {
                 console.log("여기는 else");
                 sessionStorage.setItem("loginId", response.data.loginId );
                 sessionStorage.setItem("password", response.data.password );
-                
+                sessionStorage.setItem("email" , response.data.email);
+                sessionStorage.setItem("id" , response.data.id);
+                dispatch(setLoginId(response.data.loginId));
 
                 navigate("/");
                 response.preventDefault();

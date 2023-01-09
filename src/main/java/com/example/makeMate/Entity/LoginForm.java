@@ -15,5 +15,6 @@ public class LoginForm {
 
 		public String loginId;
 		public String password;
+		//private String token; 
 
 }

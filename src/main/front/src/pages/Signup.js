@@ -40,6 +40,7 @@ function Signup() {
   const [nickName, setNickName] = useState("");
   const [birth, setBirth] = useState("");
   const [gender, setGender] = useState("");
+  const [showBtn, setShowBtn] = useState(false);
 
   //유효성검사
 
@@ -66,7 +67,7 @@ function Signup() {
   const checkId = ()=>{
     axios({
       method:"post",
-      url:"http://localhost:3000/signup/checkId",
+      url:"http://localhost:8080/signup/checkId",
       data:loginId
     })
     .then((response)=>{
@@ -82,6 +83,28 @@ function Signup() {
       console.error(e.response.data);
     })
   }
+
+  const  checkEmail= () =>{
+    console.log(email);
+    axios({
+      method:"post",
+      url:"http://localhost:8080/signup/emailConfirm",
+      data:email
+    })
+    .then((response)=>{
+      console.log("이메일 확인해바 ");
+      // console.log(response.data);
+      // if(response.data === 1){
+      //   alert("인증되었습니다.")
+      // }else{
+      //   alert("인증번호가 일치하지 않습니다.")
+      // }
+    })
+    .catch((e)=>{
+      console.error(e.response.data);
+    })
+  }
+
 
   const onChangePassword = (e) => {
     const currentPW = e.target.value;
@@ -144,7 +167,7 @@ function Signup() {
         alert("회원가입을 축하합니다");
         console.log(modalmodal);
 
-              navigate("/login");
+          //    navigate("/login");
       });
   };
 
@@ -183,6 +206,7 @@ function Signup() {
   // };
 
 
+
  
   
   
@@ -218,7 +242,7 @@ function Signup() {
           {/* 이메일 주소 */}
           <Form.Item
             labelCol={{span: 24}}
-            wrapperCol={{span: 24}}
+            wrapperCol={{span: 23}}
             name="email"
             label="E-mail"
             rules={[
@@ -231,8 +255,58 @@ function Signup() {
                 message: "Please input your E-mail!",
               },
             ]}>
-            <Input prefix={<MailOutlined />} placeholder="email" />
+                <div style={{display: "flex", flexDirection: "row"}}>
+              <Input
+                prefix={<MailOutlined className="site-form-item-icon" />}
+                placeholder="email"
+                style={{justifyContent: "space-between"}}
+               
+              />
+              <Button
+                type="primary"
+                htmlType="submit"
+                className="ld-check-button"
+                onClick={(e) => { //아이디 인풋값을 서버로 보내서 => 만약 있다면 alert
+                  setShowBtn(true);
+                  checkEmail()
+                }}
+                style={{backgroundColor: "#ff7f27", marginLeft: "10px"}}>
+                이메일 인증
+              </Button>
+            </div>
           </Form.Item>
+
+          {/* 이메일인증 */}
+          {/* <Form.Item
+            style={{display: showBtn ? "block" : "none" }}
+            labelCol={{span: 24}}
+            wrapperCol={{span: 23}}
+            name="emailCheck"
+            label="이메일 인증"
+            rules={[
+              {
+                required: true,
+                message: "이메일 인증은 필수입니다",
+              },
+            ]}>
+             <div style={{display: "flex", flexDirection: "row"}}>
+              <Input
+                style={{display: showBtn ? "block" : "none"}}
+                prefix={<MailOutlined className="site-form-item-icon" />}
+                placeholder="인증번호 입력"
+              />
+              <Button
+                type="primary"
+                htmlType="button"
+                className="ld-check-button"
+                onClick={(e) => { //아이디 인풋값을 서버로 보내서 => 만약 있다면 alert
+                 //악시오스 함수하나 만들어서 넣기 
+                }}
+                style={{backgroundColor: "#ff7f27", marginLeft: "10px"}}>
+               확인
+              </Button>
+            </div>
+            </Form.Item> */}
 
           {/* 로그인 아이디 , 중복확인 */}
           <Form.Item

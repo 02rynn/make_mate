@@ -29,7 +29,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 
 	
 //	UserEntity findByloginId(String loginId);
-//	UserEntity findByEmail(String email);
+	UserEntity findByLoginIdAndPassword(String loginId, String password);
 	
 	List<UserEntity> findAll();
 	
@@ -37,7 +37,6 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 	@Modifying
 	UserEntity save(UserEntity user);
 	
-
 	@Query(value="SELECT email FROM USER_INFO WHERE EMAIL= ?1",nativeQuery = true)
 	String existsByEmail(String email);
 	
@@ -56,15 +55,34 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 //	UserEntity findByLoginIdAndPassword(String loginId, String password);
 	
 	
-	@Query(value="SELECT * FROM USER_INFO WHERE LOGINID= ?1 and PASSWORD=?1" ,nativeQuery = true)
-	UserEntity findByLoginIdAndPassword(String loginId, String password);
+	//@Query(value="SELECT PULLPATH FROM USERIMAGE WHERE ID=()",nativeQuery = true)
 	
-	
+
 	//비밀번호 변경
 	@Modifying
-	@Transactional
+	//@Transactional
 	@Query(value="update user_info set password=?1 where loginId = ?2",nativeQuery = true)
 	public void update_password(String password, String loginId);
+	
+	//이메일 변경 -> 비밀번호 찾기
+	@Query(value="select password from user_info where LoginId = ?1",  nativeQuery = true)
+	String findPasswordById(String loginId);
+	
+	//이메일 변경 -> 이메일 찾기
+	@Query(value="select email from user_info where loginId= ?1",nativeQuery = true)
+	String findEmailbyLoginId(String loginId);
+	
+	//이메일 변경
+	@Modifying
+	//@Transactional
+	@Query(value="update user_info set email=?1 where loginId = ?2",nativeQuery = true)
+	public void update_email(String email, String loginId);
+	
+	//회원탈퇴
+	@Modifying
+	//@Transactional
+	@Query(value="delete from user_info where loginId = ?1",nativeQuery = true)
+	public void deleteByLoginId(String loginId);
 	
 	
 }

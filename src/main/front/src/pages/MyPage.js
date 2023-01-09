@@ -2,27 +2,44 @@
 import css from '../css/MyPage.css';
 import css2 from '../css/Section.css';
 import logo from '../images/logoSimple.jpg';
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux';
+
 function MyPage () {
 
     let navigate = useNavigate();
+    let loginId = useSelector((state)=>{return state.loginId});
 
-    // 로그인 해야 이동가능한 페이지
-   // const sessionId = sessionStorage.getItem("loginId");
+
+   //로그인이 안되어있다면 이용불가
+    useEffect(()=>{
+   // alert(loginId);
+    if(sessionStorage.getItem("loginId")==null){
+        alert("로그인이 필요한 서비스 입니다.")
+        navigate("/login")
+    }},[])
+
+
+
+  //세션은 있는데 본인이 아니라면 
+   // useEffect(()=>{
+ //   if(sessionStorage.getItem("loginId")!=null){ //세션은 있다면
+        // 그 사람의 마이페이지로 이동 
+
+        // setIsMyLoginId(sessionStorage.getItem("loginId"))
+        // setIsMyLoginId(sessionStorage.getItem("loginId"))
+ //   }},[])
 
     return(
-      <>
+        <>
+            
         <div className='container' style={{width:'60%'}}>
 
-            {/* if(sessionId == null){
-                alert("로그인 사용자만 접근 가능합니다.")
-            } */}
-            
             <div className="section_container" style={{  marginTop:'50px'}}>
             <section >
                 <div className='myInfo section' style={{display:"flex",flexDirection:'row' ,width:'100%'}}>
-                <h3 style={{width:'85%' ,textAlign:'left' ,marginLeft:'10px', fontWeight:'bold'}}>내 정보</h3>
+                <h3 style={{width:'85%' ,textAlign:'left' ,marginLeft:'10px', fontWeight:'bold'}}>{sessionStorage.getItem("loginId")}님의<br/> 페이지</h3>
                 <button className="logout" onClick={()=>{
                     sessionStorage.clear();
                     navigate("/");
@@ -32,9 +49,9 @@ function MyPage () {
                     <div className='profileImg'>
                         <img src={logo} style={{marginLeft:'10px'}}/>
                     </div>
-                    <div className='userInfo'>
-                    <h6 style={{fontWeight:'bold'}}>flsgp123</h6>
-                    <p style={{marginLeft:'5px'}}>정혜린/닉네임</p>
+                    <div className='userInfo' style={{marginLeft:'5px'}}>
+                   <p style={{marginBottom:'0px'}}>안녕하세요!</p>
+                    <h6 style={{fontWeight:'bold'}}>{sessionStorage.getItem("loginId")}님</h6>
                     </div>
                 </div>
             </section>
@@ -46,7 +63,6 @@ function MyPage () {
                     <p className='section_title'> 계정</p>
                     <a className='section_menu' href="/mypage/password">비밀번호 변경</a><br/>
                     <a className='section_menu' href="/mypage/email">이메일 변경</a><br/>
-                    <a className='section_menu' href="/mypage/nickname">닉네임 변경</a><br/>
                     <a className='section_menu' href="/mypage/profile">프로필 사진 변경</a><br/>
                 </div>
 

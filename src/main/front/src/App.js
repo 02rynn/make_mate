@@ -10,7 +10,7 @@ function App() {
   const [hello, setHello] = useState("");
   const [hello2, setHello2] = useState("");
   const [message, setMessage] = useState("");
-
+  const [isMyLoginId, setIsMyLoginId] = useState("");//현재 사용
   // useEffect(() => {
   //   axios
   //     .get("/api/hello")
