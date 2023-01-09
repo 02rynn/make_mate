@@ -188,7 +188,7 @@ public int checkId(@RequestBody String loginId) {
 //}
 
 
-@GetMapping("/mypage/{loginId}")
+@GetMapping("/yourpage/{loginId}")
 public String findMyPage(@PathVariable("loginId") String loginId) {
 	return "LoginId: " + loginId; 
  }

@@ -17,6 +17,7 @@ import YourComment  from "../components/YourComment";
 import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
+import Admin from "../components/Admin";
 import ImgTest from "./../pages/imgTest";
 import TestAra from "../pages/Notification";
 
@@ -49,6 +50,7 @@ function RoutesContainer() {
         <Route path="/bbswrite" element={<BbsWrite />}></Route>
         <Route path="/bbsdetail/:seq" element={<BbsDetail />}></Route>
         <Route path="/bbsupdate" element={<BbsUpdate />}></Route>
+        <Route path="/admin" element={<Admin />}></Route>
         <Route path="/bbsanswer/:parentSeq" element={<BbsAnswer />}></Route>
         <Route path="/board" element={<Board />}></Route>
         <Route path="/create-board" element={<CreateBoardComponent />}></Route>
