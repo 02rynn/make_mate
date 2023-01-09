@@ -12,6 +12,8 @@ import Email from "../components/Email";
 import Nickname from "../components/Nickname";
 import Password from "../components/Password";
 import MyArticle from "../components/MyArticle";
+import YourArticle  from "../components/YourArticle";
+import YourComment  from "../components/YourComment";
 import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
@@ -88,6 +90,12 @@ function RoutesContainer() {
         <Route
           path="/yourpage/:id"
           element={<YourProfile> </YourProfile>}></Route>
+          <Route
+          path="/yourpage/yourarticle/:id"
+          element={<YourArticle> </YourArticle>}></Route> 
+            <Route
+          path="/yourpage/yourcomment/:id"
+          element={<YourComment> </YourComment>}></Route>
         <Route path="/noteDemo" element={<TestAra />}></Route>
       </Routes>{" "}
     </div>

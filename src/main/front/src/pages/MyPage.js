@@ -10,26 +10,17 @@ function MyPage () {
 
     let navigate = useNavigate();
     let loginId = useSelector((state)=>{return state.loginId});
-
+   const[urlParam, setUrlParam] = useState("");
 
    //로그인이 안되어있다면 이용불가
     useEffect(()=>{
-   // alert(loginId);
+   //alert(loginId);
     if(sessionStorage.getItem("loginId")==null){
         alert("로그인이 필요한 서비스 입니다.")
         navigate("/login")
     }},[])
 
 
-
-  //세션은 있는데 본인이 아니라면 
-   // useEffect(()=>{
- //   if(sessionStorage.getItem("loginId")!=null){ //세션은 있다면
-        // 그 사람의 마이페이지로 이동 
-
-        // setIsMyLoginId(sessionStorage.getItem("loginId"))
-        // setIsMyLoginId(sessionStorage.getItem("loginId"))
- //   }},[])
 
     return(
         <>
@@ -76,6 +67,10 @@ function MyPage () {
                 <div className='section_container'>
                     <p className='section_title'> 기타</p>
                     <a className='section_menu' href="/mypage/withdrawal">회원탈퇴</a>
+                    <a id='id' onClick={(e)=>{
+                        console.log(document.getElementById('id').innerText);
+                       setUrlParam(document.getElementById('id').innerText);
+                    }} href={'/yourpage/'+urlParam}>qweqwe123</a>
                 </div>
         </div>
         </>

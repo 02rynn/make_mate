@@ -114,17 +114,7 @@ function Main() {
                       navigate("mypage"); 
                         //여기도 세션값이 내가 아니라면 그 사람의 마이페이지로 이동 
                 }}><a>내정보</a></span>
-                <span style={{margin:'6%',
-                              backgroundColor: '#ff7f27',
-                              color: '#FFFFFF',
-                              padding:'1%',
-                              borderRadius:'10%'
-              }} onClick={()=>{
-                sessionStorage.clear();
-                dispatch(removeLoginId());
-                }}>
-                <a>내정보</a>
-              </span>
+               
               <span
                 style={{
                   margin: "6%",
