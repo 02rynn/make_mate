@@ -5,9 +5,8 @@ import loginBg from "../videos/loginBg.mp4";
 import logo from "../images/logoSimple.jpg";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {useSelector, useDispatch} from 'react-redux';
-import { setLoginId } from '../store';
-
+import {useSelector, useDispatch} from "react-redux";
+import {setLoginId} from "../store";
 
 var stompClient = null;
 function Login() {
@@ -15,8 +14,6 @@ function Login() {
   const navigate = useNavigate();
   const {Meta} = Card;
   const dispatch = useDispatch();
- 
-
   //로그인 메시지
   const [loginMsg, setLoginMsg] = useState("");
 
@@ -47,17 +44,16 @@ function Login() {
         /*여기서 이제 데이터로 넘어온 값으로 아이디 비번체크*/
         console.log(response.data);
 
-            if(response.data.loginId ==null || response.data.password == null){
-      //     로그인으로 가든, 메시지를 띄우든 해라 ...
-                alert(" 비밀번호 혹은 아이디가 일치하지 않습니다.");
-               
-            }else{
-                console.log("여기는 else");
-                sessionStorage.setItem("loginId", response.data.loginId );
-                sessionStorage.setItem("password", response.data.password );
-                sessionStorage.setItem("email" , response.data.email);
-                sessionStorage.setItem("id" , response.data.id);
-             //   dispatch(setLoginId(response.data.loginId));
+        if (response.data.loginId == null || response.data.password == null) {
+          //     로그인으로 가든, 메시지를 띄우든 해라 ...
+          alert(" 비밀번호 혹은 아이디가 일치하지 않습니다.");
+        } else {
+          console.log("여기는 else");
+          sessionStorage.setItem("loginId", response.data.loginId);
+          sessionStorage.setItem("password", response.data.password);
+          sessionStorage.setItem("email", response.data.email);
+          sessionStorage.setItem("id", response.data.id);
+       //   dispatch(setLoginId(response.data.loginId));
 
                 navigate("/");
         //   response.preventDefault();

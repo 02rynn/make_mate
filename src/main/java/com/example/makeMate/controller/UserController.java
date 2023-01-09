@@ -20,6 +20,8 @@ import com.example.makeMate.DTO.ResponseDTO;
 import com.example.makeMate.DTO.UserDTO;
 import com.example.makeMate.Entity.LoginForm;
 import com.example.makeMate.Entity.UserEntity;
+import com.example.makeMate.Entity.UserImage;
+import com.example.makeMate.Repository.ImageRepository;
 import com.example.makeMate.Repository.UserRepository;
 //import com.example.makeMate.service.EmailService;
 //import com.example.makeMate.security.TokenProvider;
@@ -45,7 +47,8 @@ public class UserController {
 	private  SessionManager sessionManager;
 //	@Autowired
 //	private  EmailService emailService;
-	
+	@Autowired
+	private ImageRepository imgRepository;
 	
 	public static final String SESSION_COOKIE_NAME = "tempSessionId";
 	
@@ -133,7 +136,7 @@ public class UserController {
 		UserEntity entity = userRepository.findByloginId(loginForm.getLoginId());
 	 	if(entity != null) {
 			
-	 		log.info("유저정보 {}",entity.toString());
+	 		 		log.info("유저정보 {}",entity.toString());
 	 	}
 		
 	 	if(entity != null) {
@@ -271,7 +274,7 @@ public void delete_user(@RequestBody Map<String, Object> asd) {
 
 
 	
-//	
+	
 //	@PostMapping("/login")
 //	public ResponseEntity<?> login(@RequestBody UserDTO userDTO){
 //		UserEntity user = userService.getByCredentials(userDTO.getLoginId(), userDTO.getPassword());
@@ -281,7 +284,6 @@ public void delete_user(@RequestBody Map<String, Object> asd) {
 //			final UserDTO responseDTO = UserDTO.builder()
 //					.password(user.getPassword())
 //					.loginId(user.getLoginId())
-//					.email(user.getEmail())
 //					//.token(token)
 //					.build();
 //			return ResponseEntity.ok().body(responseDTO);
@@ -293,6 +295,21 @@ public void delete_user(@RequestBody Map<String, Object> asd) {
 //								
 //		}
 //	}
+
+@GetMapping("/img/{userId}")
+public UserImage findImg(@PathVariable String userId) {
+	System.out.println(userId.getClass());
+
+		
+	
+	return imgRepository.findUSERUPLOADPATHByID(userId);
+
+	
+
+	
+ }
+
+
 }
 	
 
