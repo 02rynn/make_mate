@@ -3,8 +3,6 @@ package com.example.makeMate.service;
 
 
 
-//import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.log;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -59,4 +57,19 @@ public class BoardService {
 
 
     //delete
+
+    
+    
+    public void delete(Integer no){
+        boardRepository.deleteById(no);
+    }
+    
+    public List<Board> findAllByCateGoryCode(String name){
+    	
+    	
+    	return boardRepository.findAllByCateGoryCode(name);
+    }
+    
+    
+
 }

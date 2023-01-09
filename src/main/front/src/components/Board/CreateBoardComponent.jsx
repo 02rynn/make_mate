@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BoardService from '../../service/BoardService';
-
+import axios from "axios";
 const CreateBoardComponent = () => {
   const navigate = useNavigate();
   const [inputTitle, setInputTitle] = useState('');
   const [inputContent, setInputContent] = useState('');
-  const [inputMemberNo, setInputMemberNo] = useState('');
+  const [inputCategory, setInputCategory] = useState('');
+  const [category, setCategory] = useState([])
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:8080/category/ss")
+      .then((response) => {
+        setCategory(response.data);
+      })
+      .catch((error) => console.log(error));
+  }, []);
+
+  const changeCategoryHandler = (event) => {
+    setInputCategory(event.target.value);
+  }
+
+
 
   const changeTitleHandler = (event) => {
     setInputTitle(event.target.value);
@@ -14,17 +30,17 @@ const CreateBoardComponent = () => {
   const changeContentsHandler = (event) => {
     setInputContent(event.target.value);
   }
-  // 3.
-  const changeMemberNoHandler = (event) => {
-    setInputMemberNo(event.target.value);
-  }
+ 
+
   
   const createBoard = (e) => {
     e.preventDefault();
     const board = {
+      
       title: inputTitle,
-      content: inputContent,
-      memberNo: inputMemberNo
+      contents: inputContent,
+      categoryCode : inputCategory
+   
     }
     console.log("board=>" + JSON.stringify(board));
     BoardService.createBoard(board).then(res => {
@@ -41,9 +57,15 @@ const CreateBoardComponent = () => {
               <form>
                 <div className="form-group">
                   <label> Type </label>
-                  <select placeholder="type" name="type" className="form-control">
-                    <option value="1">자유게시판</option>
-                    <option value="2">질문과 답변</option>
+                  <select placeholder="type" name=" categoryCode" className="form-control">
+                    {
+                      category.map((data,i)=>{
+                        return(
+                          <option value={inputCategory}>{data.categoryName}</option>
+                        )
+
+                      })
+                    }
                   </select>
                 </div>
                 <div className="form-group">
@@ -53,14 +75,10 @@ const CreateBoardComponent = () => {
                 </div>
                 <div className="form-group">
                   <label> Contents  </label>
-                  <textarea placeholder="contents" name="content" className="form-control"
+                  <textarea placeholder="contents" name="contents" className="form-control"
                     value={inputContent} onChange={changeContentsHandler} />
                 </div>
-                <div className="form-group">
-                  <label> MemberNo  </label>
-                  <input placeholder="memberNo" name="memberNo" className="form-control"
-                    value={inputMemberNo} onChange={changeMemberNoHandler} />
-                </div>
+              
                 <button className="btn btn-success" onClick={createBoard}>Save</button>
                 <button className="btn btn-danger" onClick={() => navigate("/")} style={{ marginLeft: "10px" }}>Cancel</button>
               </form>

@@ -170,14 +170,14 @@ public class MsgController {
 	
 		List<String> newList = connectedUserList.stream().distinct().collect(Collectors.toList());
 
-		System.out.println(newList);
+//		System.out.println(newList);확인
 		
 		
 		for(String conUser : newList) {
 			List<Message> arr2 = msgRepository.findMsgListDemo(user,conUser);
 			map.put(conUser, arr2);
 		}
-//		System.out.println(msgRepository.findMsgListDemo(user,newList.get(0)));
+//		System.out.println(msgRepository.findMsgListDemo(user,"asd"));
 		
 		
 		

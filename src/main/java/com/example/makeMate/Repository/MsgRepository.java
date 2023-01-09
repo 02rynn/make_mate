@@ -64,7 +64,7 @@ public interface MsgRepository extends JpaRepository<Message, Long> {
 	List<String> findConnectedUserList(String user);
 	
 	
-	@Query(value="select * from message where (receivername= ?1 and sendername= ?2) or (receivername= ?2 and sendername= ?1) order by id asc",nativeQuery = true)
+	@Query(value="select * from message where (receivername= ?1 and sendername= ?2) or (receivername= ?2 or sendername= ?1) order by id desc",nativeQuery = true)
 	List<Message> findMsgListDemo(String user,String conUser);
 	
 }

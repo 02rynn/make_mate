@@ -1,30 +1,21 @@
 package com.example.makeMate.controller;
 
 import java.time.LocalDate;
-import java.util.Map;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.socket.WebSocketSession;
 
-import com.example.makeMate.DTO.EmailDTO;
-import com.example.makeMate.DTO.PasswordDTO;
 import com.example.makeMate.DTO.ResponseDTO;
 import com.example.makeMate.DTO.UserDTO;
 import com.example.makeMate.Entity.LoginForm;
 import com.example.makeMate.Entity.UserEntity;
-import com.example.makeMate.Entity.UserImage;
-import com.example.makeMate.Repository.ImageRepository;
 import com.example.makeMate.Repository.UserRepository;
-//import com.example.makeMate.service.EmailService;
-//import com.example.makeMate.security.TokenProvider;
 import com.example.makeMate.service.UserService;
 import com.example.makeMate.session.SessionManager;
 import com.example.makeMate.session.SessionVar;
@@ -45,27 +36,27 @@ public class UserController {
 	private UserRepository userRepository;
 	@Autowired
 	private  SessionManager sessionManager;
-//	@Autowired
-//	private  EmailService emailService;
-	@Autowired
-	private ImageRepository imgRepository;
 	
 	public static final String SESSION_COOKIE_NAME = "tempSessionId";
 	
 
 	LocalDate now = LocalDate.now();
 	int year = now.getYear(); // 올해 연도
+//   
+//	SimpleDateFormat FormatSTR = new SimpleDateFormat("yyyy/MM/dd");
 
-	//회원가입
 	@PostMapping("/signup")
 //	public UserDTO registerUser (@RequestBody UserDTO userDTO){ //요청받은 정보를 회원가입메소드(create)에 넣고 이걸 userDTO에 넣어서 반환
 	public ResponseEntity<?> registerUser(@RequestBody UserDTO userDTO) {
-		
-		//생년월일에서 나이 추출
+
+		// 생일을 가져와서 string으로 변환 -> "-" 제거하고 나이-올해연도로 나이구해서 저장해서 넣어봅시다
+		// String dateStr = FormatSTR.format(userDTO.getBirthDate()); //연도 str으로 변환
+//		int birthyear = Integer.parseInt(dateStr.substring(0, 4)); //연도까지 자른거 
+//		log.info("birthStr= {}, birthdate= {}" , dateStr, birthyear );  
+
 		String birthyearSTR = (userDTO.getBirthDate()).toString();
 		int birthyear = Integer.parseInt(birthyearSTR.substring(0, 4));
 		int age = (year - birthyear) + 1;
-		
 		try {
 			log.info("post 요청받음");
 			log.info("userDTO {}", userDTO);
@@ -73,8 +64,7 @@ public class UserController {
 
 			UserEntity user = UserEntity.builder() // 요청을 이용해 저장할 사용자 (userEntity에 넣어주는듯 => 나중에 dto로 변환해서 전달)
 					// userDTO에 들어있는 정보를 user에 set해줄거
-					//.id(0)
-					.email(userDTO.getEmail())
+					.id(0).email(userDTO.getEmail())
 					.name(userDTO.getName())
 					.birthDate(userDTO.getBirthDate())
 					.password(userDTO.getPassword())
@@ -103,13 +93,13 @@ public class UserController {
 					.name(registeredUser.getName())
 					.build();
 
+//					        return responseUserDTO;
 			return ResponseEntity.ok().body(responseUserDTO);
 
 		} catch (Exception e) {
 			// 사용자 정보는 항상 하나이므로 리스트로 만들어야하는 responseDTO
 			// 사용하지 않고, 바로 userDTO로 리턴
 			log.error("error {}", e.getMessage());
-			log.error("{}", e.getStackTrace());
 
 			// 애러가 발생한다면
 			ResponseDTO responseDTO = ResponseDTO.builder().error(e.getMessage()).build();
@@ -122,43 +112,41 @@ public class UserController {
 
 	}
 
-
-
-	//로그인 메소드
 	@PostMapping("/login")
 	public UserEntity login(@RequestBody LoginForm loginForm
 								,HttpServletRequest req
 								,HttpServletResponse resp
 							) {
-
+//	public ResponseEntity<?> login(@ModelAttribute LoginForm loginForm) {
 		log.info("login user: {},{}",loginForm.getLoginId(),loginForm.getPassword());
 		
 		UserEntity entity = userRepository.findByloginId(loginForm.getLoginId());
-	 	if(entity != null) {
+//		
+		if(entity != null) {
 			
-	 		 		log.info("유저정보 {}",entity.toString());
-	 	}
+			log.info("유저정보 {}",entity.toString());
+		}
 		
-	 	if(entity != null) {
-	 		if(entity.getPassword().equals(loginForm.getPassword())) { 
-	 			HttpSession session = req.getSession(); 
-	 			session.setMaxInactiveInterval(1800);
-	 			session.setAttribute("user_name", entity);
-	 			session.getAttribute("user_name");
-	 			log.info("로그인완료 {}" ,	session.getAttribute("user_name"));
+		if(entity != null) {
+			if(entity.getPassword().equals(loginForm.getPassword())) { 
+				HttpSession session = req.getSession(); 
+				session.setMaxInactiveInterval(1800);
+				session.setAttribute("user_name", entity);
+				session.getAttribute("user_name");
+				log.info("로그인완료 {}" ,	session.getAttribute("user_name"));
 				
-	 			resp.addCookie(new Cookie(SESSION_COOKIE_NAME, entity.getLoginId()));
-	 			return entity;
-	 		} else {
+				resp.addCookie(new Cookie(SESSION_COOKIE_NAME, entity.getLoginId()));
+				return entity;
+			} else {
 			
 				
-	 			log.error("비밀번호 혹은 아이디가 일치하지 않습니다.");
-	 	}
+				log.error("비밀번호 혹은 아이디가 일치하지 않습니다.");
+		}
 			
-	 	}
-	 	return new UserEntity(); 
+		}
+		return new UserEntity(); 
 		
-	 }
+	}
 	
 @PostMapping("/signup/checkId")
 @ResponseBody      //여기로 정보 요청 ->보낸 아이디값과 일치하는 값이 있나요? -> 1 => 사용 가능한 아이디 
@@ -280,11 +268,9 @@ public void delete_user(@RequestBody Map<String, Object> asd) {
 //		UserEntity user = userService.getByCredentials(userDTO.getLoginId(), userDTO.getPassword());
 //		
 //		if(user != null) {
-////			final String token = tokenProvider.create(user);
 //			final UserDTO responseDTO = UserDTO.builder()
 //					.password(user.getPassword())
-//					.loginId(user.getLoginId())
-//					//.token(token)
+//					.id(user.getId())
 //					.build();
 //			return ResponseEntity.ok().body(responseDTO);
 //		} else {
@@ -294,23 +280,6 @@ public void delete_user(@RequestBody Map<String, Object> asd) {
 //			return ResponseEntity.badRequest().body(responseDTO);
 //								
 //		}
-//	}
-
-@GetMapping("/img/{userId}")
-public UserImage findImg(@PathVariable String userId) {
-	System.out.println(userId.getClass());
-
-		
-	
-	return imgRepository.findUSERUPLOADPATHByID(userId);
-
-	
-
-	
- }
-
+	//}
 
 }
-	
-
-

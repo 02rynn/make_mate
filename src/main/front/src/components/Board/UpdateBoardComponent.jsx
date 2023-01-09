@@ -8,7 +8,7 @@ const UpdateBoardComponent = () => {
   const {no} = useParams();
   const [inputTitle, setInputTitle] = useState('');
   const [inputContent, setInputContent] = useState('');
-  const [inputMemberNo, setInputMemberNo] = useState('');
+ 
 
   const changeTitleHandler = (event) => {
     setInputTitle(event.target.value);
@@ -17,9 +17,7 @@ const UpdateBoardComponent = () => {
     setInputContent(event.target.value);
   }
   // 3.
-  const changeMemberNoHandler = (event) => {
-    setInputMemberNo(event.target.value);
-  }
+
 
   const updateBoard = (e) => {
     e.preventDefault();
@@ -27,7 +25,7 @@ const UpdateBoardComponent = () => {
       no : no,
       title: inputTitle,
       contents: inputContent,
-      memberNo: inputMemberNo
+   
     }
     console.log("board=>" + JSON.stringify(board));
     BoardService.updateBoard(board, no).then(res => {
@@ -59,11 +57,8 @@ const UpdateBoardComponent = () => {
                     <textarea placeholder="contents" name="content" className="form-control"
                               value={inputContent} onChange={changeContentsHandler} />
                   </div>
-                  <div className="form-group">
-                    <label> MemberNo  </label>
-                    <input placeholder="memberNo" name="memberNo" className="form-control"
-                           value={inputMemberNo} onChange={changeMemberNoHandler} />
-                  </div>
+                 
+                 
                   <button className="btn btn-success" onClick={updateBoard}>Save</button>
                   <button className="btn btn-danger" onClick={() => navigate("/")} style={{ marginLeft: "10px" }}>Cancel</button>
                 </form>

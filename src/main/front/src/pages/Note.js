@@ -7,55 +7,45 @@ import SockJS from "sockjs-client";
 import axios from "axios";
 import {over} from "stompjs";
 import MsgModal from "../components/MsgModal";
-import {useNavigate} from "react-router-dom";
+import { Button, Modal } from 'antd';
+
 
 var stompClient = null;
+
 function Note() {
-  const navigate = useNavigate();
-
-  //로그인 여부 확인
-  useEffect(()=>{
-    // alert(loginId);
-     if(sessionStorage.getItem("loginId")==null){
-         alert("로그인이 필요한 서비스 입니다.")
-         navigate("/login")
-     }},[])
- 
-
-  const useNotification = (title, options) => {
-    if (!("Notification" in window)) {
-      console.log("알림 지원 안하는 것");
-      return;
-    }
-    const triggerNotification = () => {
-      console.log("asd");
-      if (Notification.permission !== "granted") {
-        Notification.requestPermission().then((permission) => {
-          if (permission === "granted") {
-            console.log("granted");
-            new Notification(title, options);
-          } else {
-            console.log("거부");
-            return;
-          }
-        });
-      }
-    };
-    return triggerNotification;
+  
+  //noteModal 창
+  const [open, setOpen] = useState(false);
+  const [confirmLoading, setConfirmLoading] = useState(false);
+  const [modalText, setModalText] = useState('Content of the modal');
+  const showModal = () => {
+    setOpen(true);
   };
-  const triggerNotification = useNotification("새로운 쪽지 도착!!");
+  const handleOk = () => {
+    setModalText('The modal will be closed after two seconds');
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 2000);
+  };
+  const handleCancel = () => {
+    console.log('Clicked cancel button');
+    setOpen(false);
+  };
+  
   useEffect(() => {
     axios
       .get("http://localhost:8080/test/" + userId)
       .then((response) => {
         // setMap(response.data);
         let key = Object.keys(response.data);
-
-        for (let i = 0; i < key.length; i++) {
-          privateChats.set(key[i], response.data[key[i]]);
-        }
-        // privateChats.set(key[1], response.data[key[1]]);
-        // privateChats.set(key[0], response.data[key[0]]);
+        // let tempMap = new Map();
+        // tempMap.set(key[0], response.data[key[0]]);
+        // tempMap.set(key[1], response.data[key[1]]);
+        // setPrivateChats(tempMap);
+        privateChats.set(key[0], response.data[key[0]]);
+        privateChats.set(key[1], response.data[key[1]]);
         console.log(response.data[key[0]]);
         console.log(privateChats);
         console.log(response.data);
@@ -130,7 +120,6 @@ function Note() {
   };
   const onPrivateMessage = (payload) => {
     console.log(payload);
-    triggerNotification();
     var payloadData = JSON.parse(payload.body);
     if (privateChats.get(payloadData.senderName)) {
       privateChats.get(payloadData.senderName).push(payloadData);
@@ -262,9 +251,17 @@ function Note() {
               class="bi bi-plus-circle-fill"
               viewBox="0 0 16 16"
               style={{margin: "5px"}}
-              onClick={() => {}}>
+              onClick={showModal}>
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
             </svg>
+                <Modal
+                  title="쪽지함"
+                  open={open}
+                  onOk={handleOk}
+                  confirmLoading={confirmLoading}
+                  onCancel={handleCancel}>
+                  <input type="text" style={{border:'1px solid black', width:'100%',minHeight:'200px'}}/>
+                </Modal>
           </h3>
         </div>
         <div className="msgItems">
@@ -281,23 +278,15 @@ function Note() {
                     console.log("setTab String : " + data);
                     setTab(data);
                   }}>
-                  <div class="msgItem">
-                    <div>
-                      <h4
-                        style={{
-                          color: "#292929",
-                          fontSize: "14px",
-                          fontWeight: "bold",
-                          display: "inline-block",
-                        }}>
-                        {data}
-                      </h4>
-                    </div>
-                    <div
-                      style={{
-                        clear: "both",
-                      }}></div>
-                  </div>
+                  {/* <MessageBox
+                    sender_id={
+                      data.sender_id === user ? data.reciver_id : data.sender_id
+                    }
+                    content={data.content}
+                    time={data.send_time}
+                    count={count[index]}
+                    setCount={setCount}></MessageBox> */}
+                  {data}
                 </li>
               );
             })}

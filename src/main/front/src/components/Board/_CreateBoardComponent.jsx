@@ -30,7 +30,7 @@ class CreateBoardComponent extends Component {
     let board = {
       title: this.setState.title,
       contents: this.setState.contents,
-      memberNo: this.setState.memberNo
+      
     };
     console.log("board=>" + JSON.stringify(board));
     BoardService.createBoard(board).then(res => {

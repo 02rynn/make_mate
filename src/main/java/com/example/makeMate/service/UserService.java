@@ -54,28 +54,18 @@ public class UserService { //데이터베이스에 저장된 사용자를 가지
 		}
 		
 		//기존에 존재하지 않는 회원이고 비밀번호 일치하면 회원가입 시키겟다(insert)
-		log.info("{}", userEntity);
-		
-		try {
-		userRepository.save(userEntity);
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			log.error("{}", e.getMessage());
-		}		
-		
 		return userRepository.save(userEntity); 
 		
 	}
 
 	
-
+}
 	
 
 
 	
 	//로그인메소드 
-	//public UserEntity getByCredentials(final String loginId, final String password) {
+//	public UserEntity getByCredentials(final String loginId, final String password) {
 //		
 //		UserEntity user = userRepository.findByloginId(loginId);
 //		//아이디로  레파지토리에 저장되어 있는 객체 찾기 
@@ -87,9 +77,9 @@ public class UserService { //데이터베이스에 저장된 사용자를 가지
 //		return null;
 //	}
 
-	 public UserEntity getByCredentials (final String loginId, final String password) {
-		 return userRepository.findByLoginIdAndPassword(loginId, password);
-	 }
-}
+//	 public UserEntity getByCredentials (final String loginId, final String password) {
+//		 return userRepository.findByLoginIdAndPassword(loginId, password);
+//	 }
+	
 
 

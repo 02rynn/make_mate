@@ -1,19 +1,20 @@
 package com.example.makeMate.Entity;
 
-import org.springframework.context.annotation.Bean;
-
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity
 @Data
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class LoginForm {
-
-		public String loginId;
-		public String password;
+public class BoardCategory {
+	
+	private String categoryName;
+	
+	@Id
+	private String categoryCode;
 
 }

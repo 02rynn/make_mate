@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.makeMate.Entity.Board;
+import com.example.makeMate.Repository.BoardRepository;
 import com.example.makeMate.service.BoardService;
 
 import java.util.List;
@@ -20,6 +21,9 @@ import java.util.Optional;
 public class BoardController {
     @Autowired
     private BoardService boardService;
+    
+    @Autowired
+    private BoardRepository boardRepository ;
 
     //CrossOrigin COR(S) 웹페이지의 제한된 자원을 외부 도메인에서
     //접근을 허용해주는 메커니즘
@@ -28,7 +32,7 @@ public class BoardController {
     //글 전체 출력
     //board url로 넘어온 값을 boardservice에 getAllboard를 호출해서 리턴함
     @CrossOrigin
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "all", method = RequestMethod.GET)
     public List<Board> getAllBoards(){
         System.out.println("getAllBoards 컨트롤러 도착");
         return boardService.getAllBoard();
@@ -41,6 +45,8 @@ public class BoardController {
     @PostMapping("/create-board")
     public Board createBoard(@RequestBody Board board){
         System.out.println("creatBoard 컨트롤러 도착");
+        System.out.println("board값출력 : " + board.toString());
+//        board.setNo(1);
         return boardService.createBoard(board);
     }
 
@@ -55,11 +61,32 @@ public class BoardController {
         return boardService.getBoard(no);
     }
 
+    
+    
     //update
     @RequestMapping(value = "/update-board/", method = RequestMethod.POST)
     public ResponseEntity<Board> updateBoardByNo(
             @RequestBody Board board){
         System.out.println("update url 맞음");
+        
         return boardService.updateBoard(board);
     }
+    
+    
+    @RequestMapping(value = "/category/{categoryName}", method = RequestMethod.GET)
+    public List<Board> getBoardByCategory(@PathVariable String categoryName){
+        System.out.println("getBoard dmdmmdmdmmdmdmdmmdmdmmdmdmmdmdmd 컨트롤러 도착");
+        
+        
+//        System.out.println(boardService.findAllByCateGoryCode(categoryName));
+        return boardService.findAllByCateGoryCode(categoryName);
+    }
+
+    
+
+    
+    
+    
+    
+    
 }

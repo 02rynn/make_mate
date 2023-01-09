@@ -5,39 +5,21 @@ import loginBg from "../videos/loginBg.mp4";
 import logo from "../images/logoSimple.jpg";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-import {useSelector, useDispatch} from "react-redux";
-import {setLoginId} from "../store";
 
-var stompClient = null;
 function Login() {
-  //여기 위로 쪽지 함수
   const navigate = useNavigate();
   const {Meta} = Card;
-  const dispatch = useDispatch();
+
   //로그인 메시지
   const [loginMsg, setLoginMsg] = useState("");
 
   //세션
-  //let [loginId, setLoginId] = useState("");
+  let [loginId, setLoginId] = useState("");
   let [savedLoginId, setSavedLoginId] = useState("");
 
   let sessionStorage = window.sessionStorage;
   /* { JSON.stringify(sessionStorage) } 이것의 역할은 무엇일까..? 일단 주석으로 남길게용
         글구 메인페이지 로그아웃 버튼에다가 로그아웃 추가해야함.  */
-
-   //리덕스 아이디가 같은디...?
-  let loginId = useSelector((state)=>{return state.loginId})
-
-
-  //세션은 있는데 본인이 아니라면 
-   // useEffect(()=>{
- //   if(sessionStorage.getItem("loginId")!=null){ //세션은 있다면
-        // 그 사람의 마이페이지로 이동 
-
-        // setIsMyLoginId(sessionStorage.getItem("loginId"))
-        // setIsMyLoginId(sessionStorage.getItem("loginId"))
- //   }},[])
-
 
   const onFinish = (values) => {
     console.log("try login");
@@ -62,14 +44,9 @@ function Login() {
           console.log("여기는 else");
           sessionStorage.setItem("loginId", response.data.loginId);
           sessionStorage.setItem("password", response.data.password);
-          sessionStorage.setItem("email", response.data.email);
-          sessionStorage.setItem("id", response.data.id);
-          sessionStorage.setItem("age", response.data.age);
-          sessionStorage.setItem("name", response.data.name);
-         dispatch(setLoginId(response.data.loginId));
 
-                navigate("/");
-        //   response.preventDefault();
+          // navigate("/");
+          response.preventDefault();
         }
       });
   };
