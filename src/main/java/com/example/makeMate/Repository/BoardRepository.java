@@ -1,36 +1,14 @@
 package com.example.makeMate.Repository;
 
-import java.util.List;
+
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
 
-import com.example.makeMate.Entity.BoardEntity;
+import com.example.makeMate.Entity.Board;
 
+import java.util.List;
 
+//jpa를 사용할수 있게 해주는 공통 인터페이스
+public interface BoardRepository extends JpaRepository<Board, Integer> {
 
-@Repository
-public interface BoardRepository extends JpaRepository<BoardEntity, String>{
-	
-	List<BoardEntity> findByBoardIdx(String boardIdx);
 }
-//package com.example.makeMate.Repository;
-//
-//import java.util.List;
-//
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.stereotype.Repository;
-//
-//import com.example.makeMate.Entity.BoardEntity;
-//
-//
-//
-//@Repository
-//public interface BoardRepository extends JpaRepository<BoardEntity, String>{
-//	List<BoardEntity> findByUserId(String userId);
-//	
-//	
-//
-//	
-//	
-//}

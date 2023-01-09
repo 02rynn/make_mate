@@ -5,11 +5,12 @@ import css from "../css/Chat.css";
 
 var stompClient = null;
 const ChatRoom = () => {
+  const user = sessionStorage.getItem("loginId");
   const [privateChats, setPrivateChats] = useState(new Map());
   const [publicChats, setPublicChats] = useState([]);
   const [tab, setTab] = useState("CHATROOM");
   const [userData, setUserData] = useState({
-    username: "",
+    username: user,
     receivername: "",
     connected: false,
     message: "",
@@ -31,7 +32,7 @@ const ChatRoom = () => {
       "/user/" + userData.username + "/private",
       onPrivateMessage
     );
-    userJoin();
+    // userJoin();
   };
 
   const userJoin = () => {
@@ -240,7 +241,7 @@ const ChatRoom = () => {
             placeholder="Enter your name"
             name="userName"
             value={userData.username}
-            onChange={handleUsername}
+            // onChange={handleUsername}
             margin="normal"
           />
           <button type="button" onClick={registerUser}>

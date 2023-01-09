@@ -1,279 +1,65 @@
 package com.example.makeMate.controller;
 
-import java.util.List;
-import java.util.stream.Collectors;
+
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import com.example.makeMate.DTO.BoardDTO;
-import com.example.makeMate.DTO.ResponseDTO;
-import com.example.makeMate.Entity.BoardEntity;
+import com.example.makeMate.Entity.Board;
 import com.example.makeMate.service.BoardService;
 
+import java.util.List;
+import java.util.Optional;
 
-
-
+@CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("Board")
+@RequestMapping("/api/board")
 public class BoardController {
+    @Autowired
+    private BoardService boardService;
 
-	@Autowired
-	private BoardService service;
+    //CrossOrigin COR(S) 웹페이지의 제한된 자원을 외부 도메인에서
+    //접근을 허용해주는 메커니즘
+    //서로 다른 도메인에서 리소스를 공유하게한다
 
-	
-	@PostMapping
-	public ResponseEntity<?> createBoard(@RequestBody BoardDTO dto) {
-		try {
-			String temporaryboard_idx = "temporary-user"; // temporary user id.
+    //글 전체 출력
+    //board url로 넘어온 값을 boardservice에 getAllboard를 호출해서 리턴함
+    @CrossOrigin
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public List<Board> getAllBoards(){
+        System.out.println("getAllBoards 컨트롤러 도착");
+        return boardService.getAllBoard();
+    }
 
-			// (1) BoardEntity로 변환한다.
-			BoardEntity entity = BoardDTO.toEntity(dto);
-
-			// (2) id를 null로 초기화 한다. 생성 당시에는 id가 없어야 하기 때문이다.
-			entity.setBoardIdx(null);
-
-			// (3) 임시 유저 아이디를 설정 해 준다. 이 부분은 4장 인증과 인가에서 수정 할 예정이다. 지금은 인증과 인가 기능이 없으므로 한 유저(temporary-user)만 로그인 없이 사용 가능한 어플리케이션인 셈이다
-			entity.setBoardIdx(temporaryboard_idx);
-
-			// (4) 서비스를 이용해 Board엔티티를 생성한다.
-			List<BoardEntity> entities = service.create(entity);
-
-			// (5) 자바 스트림을 이용해 리턴된 엔티티 리스트를 BoardDTO리스트로 변환한다.
-
-			List<BoardDTO> dtos = entities.stream().map(BoardDTO::new).collect(Collectors.toList());
-
-			// (6) 변환된 BoardDTO리스트를 이용해ResponseDTO를 초기화한다.
-			ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().data(dtos).build();
-
-			// (7) ResponseDTO를 리턴한다.
-			return ResponseEntity.ok().body(response);
-		} catch (Exception e) {
-			// (8) 혹시 예외가 나는 경우 dto대신 error에 메시지를 넣어 리턴한다.
-
-			String error = e.getMessage();
-			ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().error(error).build();
-			return ResponseEntity.badRequest().body(response);
-		}
-	}
-
-	@GetMapping
-	public ResponseEntity<?> retrieveBoardList() {
-		String temporaryboard_idx = "temporary-user"; // temporary user id.
-
-		// (1) 서비스 메서드의 retrieve메서드를 사용해 Board리스트를 가져온다
-		List<BoardEntity> entities = service.retrieve(temporaryboard_idx);
-
-		// (2) 자바 스트림을 이용해 리턴된 엔티티 리스트를 BoardDTO리스트로 변환한다.
-		List<BoardDTO> dtos = entities.stream().map(BoardDTO::new).collect(Collectors.toList());
-
-		// (6) 변환된 BoardDTO리스트를 이용해ResponseDTO를 초기화한다.
-		ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().data(dtos).build();
-
-		// (7) ResponseDTO를 리턴한다.
-		return ResponseEntity.ok().body(response);
-	}
+    //글 작성
+    //PostMapping으로 /create-board로 부터 데이터가 전송되면
+    //RequestBody Board board로 body 객체를 생성한다
+    //생성한 객체를 boardService.createBoard로 리턴한다
+    @PostMapping("/create-board")
+    public Board createBoard(@RequestBody Board board){
+        System.out.println("creatBoard 컨트롤러 도착");
+        return boardService.createBoard(board);
+    }
 
 
-	@PutMapping
-	public ResponseEntity<?> updateBoard(@RequestBody BoardDTO dto) {
-		String temporaryboard_idx = "temporary-user"; // temporary user id.
 
-		// (1) dto를 entity로 변환한다.
-		BoardEntity entity = BoardDTO.toEntity(dto);
+    //글 상세보기
+    //read-board/{no} 로 no 글 번호가 적힌 글로부터 호출이 오면
+    //boardService.getBoard로 글 번호(no)를 리턴한다
+    @RequestMapping(value = "/read-board/{no}", method = RequestMethod.GET)
+    public ResponseEntity<Optional<Board>> getBoardByNo(@PathVariable Integer no){
+        System.out.println("getBoard 컨트롤러 도착");
+        return boardService.getBoard(no);
+    }
 
-		// (2) id를 temporaryboard_idx로 초기화 한다. 여기는 4장 인증과 인가에서 수정 할 예정이다.
-		entity.setBoardIdx(temporaryboard_idx);
-
-		// (3) 서비스를 이용해 entity를 업데이트 한다.
-		List<BoardEntity> entities = service.update(entity);
-
-		// (4) 자바 스트림을 이용해 리턴된 엔티티 리스트를 BoardDTO리스트로 변환한다.
-		List<BoardDTO> dtos = entities.stream().map(BoardDTO::new).collect(Collectors.toList());
-
-		// (5) 변환된 BoardDTO리스트를 이용해ResponseDTO를 초기화한다.
-		ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().data(dtos).build();
-
-		// (6) ResponseDTO를 리턴한다.
-		return ResponseEntity.ok().body(response);
-	}
-
-	@DeleteMapping
-	public ResponseEntity<?> deleteBoard(@RequestBody BoardDTO dto) {
-		try {
-			String temporaryboard_idx = "temporary-user"; // temporary user id.
-
-			// (1) BoardEntity로 변환한다.
-			BoardEntity entity = BoardDTO.toEntity(dto);
-
-			// (2) 임시 유저 아이디를 설정 해 준다. 이 부분은 4장 인증과 인가에서 수정 할 예정이다. 지금은 인증과 인가 기능이 없으므로 한 유저(temporary-user)만 로그인 없이 사용 가능한 어플리케이션인 셈이다
-			entity.setBoardIdx(temporaryboard_idx);
-
-			// (3) 서비스를 이용해 entity를 삭제 한다.
-			List<BoardEntity> entities = service.delete(entity);
-
-			// (4) 자바 스트림을 이용해 리턴된 엔티티 리스트를 BoardDTO리스트로 변환한다.
-			List<BoardDTO> dtos = entities.stream().map(BoardDTO::new).collect(Collectors.toList());
-
-			// (5) 변환된 BoardDTO리스트를 이용해ResponseDTO를 초기화한다.
-			ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().data(dtos).build();
-
-			// (6) ResponseDTO를 리턴한다.
-			return ResponseEntity.ok().body(response);
-		} catch (Exception e) {
-			// (8) 혹시 예외가 나는 경우 dto대신 error에 메시지를 넣어 리턴한다.
-			String error = e.getMessage();
-			ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().error(error).build();
-			return ResponseEntity.badRequest().body(response);
-		}
-	}
-
+    //update
+    @RequestMapping(value = "/update-board/", method = RequestMethod.POST)
+    public ResponseEntity<Board> updateBoardByNo(
+            @RequestBody Board board){
+        System.out.println("update url 맞음");
+        return boardService.updateBoard(board);
+    }
 }
-
-//package com.example.makeMate.controller;
-//
-//
-//
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.DeleteMapping;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PostMapping;
-//import org.springframework.web.bind.annotation.PutMapping;
-//import org.springframework.web.bind.annotation.RequestBody;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RestController;
-//
-//import com.example.makeMate.DTO.BoardDTO;
-//import com.example.makeMate.DTO.ResponseDTO;
-//import com.example.makeMate.Entity.BoardEntity;
-//import com.example.makeMate.service.BoardService;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.stream.Collectors;
-//
-//@RestController
-//@RequestMapping("Board")
-//public class BoardController {
-//
-//	@Autowired
-//	private BoardService service;
-//
-//	
-//	@PostMapping
-//	public ResponseEntity<?> createBoard(@RequestBody BoardDTO dto) {
-//		try {
-//			String temporaryUserId = "temporary-user"; // temporary user id.
-//
-//			// (1) BoardEntity로 변환한다.
-//			BoardEntity entity = BoardDTO.toEntity(dto);
-//
-//			// (2) id를 null로 초기화 한다. 생성 당시에는 id가 없어야 하기 때문이다.
-//			entity.setUserId(null);
-//
-//			// (3) 임시 유저 아이디를 설정 해 준다. 이 부분은 4장 인증과 인가에서 수정 할 예정이다. 지금은 인증과 인가 기능이 없으므로 한 유저(temporary-user)만 로그인 없이 사용 가능한 어플리케이션인 셈이다
-//			entity.setUserId(temporaryUserId);
-//
-//			// (4) 서비스를 이용해 Board엔티티를 생성한다.
-//			List<BoardEntity> entities = service.create(entity);
-//
-//			// (5) 자바 스트림을 이용해 리턴된 엔티티 리스트를 BoardDTO리스트로 변환한다.
-//
-//			List<BoardDTO> dtos = entities.stream().map(BoardDTO::new).collect(Collectors.toList());
-//
-//			// (6) 변환된 BoardDTO리스트를 이용해ResponseDTO를 초기화한다.
-//			ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().data(dtos).build();
-//
-//			// (7) ResponseDTO를 리턴한다.
-//			return ResponseEntity.ok().body(response);
-//		} catch (Exception e) {
-//			// (8) 혹시 예외가 나는 경우 dto대신 error에 메시지를 넣어 리턴한다.
-//
-//			String error = e.getMessage();
-//			ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().error(error).build();
-//			return ResponseEntity.badRequest().body(response);
-//		}
-//	}
-//
-//	@GetMapping
-//	public ResponseEntity<?> retrieveBoardList() {
-//		String temporaryUserId = "temporary-user"; // temporary user id.
-//
-//		// (1) 서비스 메서드의 retrieve메서드를 사용해 Board리스트를 가져온다
-//		List<BoardEntity> entities = service.retrieve(temporaryUserId);
-//
-//		// (2) 자바 스트림을 이용해 리턴된 엔티티 리스트를 BoardDTO리스트로 변환한다.
-//		List<BoardDTO> dtos = entities.stream().map(BoardDTO::new).collect(Collectors.toList());
-//
-//		// (6) 변환된 BoardDTO리스트를 이용해ResponseDTO를 초기화한다.
-//		ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().data(dtos).build();
-//
-//		// (7) ResponseDTO를 리턴한다.
-//		return ResponseEntity.ok().body(response);
-//	}
-//
-//
-//	@PutMapping
-//	public ResponseEntity<?> updateBoard(@RequestBody BoardDTO dto) {
-//		String temporaryUserId = "temporary-user"; // temporary user id.
-//
-//		// (1) dto를 entity로 변환한다.
-//		BoardEntity entity = BoardDTO.toEntity(dto);
-//
-//		// (2) id를 temporaryUserId로 초기화 한다. 여기는 4장 인증과 인가에서 수정 할 예정이다.
-//		entity.setUserId(temporaryUserId);
-//
-//		// (3) 서비스를 이용해 entity를 업데이트 한다.
-//		List<BoardEntity> entities = service.update(entity);
-//
-//		// (4) 자바 스트림을 이용해 리턴된 엔티티 리스트를 BoardDTO리스트로 변환한다.
-//		List<BoardDTO> dtos = entities.stream().map(BoardDTO::new).collect(Collectors.toList());
-//
-//		// (5) 변환된 BoardDTO리스트를 이용해ResponseDTO를 초기화한다.
-//		ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().data(dtos).build();
-//
-//		// (6) ResponseDTO를 리턴한다.
-//		return ResponseEntity.ok().body(response);
-//	}
-//
-//	@DeleteMapping
-//	public ResponseEntity<?> deleteBoard(@RequestBody BoardDTO dto) {
-//		try {
-//			String temporaryUserId = "temporary-user"; // temporary user id.
-//
-//			// (1) BoardEntity로 변환한다.
-//			BoardEntity entity = BoardDTO.toEntity(dto);
-//
-//			// (2) 임시 유저 아이디를 설정 해 준다. 이 부분은 4장 인증과 인가에서 수정 할 예정이다. 지금은 인증과 인가 기능이 없으므로 한 유저(temporary-user)만 로그인 없이 사용 가능한 어플리케이션인 셈이다
-//			entity.setUserId(temporaryUserId);
-//
-//			// (3) 서비스를 이용해 entity를 삭제 한다.
-//			List<BoardEntity> entities = service.delete(entity);
-//
-//			// (4) 자바 스트림을 이용해 리턴된 엔티티 리스트를 BoardDTO리스트로 변환한다.
-//			List<BoardDTO> dtos = entities.stream().map(BoardDTO::new).collect(Collectors.toList());
-//
-//			// (5) 변환된 BoardDTO리스트를 이용해ResponseDTO를 초기화한다.
-//			ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().data(dtos).build();
-//
-//			// (6) ResponseDTO를 리턴한다.
-//			return ResponseEntity.ok().body(response);
-//		} catch (Exception e) {
-//			// (8) 혹시 예외가 나는 경우 dto대신 error에 메시지를 넣어 리턴한다.
-//			String error = e.getMessage();
-//			ResponseDTO<BoardDTO> response = ResponseDTO.<BoardDTO>builder().error(error).build();
-//			return ResponseEntity.badRequest().body(response);
-//		}
-//	}
-//
-//}
-

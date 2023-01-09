@@ -1,11 +1,24 @@
 import "../App.css";
 import "../components/MessageBox";
 import MessageBox from "../components/MessageBox";
-import {useState} from "react";
+import {useState, useEffect} from "react";
 import MsgModal from "../components/MsgModal";
 function MsgContentBox(props) {
   let [modal, setModal] = useState(false);
   let [mess, setMess] = useState("");
+
+  useEffect(() => {
+    console.log(props.privateChats);
+    console.log("-----------------------------------------------");
+    if (props.privateChats != null && props.privateChats.size > 0) {
+      console.log(props.privateChats.get("asd"));
+      console.log("-----------------------------------------------");
+      console.log(props.privateChats.entries().next().value);
+      console.log("-----------------------------------------------");
+    }
+  }, []);
+
+  const user = sessionStorage.getItem("loginId");
   return (
     <div
       className="msgContentBox"
@@ -43,40 +56,41 @@ function MsgContentBox(props) {
         <div style={{clear: "both"}}></div>
       </div>
       {modal === true ? <MsgModal setModal={setModal}></MsgModal> : null}
-      <p>
-        {/* {props.content === null
+      {/* <p> */}
+      {/* {props.content === null
           ? null
           : props.selectComponent[props.content].content} */}
-      </p>
-      {props.messages.map((data, index) => {
+      {/* </p> */}
+      {[props.privateChats.get(props.tab)].map((data, index) => {
         return (
-          <div
-            key={index}
-            style={{
-              borderBottom: "0.5px solid #ededed",
+          <p>{data}</p>
+          // <div
+          //   key={index}
+          //   style={{
+          //     borderBottom: "0.5px solid #ededed",
 
-              boxSizing: "border-box",
-            }}>
-            {data.sender_id === props.user ? (
-              <p style={{color: "orange", float: "left", fontWeight: "bolder"}}>
-                보낸 메세지
-              </p>
-            ) : (
-              <p
-                style={{
-                  color: "blueviolet",
-                  float: "left",
-                  fontWeight: "bolder",
-                }}>
-                받은 메세지
-              </p>
-            )}
-            <p style={{color: "black", float: "right", fontSize: "12px"}}>
-              {data.send_time.split(".")[0].replace("T", "일")}
-            </p>
-            <div style={{clear: "both"}}></div>
-            <div style={{fontWeight: "300"}}>{data.content}</div>
-          </div>
+          //     boxSizing: "border-box",
+          //   }}>
+          //   {data.sender_id === user ? (
+          //     <p style={{color: "orange", float: "left", fontWeight: "bolder"}}>
+          //       보낸 메세지
+          //     </p>
+          //   ) : (
+          //     <p
+          //       style={{
+          //         color: "blueviolet",
+          //         float: "left",
+          //         fontWeight: "bolder",
+          //       }}>
+          //       받은 메세지
+          //     </p>
+          //   )}
+          //   <p style={{color: "black", float: "right", fontSize: "12px"}}>
+          //     {data.send_time.split(".")[0].replace("T", "일")}
+          //   </p>
+          //   <div style={{clear: "both"}}></div>
+          //   <div style={{fontWeight: "300"}}>{data.content}</div>
+          // </div>
         );
       })}
     </div>

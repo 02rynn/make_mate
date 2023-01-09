@@ -1,25 +1,30 @@
 package com.example.makeMate.controller;
 
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.makeMate.DTO.MessageDTO;
+import com.example.makeMate.Entity.Message;
 import com.example.makeMate.Entity.MessageEntitiy;
+import com.example.makeMate.Entity.Status;
 import com.example.makeMate.Repository.MsgRepository;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
@@ -32,20 +37,19 @@ public class MsgController {
 
 	@GetMapping("/msgList")
 	@ResponseBody
-	public List<MessageEntitiy> list(HttpServletRequest req) {
-//		Long room_id = msgRepository.getMaxRoom_id();
-//		System.out.println(room_id);
-		System.out.println("세션아 나와라 여ㅑㅂ!"+req.getAttribute("user_name"));
-		String user = "asd";
-		log.info("요청 들어옴");
+	public List<MessageEntitiy> list(String user) {
+
+
+		
+		log.info("요청 들어옴{}",user);
 
 		return msgRepository.findRecentMsg(user);
 	}
 	
 	@GetMapping("/msgListUnRead")
 	@ResponseBody
-	public List<Long> unReadConut() {
-		String user = "asd";
+	public List<Long> unReadConut(String user) {
+
 		log.info("요청 들어옴");
 		List<MessageEntitiy>list = msgRepository.findRecentMsg(user);
 		List<Long> unreadCount = new ArrayList<Long>();
@@ -63,32 +67,37 @@ public class MsgController {
 	@PostMapping("/sendMsg")
 	@ResponseBody
 	public MessageEntitiy insertMsg(@RequestBody String content) {
+		
+	
+		
 		MessageEntitiy message = new MessageEntitiy();
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		Long room_id = msgRepository.getMaxRoom_id();
-		log.info(content);
+		log.info(content+"@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+
 		log.info(String.valueOf(now));
 		log.info("post요청 들어옴");
 		System.out.println(msgRepository.findAllByreciver_idAndread_yn("asd").size());
 
         JSONParser parser = new JSONParser();
+    	String sender_id =null;
+    	String Reciver_id =null;
         try {
 			
         	JSONObject jsonObject = (JSONObject) parser.parse(content);
-        	message.setContent((String)jsonObject.get("content"));		
+        	message.setContent((String)jsonObject.get("content"));	
+        	 sender_id = (String)jsonObject.get("sender_id");
+        	 Reciver_id = (String)jsonObject.get("reciver_id");
         } catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		log.info(Reciver_id);
+		log.info(sender_id);
         
         
         
-        
-        String sender_id  = msgRepository.findLogin_idById(1);
-        log.info("send_id:{}",sender_id);
-        
-        String Reciver_id  = msgRepository.findLogin_idById(2);
-        log.info("Reciver_id:{}",Reciver_id);
+  
         Long id = msgRepository.findRoom_IdbySender_idAndReciver_id(sender_id,Reciver_id);
         log.info("id:{}",id);
         if(id==null) {
@@ -98,8 +107,7 @@ public class MsgController {
         }
         log.info("id:{}",id);
         
-//		message.setSend_time((java.sql.Date) now);
-//		message.setContent(jsonObject.get("constent"));
+
        
         
         message.setMsg_id(1);
@@ -115,7 +123,7 @@ public class MsgController {
 		
 		
 		
-		msgRepository.save(message);
+//		msgRepository.save(message);
 		
 		
 		return message;
@@ -147,5 +155,33 @@ public class MsgController {
 		
 		return list;
 
+	}
+	
+	@ResponseBody
+	@GetMapping("/test/{user}")
+	public Map<String,List<Message>> ssd(@PathVariable(name="user") String user){
+		
+		Map<String,List<Message>> map = new HashMap<>();
+		
+		//유저 메세지 리스트 상대방을 담는 리스트 
+		List<String> connectedUserList = msgRepository.findConnectedUserList(user);
+		List<Message> arr = new ArrayList<>();
+//		System.out.println(connectedUserList); 확인
+	
+		List<String> newList = connectedUserList.stream().distinct().collect(Collectors.toList());
+
+//		System.out.println(newList);확인
+		
+		
+		for(String conUser : newList) {
+			List<Message> arr2 = msgRepository.findMsgListDemo(user,conUser);
+			map.put(conUser, arr2);
+		}
+//		System.out.println(msgRepository.findMsgListDemo(user,"asd"));
+		
+		
+		
+		
+		return map;
 	}
 }

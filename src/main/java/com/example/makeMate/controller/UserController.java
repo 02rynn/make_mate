@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.socket.WebSocketSession;
 
 import com.example.makeMate.DTO.EmailDTO;
 import com.example.makeMate.DTO.PasswordDTO;
@@ -24,7 +24,9 @@ import com.example.makeMate.Repository.UserRepository;
 //import com.example.makeMate.security.TokenProvider;
 import com.example.makeMate.service.UserService;
 import com.example.makeMate.session.SessionManager;
+import com.example.makeMate.session.SessionVar;
 
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -116,6 +118,8 @@ public class UserController {
 
 	}
 
+
+
 	//로그인 메소드
 //	@PostMapping("/login")
 //	public UserEntity login(@RequestBody LoginForm loginForm
@@ -125,46 +129,41 @@ public class UserController {
 //
 //		log.info("login user: {},{}",loginForm.getLoginId(),loginForm.getPassword());
 //		
-//		UserEntity entity = userRepository.findByloginId(loginForm.getLoginId());
-//	
-//		if(entity != null) {
-//			
-//			log.info("유저정보 {}",entity.toString());
-//		}
-//		
-//		if(entity != null) {
-//			if(entity.getPassword().equals(loginForm.getPassword())) { 
-//				
-//				//토큰생성
-//				final String token = tokenProvider.create(entity);
-//				loginForm.setToken(token);
-//				
-//				HttpSession session = req.getSession(); 
-//				session.setMaxInactiveInterval(1800);
-//				session.setAttribute("user_name", entity);
-//				session.getAttribute("user_name");
-//				log.info("로그인완료 {}" ,	session.getAttribute("user_name"));
-//				return entity;
-//			} else {
-//			
-//				
-//				log.error("비밀번호 혹은 아이디가 일치하지 않습니다.");
-//		}
-//			
-//		}
-//		return new UserEntity(); 
-//		
-//	}
-
-//중복아이디 확인
+	// 	if(entity != null) {
+			
+	// 		log.info("유저정보 {}",entity.toString());
+	// 	}
+		
+	// 	if(entity != null) {
+	// 		if(entity.getPassword().equals(loginForm.getPassword())) { 
+	// 			HttpSession session = req.getSession(); 
+	// 			session.setMaxInactiveInterval(1800);
+	// 			session.setAttribute("user_name", entity);
+	// 			session.getAttribute("user_name");
+	// 			log.info("로그인완료 {}" ,	session.getAttribute("user_name"));
+				
+	// 			resp.addCookie(new Cookie(SESSION_COOKIE_NAME, entity.getLoginId()));
+	// 			return entity;
+	// 		} else {
+			
+				
+	// 			log.error("비밀번호 혹은 아이디가 일치하지 않습니다.");
+	// 	}
+			
+	// 	}
+	// 	return new UserEntity(); 
+		
+	// }
+	
 @PostMapping("/signup/checkId")
 @ResponseBody      //여기로 정보 요청 ->보낸 아이디값과 일치하는 값이 있나요? -> 1 => 사용 가능한 아이디 
 public int checkId(@RequestBody String loginId) { 
 	
 	log.info("중복체크 요청 아이디dfd: {}", loginId);
-	log.info(userRepository.findLogin_idById(loginId)); //레파지토리결과가 자꾸 null
-
-	if(userRepository.findLogin_idById(loginId) == null) { //사용가능한 아이디 
+	log.info("중복체크 요청 아이디: {}", userRepository.existsByLoginId(loginId) );
+	
+	if(userRepository.existsByLoginId(loginId) == null) { //사용가능한 아이디 
+		
 		return 1;
 	}else {
 		
@@ -291,6 +290,7 @@ public void delete_user(@RequestBody Map<String, Object> asd) {
 								
 		}
 	}
+}
 	
 
-}
+

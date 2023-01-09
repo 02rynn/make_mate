@@ -3,8 +3,10 @@ import {useEffect, useState} from "react";
 import axios from "axios";
 import Header from "./components/Header"; //navbar 호출
 import RoutesContainer from "./components/RoutesContainer"; //PageRoutes 호출
-import ListForm from "./components/Board/WriteForm";
+
 import {BrowserRouter, Routes, Route} from "react-router-dom";
+import SockJS from "sockjs-client";
+import {over} from "stompjs";
 
 function App() {
   const [hello, setHello] = useState("");
@@ -18,23 +20,18 @@ function App() {
   //     })
   //     .catch((error) => console.log(error));
 
-  useEffect(() => {
-    fetch("/listForm")
-      .then((response) => response.text())
-      .then((message) => {
-        setMessage(message);
+  //   axios
+  //     .get("/api/test")
+  //     .then((response) => setHello2(response.data))
+  //     .catch((error) => console.log(error));
+  // }, []);
 
-        axios
-          .get("/api/hello")
-          .then((response) => setHello(response.data))
-          .catch((error) => console.log(error));
-
-        axios
-          .get("/api/test")
-          .then((response) => setHello2(response.data))
-          .catch((error) => console.log(error));
-      });
-  }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get("/api/hello")
+  //     .then((response) => {setHello(response.data)
+  //     })
+  //     .catch((error) => console.log(error));
 
   //   axios
   //     .get("/api/test")
