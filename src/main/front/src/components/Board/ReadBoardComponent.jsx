@@ -4,6 +4,7 @@ import css from '../../css/MyPage.css';
 import css2 from '../../css/Section.css';
 import MapShow  from "../Map/MapShow";
 import {useSelector, useDispatch} from 'react-redux'
+import Comment from "../Comment";
 
 
 
@@ -32,6 +33,10 @@ const ReadBoardComponent = () => {
         <p style={{fontSize:'8px', color:'darkgray'}}>{author}</p> 
         </div>
         <MapShow/>
+        <Comment/>
+        
+
+
         {/* <table className="table table-striped table-bordered">
           <thead>
             <tr>

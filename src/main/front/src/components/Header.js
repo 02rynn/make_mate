@@ -14,7 +14,7 @@ function Header () {
         <Navbar
             bg="white"
             expand="lg"
-            style={{borderBottom: " 1px solid #EDEDED"}}>
+            style={{borderBottom: " 1px solid #001529"}}>
             <Container>
                 <Navbar.Brand
                     onClick={() => {
