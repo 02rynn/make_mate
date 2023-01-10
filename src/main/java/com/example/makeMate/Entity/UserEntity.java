@@ -46,20 +46,20 @@ public class UserEntity implements Serializable{ //자바클래스를 Entity로 
 	private String loginId;
 	
 	@Column(name = "password")
-//	@Pattern(regexp = "^[a-zA-Z\\d`~.!@#$%^&*()-_=+]{8,24}$", message = "비밀번호는 8~24자 영문 , 숫자, 특수문자를 사용하세요.")
+	//@Pattern(regexp = "^[a-zA-Z\\d`~.!@#$%^&*()-_=+]{8,24}$", message = "비밀번호는 8~24자 영문 , 숫자, 특수문자를 사용하세요.")
 	@NotNull(message="비밀번호를 입력해주세요")
 	@Transient
 	private String passwordCheck;
 	
 	
 	@Column(name = "password")
-//	@Pattern(regexp = "^[a-zA-Z\\d`~.!@#$%^&*()-_=+]{8,24}$", message = "비밀번호는 8~24자 영문 , 숫자, 특수문자를 사용하세요.")
+	//@Pattern(regexp = "^[a-zA-Z\\d`~.!@#$%^&*()-_=+]{8,24}$", message = "비밀번호는 8~24자 영문 , 숫자, 특수문자를 사용하세요.")
 	@NotNull(message="비밀번호를 입력해주세요")
 	private String password;
 	
 	@Column(name = "name")
 	@NotNull(message="아이디을 입력해주세요")
-//	@Pattern(regexp="^[가-힣]{2,5}$", message = "이름은 2-5글자 사이의 한글입니다.")
+	//@Pattern(regexp="^[가-힣]{2,5}$", message = "이름은 2-5글자 사이의 한글입니다.")
 	private String name;
 	
 	@Column(name = "age")

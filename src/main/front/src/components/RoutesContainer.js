@@ -17,8 +17,9 @@ import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
 import Admin from "../components/Admin";
 import ImgTest from "./../pages/imgTest";
-
-
+import Review from "../pages/Review";
+import YourArticle  from "../components/YourArticle";
+import YourComment  from "../components/YourComment";
 import Profile from "../components/Profile";
 import ChatRoom from "./ChatRoom";
 import YourProfile from "./YourProfile.js";
@@ -47,8 +48,8 @@ function RoutesContainer() {
         {/* <Route path="/map" element={<MapContainer />}></Route>
         <Route path="/mapsearch" element={<MapSearch />}></Route> */}
         {/* <Route path="/bulletinBoard/study" element={<BbsList />}></Route>
-        <Route path="/bulletinBoard/hobby" element={<Board />}></Route>
-        <Route path="/bbswrite" element={<BbsWrite />}></Route>
+        <Route path="/bulletinBoard/hobby" element={<Board />}></Route> */}
+        {/* <Route path="/bbswrite" element={<BbsWrite />}></Route>
         <Route path="/bbsdetail/:seq" element={<BbsDetail />}></Route>
         <Route path="/bbsupdate" element={<BbsUpdate />}></Route> */}
         <Route path="/admin" element={<Admin />}></Route>
@@ -72,7 +73,7 @@ function RoutesContainer() {
 
         <Route path="/bulletinBoard/sports" element={<HRBoard />}></Route>
         <Route path="/bulletinBoard/mate" element={<GJBoard />}></Route>
-      
+        <Route path="/review" element={<Review/>}></Route>
    
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
@@ -106,10 +107,16 @@ function RoutesContainer() {
           element={<Profile> </Profile>}></Route>
         <Route path="/chat" element={<ChatRoom> </ChatRoom>}></Route>
         <Route
-          path="/yourpage/profile"
+          path="/yourpage/:id"
           element={<YourProfile> </YourProfile>}></Route>
-        <Route path="/noteDemo" element={<NoteCopy> </NoteCopy>}></Route>
-      </Routes>{" "}
+          <Route
+          path="/yourpage/yourarticle/:id"
+          element={<YourArticle> </YourArticle>}></Route> 
+            <Route
+          path="/yourpage/yourcomment/:id"
+          element={<YourComment> </YourComment>}></Route>
+        {/* <Route path="/noteDemo" element={<TestAra />}></Route> */}
+      </Routes>
     </div>
   );
 }

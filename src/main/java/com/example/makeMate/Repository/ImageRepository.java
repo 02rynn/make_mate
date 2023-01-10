@@ -18,4 +18,8 @@ public interface ImageRepository extends JpaRepository<UserImage, Long>{
 	public void insertImg(@Param(value ="id1") int id ,@Param(value ="path1") String pullPath ,@Param(value ="path2") String userUploadPath);
 
 	
+
+	@Query(value="select * from userimage where ID = ?1",nativeQuery = true)
+	public UserImage findUSERUPLOADPATHByID(String userId);
+
 }

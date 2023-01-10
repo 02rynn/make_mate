@@ -73,9 +73,9 @@ function Signup() {
       console.log("아이디 확인중 ")
       console.log(response.data);
       if(response.data === 1){
-        alert("이미 사용중인 아이디 입니다.")
-      }else{
         alert("사용 가능한 아이디 입니다.")
+      }else{
+        alert("이미 사용중인 아이디 입니다.")
       }
     })
     .catch((e)=>{
@@ -144,7 +144,7 @@ function Signup() {
         alert("회원가입을 축하합니다");
         console.log(modalmodal);
 
-              navigate("/login");
+             // navigate("/login");
       });
   };
 
