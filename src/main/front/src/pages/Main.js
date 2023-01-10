@@ -8,10 +8,10 @@ import user from '../images/user.jpg';
 import {useNavigate} from "react-router-dom";
 import MainGrap from '../components/MainGraf/MainGrap';
 import '../css/Main.css';
-import JHBoard from './JHBoard';
+
 import MJBoard from './MJBoard';
-import GJBoard from './GJBoard';
-import HRBoard from './HRBoard';
+
+
 
 
 
