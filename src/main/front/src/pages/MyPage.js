@@ -10,7 +10,7 @@ function MyPage () {
     let navigate = useNavigate();
     let loginId = useSelector((state)=>{return state.loginId});
     const[urlParam, setUrlParam] = useState("");
- 
+    //const dispatch = useDispatch();
     //로그인이 안되어있다면 이용불가
     useEffect(()=>{
         //alert(loginId);
@@ -41,7 +41,7 @@ function MyPage () {
                         <img src={logo} style={{marginLeft:'10px'}}/>
                     </div>
                     <div className='userInfo'>
-                    <h6 style={{fontWeight:'bold'}}>flsgp123</h6>
+                    <h6 style={{fontWeight:'bold'}}>{loginId}</h6>
                     <p style={{marginLeft:'5px'}}>정혜린/닉네임</p>
                     </div>
                 </div>

@@ -3,6 +3,7 @@ import { useState ,useEffect} from 'react';
 import { useNavigate } from 'react-router-dom';
 import Modal from 'react-modal';
 
+
 import css from '../css/Section.css';
 
 function MyArticle(){
@@ -84,7 +85,7 @@ function Article(props){
             setReview('메이트 후기 쓰기');
             setIsModalOpen(true);
             setFinishMSG("모집 완료로 변경하시겠습니까?");
-            setCondition(1);
+            // setCondition(1);
           }else{
             setIsModalOpen(true);
             setReview("후기작성하기")
@@ -105,8 +106,7 @@ function Article(props){
           <p>{finishMSG}</p>
           <button onClick={()=>{
             if(condition ===1){
-              //navigate("/");
-             
+              navigate("/review");
             }
             setIsModalOpen(false);
             setCondition(1);

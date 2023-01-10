@@ -17,6 +17,7 @@ import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
 import Admin from "../components/Admin";
 import ImgTest from "./../pages/imgTest";
+import Review from "../pages/Review";
 import YourArticle  from "../components/YourArticle";
 import YourComment  from "../components/YourComment";
 import Profile from "../components/Profile";
@@ -67,7 +68,7 @@ function RoutesContainer() {
 
         <Route path="/bulletinBoard/sports" element={<HRBoard />}></Route>
         <Route path="/bulletinBoard/mate" element={<GJBoard />}></Route>
-      
+        <Route path="/review" element={<Review/>}></Route>
    
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<Signup />}></Route>
