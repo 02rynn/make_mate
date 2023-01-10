@@ -1,5 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import {useLocation, useNavigate} from "react-router-dom";
+import css from '../../css/MyPage.css';
+import css2 from '../../css/Section.css';
+import MapShow  from "../Map/MapShow";
+import {useSelector, useDispatch} from 'react-redux'
+
+
 
 const ReadBoardComponent = () => {
   const navigate = useNavigate();
@@ -9,10 +15,24 @@ const ReadBoardComponent = () => {
   const content = location.state.content;
   const createdTime = location.state.createdTime;
   const author = location.state.author;
+  const loginId_session = sessionStorage.getItem("loginId");
+  let loginId = useSelector((state)=>{return state.loginId});
+  
+
   return (
     <div>
-      <div className="row">
-        <table className="table table-striped table-bordered">
+      <div className="section_container">
+        <p className='section_title'>{title}</p>
+        <p style={{textAlign:'left', marginLeft:'10px' }}>{content}</p>
+        
+        <div className="author_box" style={{display:'flex'}}>
+        <p style={{fontSize:'10px', color:'darkgray',textAlign:'left',marginLeft:'10px'  }}>2023-01-10</p>
+        <p style={{fontSize:'10px', color:'darkgray',textAlign:'left', marginLeft:'5px' }}>혜링</p>
+        <p style={{fontSize:'8px', color:'darkgray'}}>{createdTime}</p>
+        <p style={{fontSize:'8px', color:'darkgray'}}>{author}</p> 
+        </div>
+        <MapShow/>
+        {/* <table className="table table-striped table-bordered">
           <thead>
             <tr>
               <th>게시물 번호</th>
@@ -36,11 +56,28 @@ const ReadBoardComponent = () => {
               <td>{author}</td>
             </tr>
           </thead>
-        </table>
-        <div className="container">
-          <button
+        </table> */}
+        
+
+          
+       
+       { {author} == {loginId_session} ? <Buttons></Buttons> : null}
+       
+      </div>
+    </div>
+  );
+};
+
+ function Buttons(){
+  const navigate = useNavigate();
+  const location = useLocation();
+  const no = location.state.no;
+    return(
+      <>
+      <div className=" button_container">
+      <button
             type="submit"
-            className="btn btn-primary"
+            className="logout" 
             onClick={() => {
               navigate("/update-board/" + no);
             }}>
@@ -48,16 +85,15 @@ const ReadBoardComponent = () => {
           </button>
           <button
             type="submit"
-            className="btn btn-danger"
+            className="logout" 
             onClick={() => {
               navigate("/delet-board/" + no);
             }}>
             삭제
           </button>
-        </div>
       </div>
-    </div>
-  );
-};
+      </>
+    )
+ }
 
 export default ReadBoardComponent;
