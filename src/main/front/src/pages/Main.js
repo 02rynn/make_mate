@@ -133,6 +133,7 @@ function Main() {
                 }}
                 onClick={() => {
                   sessionStorage.clear();
+                  window.location.replace("/");
                 }}>
                 로그아웃
               </span>
