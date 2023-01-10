@@ -1,16 +1,20 @@
 package com.example.makeMate.controller;
 
 import java.time.LocalDate;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.socket.WebSocketSession;
 
+import com.example.makeMate.DTO.EmailDTO;
+import com.example.makeMate.DTO.PasswordDTO;
 import com.example.makeMate.DTO.ResponseDTO;
 import com.example.makeMate.DTO.UserDTO;
 import com.example.makeMate.Entity.LoginForm;
@@ -18,7 +22,6 @@ import com.example.makeMate.Entity.UserEntity;
 import com.example.makeMate.Repository.UserRepository;
 import com.example.makeMate.service.UserService;
 import com.example.makeMate.session.SessionManager;
-import com.example.makeMate.session.SessionVar;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;

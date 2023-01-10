@@ -2,14 +2,22 @@
 import css from '../css/MyPage.css';
 import css2 from '../css/Section.css';
 import logo from '../images/logoSimple.jpg';
-import {useState} from 'react';
+import {useState,useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
+import {useSelector, useDispatch} from 'react-redux'
 function MyPage () {
 
     let navigate = useNavigate();
-
-    // 로그인 해야 이동가능한 페이지
-   // const sessionId = sessionStorage.getItem("loginId");
+    let loginId = useSelector((state)=>{return state.loginId});
+    const[urlParam, setUrlParam] = useState("");
+ 
+    //로그인이 안되어있다면 이용불가
+    useEffect(()=>{
+        //alert(loginId);
+         if(sessionStorage.getItem("loginId")==null){
+             alert("로그인이 필요한 서비스 입니다.")
+             navigate("/login")
+         }},[])
 
     return(
       <>
@@ -60,6 +68,10 @@ function MyPage () {
                 <div className='section_container'>
                     <p className='section_title'> 기타</p>
                     <a className='section_menu' href="/mypage/withdrawal">회원탈퇴</a>
+                    <a id='id' onClick={(e)=>{
+                        console.log(document.getElementById('id').innerText);
+                       setUrlParam(document.getElementById('id').innerText);
+                    }} href={'/yourpage/'+urlParam}>qweqwe123</a>
                 </div>
         </div>
         </>
