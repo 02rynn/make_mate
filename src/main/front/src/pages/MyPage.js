@@ -62,7 +62,7 @@ function MyPage () {
                     <p className='section_title'> 커뮤니티</p>
                     <a className='section_menu' href="/mypage/myarticle">내가 쓴 글</a><br/>
                     <a className='section_menu' href="/mypage/mycomment">내가 댓글 단 글</a><br/>
-                    <a className='section_menu' href="">메이트 후기</a><br/>
+                    <a className='section_menu' href="/mypage/reviewbullet">메이트 후기</a><br/>
                 </div>
 
                 <div className='section_container'>

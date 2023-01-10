@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React from 'react';
 import { FaStar } from "react-icons/fa";
 
@@ -5,6 +6,22 @@ const colors= {
     orange: "#FFBA5A",
     grey:"#a9a9a9"
 }
+
+const submit=()=>{
+    axios({
+        method: "post",
+        url: "http://localhost:8080/review",
+        // data: values,
+    })
+    .catch((e) => {
+        console.error(e.response.data);
+    })
+    .then((response) =>{
+        console.log(response);
+    })
+}
+
+
 
 function Review() {
     const selectComponent = {
@@ -41,7 +58,7 @@ function Review() {
 
         <div> 
             <div className='reviewContainer' style={styles.container}>
-                <h2>리뷰 페이지</h2>
+                <h2 style={{left:'20px'}}>리뷰 페이지</h2>
                 <div style={styles.stars}>
                     {stars.map((_,index)=>{
                         return(
@@ -63,7 +80,9 @@ function Review() {
                     placeholder='리뷰를 남겨주세요.'
                     style={styles.textarea}
                 />
-                <button style={styles.button}>Submit</button>
+                <button style={styles.button} onClick={()=>{
+                    submit()
+                }}>Submit</button>
             </div>
         </div>
     )
@@ -73,7 +92,9 @@ const styles = {
     container: {
         display:"flex",
         flexDirection:"column",
-        aliItems:"center"
+        aliItems:"center",
+        margin: "0 33% 0 33%",
+        position: "relative"
         
     },
     textarea: {

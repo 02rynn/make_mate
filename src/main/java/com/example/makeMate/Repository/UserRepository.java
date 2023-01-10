@@ -16,8 +16,7 @@ import jakarta.transaction.Transactional;
 //@EnableJpaRepositories
 @Repository
 public interface UserRepository extends JpaRepository<UserEntity, Long> { //entity와 id로 지정한 변수의 타입
-	//레파지토리는 JpaRepository라는 인터페이스를 통해 확장됨. <테이블에 맵핑되는 Entity, Entity기본키의 타입 >
-	
+//레파지토리는 JpaRepository라는 인터페이스를 통해 확장됨. <테이블에 맵핑되는 Entity, Entity기본키의 타입 >
 
 	
 	

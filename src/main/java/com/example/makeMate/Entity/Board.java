@@ -61,6 +61,10 @@ public class Board {
     @Column(name = "recruitment")
     private int recruitment;
     
+    @Column(name = "address")
+    private String address;
+    
+    
 
     
 
