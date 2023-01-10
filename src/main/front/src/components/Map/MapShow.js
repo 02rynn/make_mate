@@ -32,7 +32,7 @@ function MapShow() {
         })
     }
     };
-    ps.keywordSearch(search.map((data)=>(data.address)),placesSearchCB);
+    ps.keywordSearch('두정역',placesSearchCB);
 
 
     return (
@@ -49,7 +49,7 @@ function MapShow() {
                     level={3} // 지도의 확대 레벨
                 >
                 <MapMarker position={ state.center } >
-                {search.map((data)=>(data.address))}
+                {/* {search.map((data)=>(data.address))} */}
                 </MapMarker>
                 </Map>
             </div>
