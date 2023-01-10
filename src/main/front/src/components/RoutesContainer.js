@@ -15,19 +15,15 @@ import MyArticle from "../components/MyArticle";
 import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
+import Admin from "../components/Admin";
 import ImgTest from "./../pages/imgTest";
-
-
+import YourArticle  from "../components/YourArticle";
+import YourComment  from "../components/YourComment";
 import Profile from "../components/Profile";
 import ChatRoom from "./ChatRoom";
 import YourProfile from "./YourProfile.js";
 import NoteCopy from "../pages/Note copy";
 import NotFound from "../pages/NotFound";
-
-
-
-
-
 import CreateBoardComponent from "./Board/CreateBoardComponent";
 import ReadBoardComponent from './Board/ReadBoardComponent';
 import UpdateBoardComponent from './Board/UpdateBoardComponent';
@@ -44,16 +40,27 @@ function RoutesContainer() {
         <Route path="/*" element={<NotFound />}></Route>
         {/* <Route path="/map" element={<MapContainer />}></Route>
         <Route path="/mapsearch" element={<MapSearch />}></Route> */}
+        {/* <Route path="/bulletinBoard/study" element={<BbsList />}></Route>
+        <Route path="/bulletinBoard/hobby" element={<Board />}></Route> */}
+        {/* <Route path="/bbswrite" element={<BbsWrite />}></Route>
+        <Route path="/bbsdetail/:seq" element={<BbsDetail />}></Route>
+        <Route path="/bbsupdate" element={<BbsUpdate />}></Route> */}
+        <Route path="/admin" element={<Admin />}></Route>
+        {/* <Route path="/bbsanswer/:parentSeq" element={<BbsAnswer />}></Route> */}
+        {/* <Route path="/board" element={<Board />}></Route> */}
+        <Route path="/create-board" element={<CreateBoardComponent />}></Route>
+        <Route path="/read-board/:no" element={<ReadBoardComponent />}></Route>
+        <Route
+          path="/update-board/:no"
+          element={<UpdateBoardComponent />}></Route>
+        {/* <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route> */}
+        {/* <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route> */}
         <Route path="/bulletinBoard/study" element={<MJBoard />}></Route>
         <Route path="/bulletinBoard/hobby" element={<JHBoard />}></Route>
-    
-
-
-        
-              
-              <Route path = "/create-board" element = {<CreateBoardComponent/>}></Route>
-              <Route path = "/read-board/:no" element = {<ReadBoardComponent/>}></Route>
-              <Route path = "/update-board/:no" element = {<UpdateBoardComponent />}></Route>
+   
+              {/* <Route path = "/create-board" element = {<CreateBoardComponent/>}></Route>
+              <Route path = "/read-board/:no" element = {<ReadBoardComponent/>}></Route> */}
+              {/* <Route path = "/update-board/:no" element = {<UpdateBoardComponent />}></Route> */}
               <Route path = "/delete-board/:no" element = {<DeleteBoard />}></Route>
 
 
@@ -94,10 +101,16 @@ function RoutesContainer() {
           element={<Profile> </Profile>}></Route>
         <Route path="/chat" element={<ChatRoom> </ChatRoom>}></Route>
         <Route
-          path="/yourpage/profile"
+          path="/yourpage/:id"
           element={<YourProfile> </YourProfile>}></Route>
-        <Route path="/noteDemo" element={<NoteCopy> </NoteCopy>}></Route>
-      </Routes>{" "}
+          <Route
+          path="/yourpage/yourarticle/:id"
+          element={<YourArticle> </YourArticle>}></Route> 
+            <Route
+          path="/yourpage/yourcomment/:id"
+          element={<YourComment> </YourComment>}></Route>
+        {/* <Route path="/noteDemo" element={<TestAra />}></Route> */}
+      </Routes>
     </div>
   );
 }

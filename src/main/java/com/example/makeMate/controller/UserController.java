@@ -1,16 +1,20 @@
 package com.example.makeMate.controller;
 
 import java.time.LocalDate;
-
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.socket.WebSocketSession;
 
+import com.example.makeMate.DTO.EmailDTO;
+import com.example.makeMate.DTO.PasswordDTO;
 import com.example.makeMate.DTO.ResponseDTO;
 import com.example.makeMate.DTO.UserDTO;
 import com.example.makeMate.Entity.LoginForm;
@@ -18,7 +22,6 @@ import com.example.makeMate.Entity.UserEntity;
 import com.example.makeMate.Repository.UserRepository;
 import com.example.makeMate.service.UserService;
 import com.example.makeMate.session.SessionManager;
-import com.example.makeMate.session.SessionVar;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
@@ -164,6 +167,101 @@ public int checkId(@RequestBody String loginId) {
 	}
 	
 }
+
+
+//@PostMapping("/signup/emailConfirm")
+//public String emailConfirm(@RequestBody String email) throws Exception {
+//
+//	log.info(email);
+//  String confirm = emailService.sendSimpleMessage(email);
+//  log.info(confirm);
+//  return confirm;
+//}
+
+
+@GetMapping("/yourpage/{loginId}")
+public String findMyPage(@PathVariable("loginId") String loginId) {
+	return "LoginId: " + loginId; 
+ }
+
+
+//비밀번호 변경
+@PostMapping("/mypage/password")
+@ResponseBody     
+public void update_password(@RequestBody PasswordDTO passwordDTO
+							,@RequestParam String loginId) { 
+	log.info("기존비번 {}, 비번체크 {}, 새비번{}, 아이디{}" ,passwordDTO.getOldPassword()
+													,passwordDTO.getPasswordCheck()
+													,passwordDTO.getNewPassword()
+													, loginId);
+	
+	//기존비밀번호랑 같으면 안됨 
+	if(passwordDTO.getOldPassword()==passwordDTO.getNewPassword()) {
+		log.warn("기존 비밀번호와 새 비밀번호가 일치합니다 {} , {}" ,passwordDTO.getOldPassword(), passwordDTO.getNewPassword());
+		throw new RuntimeException("기존 비밀번호와 새 비밀번호가 일치합니다");
+	}
+	
+	//비밀번호 확인
+	if(! passwordDTO.getNewPassword().equals(passwordDTO.getPasswordCheck())) { 
+		log.warn("비밀번호가 확인비밀번호와 일치하지 않습니다 {} , {}" , passwordDTO.getNewPassword(), passwordDTO.getPasswordCheck());
+		throw new RuntimeException("password is not same");
+	}
+	
+	//새로운 비밀번호 업데이트
+	userRepository.update_password(passwordDTO.getNewPassword(),loginId);
+	
+	
+	}
+
+@PostMapping("/mypage/email")
+@ResponseBody     
+public void update_email(@RequestBody EmailDTO emailDTO
+							,@RequestParam String loginId) { 
+	log.info("새 이메일 {}, 비밀번호 {} 로그인 아이디{}" ,emailDTO.getNewEmail()
+													,emailDTO.getPassword()
+													, loginId);
+	//이메일이 기존이메일과 일치하면 안됨
+	String email = userRepository.findEmailbyLoginId(loginId);
+	if(email.equals(emailDTO.getNewEmail())) {
+		log.warn("기존 이메일과 동일합니다 기존 {} , 새이멜{}" , email,emailDTO.getNewEmail());
+		throw new RuntimeException("email is same");
+	}
+	
+	//비밀번호가 해당 계정의 비밀번호와 일치
+	String password = userRepository.findPasswordById(loginId);
+	if(!password.equals(emailDTO.getPassword())) {
+		log.warn("비밀번호가 일치하지 않습니다 {} , {}" , password, emailDTO.getPassword());
+		throw new RuntimeException("password is not same");
+	}
+	
+	
+	//이메일 업데이트 
+	userRepository.update_email(emailDTO.getNewEmail(), loginId);
+	
+	}
+
+
+
+@PostMapping("/mypage/withdrawal")
+@ResponseBody     
+public void delete_user(@RequestBody Map<String, Object> asd) { 
+	String password = (String) asd.get("password");
+	String loginId = (String) asd.get("loginId");
+	log.info("로그인정보ㄴㅇㄹㄴㅇㄹ: {}, {}" ,password, loginId);
+	
+	//비밀번호가 해당 계정의 비밀번호와 일치
+	String password1 = userRepository.findPasswordById(loginId);
+	log.info("db에 저장된 비번{}",password1);
+	
+	if(!password.equals(password1)) {
+		log.warn("비밀번호가 일치하지 않습니다 {} , {}" , password, password1);
+		throw new RuntimeException("password is not same");
+	}
+	//유저삭제
+	userRepository.deleteByLoginId(loginId);
+	
+	
+	}
 
 
 	
