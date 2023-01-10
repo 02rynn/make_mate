@@ -29,6 +29,10 @@ import CreateBoardComponent from "./Board/CreateBoardComponent";
 import ReadBoardComponent from './Board/ReadBoardComponent';
 import UpdateBoardComponent from './Board/UpdateBoardComponent';
 import DeleteBoard from "./Board/DeleteBoard";
+import AdminStop from "./Admin/AdminStop";
+import AdminBoard from "./Admin/AdminBoard";
+
+
 
 
 
@@ -79,6 +83,12 @@ function RoutesContainer() {
         <Route path="/note" element={<Note />}></Route>
         <Route path="/mypage" element={<MyPage />}></Route>
         <Route path="/mypage/nickname" element={<Nickname> </Nickname>}></Route>
+
+
+        <Route path="/AdminStop" element={<AdminStop/>}></Route>
+
+        <Route path="/AdminBoard" element={<AdminBoard />}></Route>
+        
         <Route
           Route
           path="/mypage/password"
