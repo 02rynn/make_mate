@@ -14,6 +14,21 @@
     width:60%;
 }
 
+.section_container_small{
+    padding: 24px;
+    box-sizing: border-box;
+    border: 1px solid #EDEDED;
+    border-radius: 12px;
+    margin: 24px auto 0 auto;
+    margin-top: 55px;
+    width:33%;
+}
+
+.review_container{
+    display: flex;
+    flex-direction: row;
+}
+
 .section_title{
     line-height: 30px;
     color: #292929;

@@ -17,6 +17,7 @@ import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
 import Admin from "../components/Admin";
 import ImgTest from "./../pages/imgTest";
+import ReviewBullet from "../components/ReviewBullet";
 import Review from "../pages/Review";
 import YourArticle  from "../components/YourArticle";
 import YourComment  from "../components/YourComment";
@@ -110,6 +111,9 @@ function RoutesContainer() {
             <Route
           path="/yourpage/yourcomment/:id"
           element={<YourComment> </YourComment>}></Route>
+           <Route
+          path="/mypage/reviewbullet/"
+          element={<ReviewBullet> </ReviewBullet>}></Route>
         {/* <Route path="/noteDemo" element={<TestAra />}></Route> */}
       </Routes>
     </div>
