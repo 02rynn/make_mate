@@ -10,5 +10,6 @@ import com.example.makeMate.Entity.ReviewEntity;
 public interface ReveiewRepository extends JpaRepository<ReviewEntity, Long> {
 	
 	
+	ReviewEntity save(ReviewEntity reviewEntity);
 
 }
