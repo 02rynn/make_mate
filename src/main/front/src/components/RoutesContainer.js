@@ -15,7 +15,7 @@ import MyArticle from "../components/MyArticle";
 import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
-import Admin from "../components/Admin";
+import Admin from "./Admin/Admin"; 
 import ImgTest from "./../pages/imgTest";
 import Review from "../pages/Review";
 import YourArticle  from "../components/YourArticle";
@@ -34,6 +34,10 @@ import CreateBoardComponent from "./Board/CreateBoardComponent";
 import ReadBoardComponent from './Board/ReadBoardComponent';
 import UpdateBoardComponent from './Board/UpdateBoardComponent';
 import DeleteBoard from "./Board/DeleteBoard";
+
+
+
+
 
 
 
