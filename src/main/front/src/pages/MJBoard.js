@@ -2,6 +2,10 @@ import React, {useEffect, useState} from "react";
 import {useNavigate} from "react-router-dom";
 import BoardService from "../service/BoardService";
 import axios from "axios";
+import Card from 'react-bootstrap/Card';
+
+
+
 const MJBoard = (props) => {
   const navigate = useNavigate();
   const [boards, setBoards] = useState([]);
@@ -24,20 +28,18 @@ const MJBoard = (props) => {
 
   return (
     <div>
-      <h2 className="text-center">{props.name}</h2>
-      <div className="row">
-        <button
-          className="btn btn-primary"
-          onClick={() => {
-            navigate("/create-board");
-          }}>
-          글작성
-        </button>
-      </div>
+      <Card style={{border:'1px solid #001529'}}>
+        <Card.Title>      
+          <h2 className="text-center">
+          <div style={{backgroundColor:'#001529',color:'white'
+                }}>{props.name} 게시판</div></h2>
+        </Card.Title>
+        <Card.Body>
+        
       <div className="row">
         <table className="table table-striped table-bordered">
           <thead>
-            <tr>
+            <tr style={{backgroundColor:'#FF7F27',color:'white',border:'1px solid #001529'}}>
               <th>글 번호</th>
               <th>타이틀</th>
               <th>내용</th>
@@ -48,6 +50,7 @@ const MJBoard = (props) => {
             {boards.map((board) => (
               // navigate 상세 주소로 수정
               <tr
+                style={{backgroundColor:'white', border:'1px solid #001529'}}
                 onClick={() => {
                   navigate("/read-board/" + board.no, {
                     state: {
@@ -69,6 +72,18 @@ const MJBoard = (props) => {
           </tbody>
         </table>
       </div>
+      <div className="row">
+          <button
+            className="btn btn-primary"
+            onClick={() => {
+              navigate("/create-board");
+            }}
+            style={{backgroundColor:'#001529',border:'1px solid white',margin:'auto',width:'100px'}}>
+            글작성
+          </button>
+        </div>
+        </Card.Body>
+      </Card>      
     </div>
   );
 };
