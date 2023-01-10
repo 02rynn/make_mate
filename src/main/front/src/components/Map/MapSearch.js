@@ -1,10 +1,12 @@
-import {useState, useEffect} from 'react';
+import {useState} from 'react';
 import { Map, MapMarker } from "react-kakao-maps-sdk";
-import axios from 'axios';
+// import axios from 'axios';
 
 const { kakao } = window;
 
 function MapSearch() {
+
+
 
     const [state, setState] = useState({
   // 지도의 초기 위치
@@ -51,6 +53,7 @@ const SearchMap = () => {
                 <div>
                     <input placeholder="주소를 입력해주세요" style={{border:'1px solid orange'}} onChange={handleSearchAddress}></input>
                     <button  onClick={SearchMap}  style={{backgroundColor:'orange'}}>검색</button>
+                    
                 </div>
             </div>
     );

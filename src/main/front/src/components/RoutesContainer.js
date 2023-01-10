@@ -24,7 +24,7 @@ import ChatRoom from "./ChatRoom";
 import YourProfile from "./YourProfile.js";
 import NoteCopy from "../pages/Note copy";
 import NotFound from "../pages/NotFound";
-
+import Test from '../components/Map/Test';
 
 
 
@@ -43,26 +43,26 @@ function RoutesContainer() {
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
+        <Route path="/test" element={<Test/>}></Route>
         {/* <Route path="/map" element={<MapContainer />}></Route>
         <Route path="/mapsearch" element={<MapSearch />}></Route> */}
-        <Route path="/bulletinBoard/study" element={<BbsList />}></Route>
+        {/* <Route path="/bulletinBoard/study" element={<BbsList />}></Route>
         <Route path="/bulletinBoard/hobby" element={<Board />}></Route>
         <Route path="/bbswrite" element={<BbsWrite />}></Route>
         <Route path="/bbsdetail/:seq" element={<BbsDetail />}></Route>
-        <Route path="/bbsupdate" element={<BbsUpdate />}></Route>
+        <Route path="/bbsupdate" element={<BbsUpdate />}></Route> */}
         <Route path="/admin" element={<Admin />}></Route>
-        <Route path="/bbsanswer/:parentSeq" element={<BbsAnswer />}></Route>
+        {/* <Route path="/bbsanswer/:parentSeq" element={<BbsAnswer />}></Route> */}
         {/* <Route path="/board" element={<Board />}></Route> */}
         <Route path="/create-board" element={<CreateBoardComponent />}></Route>
         <Route path="/read-board/:no" element={<ReadBoardComponent />}></Route>
         <Route
           path="/update-board/:no"
           element={<UpdateBoardComponent />}></Route>
-        <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route>
-        <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route>
+        {/* <Route path="/bulletinBoard/sports" element={<SportsBoard />}></Route> */}
+        {/* <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route> */}
         <Route path="/bulletinBoard/study" element={<MJBoard />}></Route>
         <Route path="/bulletinBoard/hobby" element={<JHBoard />}></Route>
-   
               {/* <Route path = "/create-board" element = {<CreateBoardComponent/>}></Route>
               <Route path = "/read-board/:no" element = {<ReadBoardComponent/>}></Route> */}
               {/* <Route path = "/update-board/:no" element = {<UpdateBoardComponent />}></Route> */}

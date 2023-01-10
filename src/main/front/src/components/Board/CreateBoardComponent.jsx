@@ -2,6 +2,7 @@ import React, { useState , useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BoardService from '../../service/BoardService';
 import axios from "axios";
+import MapSearch from '../Map/MapSearch';
 const CreateBoardComponent = () => {
   const navigate = useNavigate();
   const [inputTitle, setInputTitle] = useState('');
@@ -76,7 +77,9 @@ const CreateBoardComponent = () => {
                 <div className="form-group">
                   <label> Contents  </label>
                   <textarea placeholder="contents" name="contents" className="form-control"
-                    value={inputContent} onChange={changeContentsHandler} />
+                    value={inputContent} onChange={changeContentsHandler}>
+                  </textarea>  
+                  <MapSearch/>  
                 </div>
               
                 <button className="btn btn-success" onClick={createBoard}>Save</button>
