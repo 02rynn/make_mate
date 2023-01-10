@@ -3,7 +3,10 @@ package com.example.makeMate.service;
 
 
 
+
+		
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +32,13 @@ public class BoardService {
     // SAVE(board) 메서드를 이용해 파라미터로 들어온 board를 save함.
     public Board createBoard(Board board){
         System.out.println("DB 저장 완료");
+        Date date = new Date();
+
+        long timeInMilliSeconds = date.getTime();
+        java.sql.Date sqlDate = new java.sql.Date(timeInMilliSeconds);
+        
+        board.setCreatedTime(String.valueOf(sqlDate));
+
         return boardRepository.save(board);
     }
 
@@ -49,7 +59,7 @@ public class BoardService {
                 new IllegalArgumentException("해당 글 없음. " + no));
         board.setTitle(updateBoard.getTitle());
         board.setContents(updateBoard.getContents());
-        board.setUpdatedTime(new Date());
+       
 
         Board endUpdatedBoard = boardRepository.save(board);
         return ResponseEntity.ok(endUpdatedBoard);

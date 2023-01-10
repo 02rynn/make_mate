@@ -7,8 +7,11 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,33 +46,34 @@ public class Board {
     @Column(name = "contents")
     private String contents;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "Asia/Seoul")
     @Column(name = "created_time")
-    private Date createdTime;
+    @ColumnDefault("SYSDATE")
+    private String createdTime;
 
-    @Column(name = "updated_time")
-    private Date updatedTime;
-
-    @Column(name = "likes")
-    private Integer likes;
-
-    @Column(name = "counts")
-    private Integer counts;
    
     @Column(name = "CATEGORYCODE")
     private String categoryCode;
+    
+    @Column(name = "author")
+    private String author;
+    
+    @Column(name = "recruitment")
+    private int recruitment;
+    
+
     
 
 // ---Getter/Setter ---
 
 
     @Builder
-    public Board(int no, String title, String contents,  int likes, int counts,String categoryCode) {
+    public Board(int no, String title, String contents,String categoryCode,int recruitment) {
         this.no = no;
         this.title = title;
         this.contents = contents;
-      
-        this.likes =likes;
-        this.counts = counts;
+        this.recruitment = recruitment;
+   
         this.categoryCode = categoryCode;
 
     }
