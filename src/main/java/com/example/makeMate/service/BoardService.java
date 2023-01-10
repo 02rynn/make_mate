@@ -80,6 +80,20 @@ public class BoardService {
     	return boardRepository.findAllByCateGoryCode(name);
     }
     
+  public List<Board> findAllByLoginId(String loginId){
+    	
+    	
+    	return boardRepository.findAllByLoginId(loginId);
+    }
+  
+  public int checkMateBoard(int no){
+  	
+  	
+  	return  boardRepository.checkMateBoard(no);
+  }
+
+  
+    
     
 
 }

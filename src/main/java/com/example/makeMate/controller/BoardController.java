@@ -12,6 +12,8 @@ import com.example.makeMate.Entity.Board;
 import com.example.makeMate.Repository.BoardRepository;
 import com.example.makeMate.service.BoardService;
 
+import jakarta.transaction.Transactional;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -49,6 +51,16 @@ public class BoardController {
 //        board.setNo(1);
         return boardService.createBoard(board);
     }
+    
+    
+    @Transactional
+    @PostMapping("/checkMate/{no}")
+    public int checkMateBoard(@PathVariable int no){
+        System.out.println("creatBoard 컨트롤러 도착");
+
+//        board.setNo(1);
+        return boardService.checkMateBoard(no);
+    }
 
 
 
@@ -80,6 +92,15 @@ public class BoardController {
         
 //        System.out.println(boardService.findAllByCateGoryCode(categoryName));
         return boardService.findAllByCateGoryCode(categoryName);
+    }
+    
+    @RequestMapping(value = "/review/{loginId}", method = RequestMethod.GET)
+    public List<Board> getBoardByLogInId(@PathVariable String loginId){
+        System.out.println("getBoard 컨트롤러 도착");
+        
+        
+//        System.out.println(boardService.findAllByCateGoryCode(categoryName));
+        return boardService.findAllByLoginId(loginId);
     }
 
     
