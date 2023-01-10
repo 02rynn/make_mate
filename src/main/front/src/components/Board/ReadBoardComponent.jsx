@@ -5,6 +5,8 @@ import css2 from "../../css/Section.css";
 import MapShow from "../Map/MapShow";
 import {useSelector, useDispatch} from "react-redux";
 import Comment from '../Map/Test.js';
+
+
 const ReadBoardComponent = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -50,7 +52,12 @@ const ReadBoardComponent = () => {
           <p style={{fontSize: "8px", color: "darkgray"}}>{createdTime}</p>
           <p style={{fontSize: "8px", color: "darkgray"}}>{author}</p>
         </div>
-        <MapShow address={address} />
+        <MapShow address={address}/>
+        <Comment/>
+        
+
+
+
         {/* <table className="table table-striped table-bordered">
           <thead>
             <tr>
