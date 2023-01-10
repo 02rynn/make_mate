@@ -77,7 +77,7 @@ public class UserEntity implements Serializable{ //자바클래스를 Entity로 
 	
 	@Column(name = "PHONENUM")
 	@NotNull(message="휴대번호를 입력해주세요")
-	@Pattern(regexp="^[0-9]{10,11}$", message = "휴대전화 번호는 숫자로 이뤄진 10-11자리 입니다")
+//	@Pattern(regexp="^[0-9]{10,11}$", message = "휴대전화 번호는 숫자로 이뤄진 10-11자리 입니다")
 	private String phoneNum;
 	
 	@Column(name="user_status")

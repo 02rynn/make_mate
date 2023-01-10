@@ -15,7 +15,7 @@ import MyArticle from "../components/MyArticle";
 import MyComment from "../components/MyComment";
 import Withdrawal from "../components/Withdrawal";
 import Address from "../components/Address";
-import Admin from "../components/Admin";
+import Admin from "./Admin/Admin"; 
 import ImgTest from "./../pages/imgTest";
 import ReviewBullet from "../components/ReviewBullet";
 import Review from "../pages/Review";
@@ -26,10 +26,19 @@ import ChatRoom from "./ChatRoom";
 import YourProfile from "./YourProfile.js";
 import NoteCopy from "../pages/Note copy";
 import NotFound from "../pages/NotFound";
+import Test from '../components/Map/Test';
+
+
+
+
 import CreateBoardComponent from "./Board/CreateBoardComponent";
 import ReadBoardComponent from './Board/ReadBoardComponent';
 import UpdateBoardComponent from './Board/UpdateBoardComponent';
 import DeleteBoard from "./Board/DeleteBoard";
+
+
+
+
 
 
 
@@ -40,6 +49,7 @@ function RoutesContainer() {
       <Routes>
         <Route path="/" element={<Main />}></Route>
         <Route path="/*" element={<NotFound />}></Route>
+        <Route path="/test" element={<Test/>}></Route>
         {/* <Route path="/map" element={<MapContainer />}></Route>
         <Route path="/mapsearch" element={<MapSearch />}></Route> */}
         {/* <Route path="/bulletinBoard/study" element={<BbsList />}></Route>
@@ -59,7 +69,6 @@ function RoutesContainer() {
         {/* <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route> */}
         <Route path="/bulletinBoard/study" element={<MJBoard />}></Route>
         <Route path="/bulletinBoard/hobby" element={<JHBoard />}></Route>
-   
               {/* <Route path = "/create-board" element = {<CreateBoardComponent/>}></Route>
               <Route path = "/read-board/:no" element = {<ReadBoardComponent/>}></Route> */}
               {/* <Route path = "/update-board/:no" element = {<UpdateBoardComponent />}></Route> */}

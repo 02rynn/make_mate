@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
 
-
-
 class ImgTest extends Component {
   constructor(props) {
     super(props);
@@ -10,8 +8,6 @@ class ImgTest extends Component {
       file: null,
     };
   }
-
-
 
   fileUpload(file) {
     const userId = sessionStorage.getItem("id");
@@ -37,11 +33,8 @@ class ImgTest extends Component {
   };
 
   ////여기 위로 이미지 파일 업로드 함수
-  
 
   render() {
-    
-    
     return (
       <div>
         {/* <h1>파일 업로드</h1> */}
@@ -49,9 +42,7 @@ class ImgTest extends Component {
           <h6>프로필 사진</h6>
           <img></img>
           <input type="file" onChange={this.fileChange} name="file" />
-          <button type="button" onClick={()=>{
-            this.upload()
-            }} >
+          <button type="button" onClick={this.upload}>
             Upload
           </button>
         </form>

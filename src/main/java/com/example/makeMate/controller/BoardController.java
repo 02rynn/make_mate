@@ -75,7 +75,7 @@ public class BoardController {
     
     @RequestMapping(value = "/category/{categoryName}", method = RequestMethod.GET)
     public List<Board> getBoardByCategory(@PathVariable String categoryName){
-        System.out.println("getBoard dmdmmdmdmmdmdmdmmdmdmmdmdmmdmdmd 컨트롤러 도착");
+        System.out.println("getBoard 컨트롤러 도착");
         
         
 //        System.out.println(boardService.findAllByCateGoryCode(categoryName));

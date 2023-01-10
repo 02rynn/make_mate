@@ -6,29 +6,14 @@ import { Map, MapMarker } from "react-kakao-maps-sdk";
 const { kakao } = window;
 
 function MapShow() {
-
-    //Spring DB연결 부분
-    const baseUrl = "http://localhost:8080";
-
-    const [ data, setData ] = useState();
-
+    const [search, setSearch] = useState([]);
 
     useEffect(() => {
-        putSpringData();
-    },[])
-
-    async function putSpringData() {
-        await axios
-        .get(baseUrl + "/mapinfo")
-        .then((res)=>{
-            console.log(res.data); 
-            setData(res.data);
-        })
-        .catch((err)=>{
-            console.log(err);
-        })
-    }
-
+        fetch("/mapinfo")
+        .then((res)=> {return res.json();})
+        .then((data)=>{setSearch(data);})
+    },[]);
+    
     const [state, setState] = useState({
   // 지도의 초기 위치
     center: { lat: 36.807276, lng: 127.147177},
@@ -47,7 +32,7 @@ function MapShow() {
         })
     }
     };
-    ps.keywordSearch('두정역', placesSearchCB);
+    ps.keywordSearch(search.map((data)=>(data.address)),placesSearchCB);
 
 
     return (
@@ -64,9 +49,7 @@ function MapShow() {
                     level={3} // 지도의 확대 레벨
                 >
                 <MapMarker position={ state.center } >
-                    {data ? data.map((datas)=>(
-                            <div>{datas.address}</div>
-                    )) : ''}
+                {search.map((data)=>(data.address))}
                 </MapMarker>
                 </Map>
             </div>
