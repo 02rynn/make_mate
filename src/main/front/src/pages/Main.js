@@ -11,6 +11,14 @@ import "../css/Main.css";
 import {useSelector, useDispatch} from "react-redux";
 import {setLoginId, removeLoginId} from "../store";
 
+import '../css/Main.css';
+
+import MJBoard from './MJBoard';
+
+
+
+
+
 function Main() {
   const [imgPath, setImgPath] = useState();
   const userId = sessionStorage.getItem("id");

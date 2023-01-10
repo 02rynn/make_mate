@@ -19,9 +19,9 @@ const CreateBoardComponent = () => {
   }, []);
 
   const changeCategoryHandler = (event) => {
-    setInputCategory(event.target.value);
+    setInputTitle(event.target.value);
   }
-
+  
 
 
   const changeTitleHandler = (event) => {
@@ -57,13 +57,14 @@ const CreateBoardComponent = () => {
               <form>
                 <div className="form-group">
                   <label> Type </label>
-                  <select placeholder="type" name=" categoryCode" className="form-control">
+                  <select placeholder="type" name=" category" className="form-control">
                     {
                       category.map((data,i)=>{
                         return(
-                          <option value={inputCategory}>{data.categoryName}</option>
+                          <option value={data.categoryCode}  >{data.categoryName}</option>
                         )
-
+                       
+                      
                       })
                     }
                   </select>
