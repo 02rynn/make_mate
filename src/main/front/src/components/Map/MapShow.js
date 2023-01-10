@@ -51,7 +51,7 @@ function MapShow(props) {
         level={3} // 지도의 확대 레벨
       >
         <MapMarker position={state.center}>
-          {/* {search.map((data)=>(data.address))} */}
+          <div>{props.address}</div>
         </MapMarker>
       </Map>
     </div>

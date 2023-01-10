@@ -84,6 +84,10 @@ const MJBoard = (props) => {
             <button
               className="btn btn-primary"
               onClick={() => {
+              if(sessionStorage.getItem("loginId") ==  null){
+                alert("로그인이 필요한 서비스 입니다")
+                return;
+              }
                 navigate("/create-board");
               }}
               style={{

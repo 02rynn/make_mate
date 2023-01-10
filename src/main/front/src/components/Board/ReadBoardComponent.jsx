@@ -4,7 +4,8 @@ import css from "../../css/MyPage.css";
 import css2 from "../../css/Section.css";
 import MapShow from "../Map/MapShow";
 import {useSelector, useDispatch} from "react-redux";
-import Comment from "../Comment";
+import Comment from '../Map/Test.js';
+
 
 const ReadBoardComponent = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const ReadBoardComponent = () => {
   const author = location.state.author;
   const address = location.state.address;
   const loginId_session = sessionStorage.getItem("loginId");
+  
   let loginId = useSelector((state) => {
     return state.loginId;
   });
@@ -50,8 +52,12 @@ const ReadBoardComponent = () => {
           <p style={{fontSize: "8px", color: "darkgray"}}>{createdTime}</p>
           <p style={{fontSize: "8px", color: "darkgray"}}>{author}</p>
         </div>
-        <MapShow address={address} />
-        <Comment />
+        <MapShow address={address}/>
+        <Comment/>
+        
+
+
+
         {/* <table className="table table-striped table-bordered">
           <thead>
             <tr>
@@ -78,8 +84,11 @@ const ReadBoardComponent = () => {
           </thead>
         </table> */}
 
-        {{author} == {loginId_session} ? <Buttons></Buttons> : null}
+        {author == loginId_session ? <Buttons></Buttons> : null}
+      
       </div>
+      <div style={{marginTop:'20px'}}></div>
+      <Comment></Comment>
     </div>
   );
 };
