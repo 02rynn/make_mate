@@ -1,12 +1,10 @@
 import React, {useState} from "react";
 import {useLocation, useNavigate} from "react-router-dom";
-import css from '../../css/MyPage.css';
-import css2 from '../../css/Section.css';
-import MapShow  from "../Map/MapShow";
-import {useSelector, useDispatch} from 'react-redux'
+import css from "../../css/MyPage.css";
+import css2 from "../../css/Section.css";
+import MapShow from "../Map/MapShow";
+import {useSelector, useDispatch} from "react-redux";
 import Comment from "../Comment";
-
-
 
 const ReadBoardComponent = () => {
   const navigate = useNavigate();
@@ -55,6 +53,7 @@ const ReadBoardComponent = () => {
         <MapShow address={address}/>
         <Comment/>
         
+
 
 
         {/* <table className="table table-striped table-bordered">

@@ -1,34 +1,89 @@
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import BoardService from '../../service/BoardService';
 
-import React, { Component } from 'react';
-import { Button } from 'antd';
-import { Link } from 'react-router-dom';
-import  './Admin.css';
+const Admin = () => {
 
 
 
-class Admin extends Component {
-    render() {
-        return (
-            <div className="admin-menu-container">
-                <h2>관리자님, 환영합니다</h2>
-                <Button type="primary" block size="large">
-                    <Link to="/newAdd">
-                      게시판 추가
-                    </Link>
-                </Button>
-                <Button type="primary" block size="large">
-                    <Link to="/newEpi">
-                    게시판 삭제
-                    </Link>
-                </Button>
-                <Button type="primary" block size="large">
-                    <Link to="/AdminCustomer">
-                    회원정지
-                    </Link>
-                </Button>
+    const navigate = useNavigate();
+    const [boards, setBoards] = useState([]);
+
+    useEffect(() => {
+        BoardService.getBoards().then((resonse) => {
+            setBoards(resonse.data);
+        });
+    }, []);
+
+    
+    
+    return (
+        <div>
+            <h2 className='text-center'>관리자 페이지</h2>
+            <div className='row'>
+               
             </div>
-        );
-    }
-}
+            <div className='row'>
+            <table className='table table-striped table-bordered'>
+                    <thead>
+                        <tr>
+                            <th>LoginID</th>
+                            <th>Email</th>
+                            <th>아이디</th>
+                            <th>age</th>
+                            <th>성별</th>
+                            <th>생년월일</th>
+                            <th>휴대폰번호</th>
+                           
+                        </tr>
+                    </thead>
+                    
+                   
+
+                    <tbody>
+                        {boards.map((board)=>(
+                          // navigate 상세 주소로 수정
+                            <tr onClick={()=>{navigate("/read-board/"+board.no ,{state:{
+                                no : board.no,
+                                title : board.title,
+                                content : board.contents,
+                                createdTime : board.createdTime,
+                                updatedTime : board.updatedTime,
+                                likes : board.likes,
+                                counts: board.counts }
+                            })}} 
+                            key ={board.no}
+                            >
+                            <td>{board.no}</td>
+                            <td>{board.title}</td>
+                            <td>{board.contents}</td>
+                            <td>{board.createdTime}</td>
+                            <td>{board.updatedTime}</td>
+                            <td>{board.likes}</td>
+                            <td>{board.counts}</td>
+                            </tr>
+                        ))}
+                    </tbody>
+                    </table>
+
+                    <table className='table table-striped table-bordered'>
+                    <thead>
+                        <tr>
+                            
+                        <th>  <button className='btn btn-primary' onClick={()=>{navigate("/AdminStop")}}>회원정지</button></th>
+                            <th>  <button className='btn btn-primary' onClick={()=>{navigate("/AdminBoard")}}>게시판 관리</button></th>
+                     
+                        </tr>
+                    </thead>
+                    </table>
+
+
+
+
+            </div>
+        </div>
+    );
+};
+
 
 export default Admin;
