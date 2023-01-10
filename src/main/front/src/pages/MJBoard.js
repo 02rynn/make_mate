@@ -17,6 +17,7 @@ const MJBoard = (props) => {
       .get("http://localhost:8080/api/board/category/" + props.code)
       .then((response) => {
         setBoards(response.data);
+        console.log(response.data);
       })
       .catch((error) => console.log(error));
   }, []);
@@ -54,9 +55,7 @@ const MJBoard = (props) => {
                       title: board.title,
                       content: board.contents,
                       createdTime: board.createdTime,
-                      updatedTime: board.updatedTime,
-                      likes: board.likes,
-                      counts: board.counts,
+                      author: board.author,
                     },
                   });
                 }}
