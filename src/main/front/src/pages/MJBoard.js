@@ -28,7 +28,7 @@ const MJBoard = (props) => {
 
   return (
     <div>
-      <Card style={{border:'1px solid #001529'}}>
+      <Card style={{border:'1px solid #001529', marginTop:'3%'}}>
         <Card.Title>      
           <h2 className="text-center">
           <div style={{backgroundColor:'#001529',color:'white'
