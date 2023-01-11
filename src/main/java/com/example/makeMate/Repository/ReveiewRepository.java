@@ -27,6 +27,8 @@ public interface ReveiewRepository extends JpaRepository<ReviewEntity, Long> {
 	//내가 받은 리뷰 (다른 사람이 나에게 쓴 리뷰)
 	@Query(value="select * from review_make where review_Sender=?1",nativeQuery = true)
 	List<ReviewEntity> findTheirReview(String reviewSender);
+
+	@Query(value="select * from review_make where no=?1",nativeQuery = true)
+	List<ReviewEntity> findReviewByNO(int no);
 	
-	//리뷰는 수정 삭제는 따로 필요 없을거같음
 }

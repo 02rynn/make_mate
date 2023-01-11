@@ -32,4 +32,7 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 //	@Query(value="select b.no, b.title, b.contents from board b, (SELECT  DISTINCT no from comment_make where id=1) c where b.no = c.no")
 //	public Board findBoardByComm(int id);
 	
+	@Query(value="select * from comment_make where NO = ?1",nativeQuery = true)
+	public List<CommentEntity> findCommentByNo(int no);
+	
 }
