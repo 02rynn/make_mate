@@ -28,15 +28,13 @@ public class CommentController {
 	//update 
 	
 	//댓글 가져오기
-	@GetMapping("/comment/{no}")
+	@GetMapping("/mycomment/{loginId}")
 	@ResponseBody
-	public List<CommentEntity> list(@PathVariable int no) {
-
-
+	public List<CommentEntity> list(@PathVariable String loginId) {
 		
-		log.info("요청 들어옴{}",no);
+		log.info("댓글 가져오기 요청 들어옴{}",loginId);
 
-		return repository.findCommentByNo(no);
+		return repository.findCommentByLoginId(loginId);
 	}
 	
 	@Transactional
