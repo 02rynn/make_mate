@@ -2,11 +2,26 @@ import React from "react";
 import css from "../../css/Section.css";
 import css12 from "../../css/comment.css";
 import {useState,useEffect} from 'react';
+import axios from 'axios';
+import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
 
 export default function SingleTweet({tweet}) {
   const[urlParam, setUrlParam] = useState("");
   const user = sessionStorage.getItem("loginId");
   console.log(urlParam);
+  console.log({tweet});
+
+  const deleteComment = ()=>{
+    axios
+    .post("http://localhost:8080/delete/comm")
+    .then((response)=> {
+      console.log(response.data);
+      
+  })
+  .catch((error)=>{
+      console.log(error);
+  })
+  }
   
   return (
     <div className="tweet section_container " style={{marginTop: "5px"}}>
@@ -25,10 +40,11 @@ export default function SingleTweet({tweet}) {
 
         {user === tweet.commentWriter? 
       <div className="buttons_comment" style={{margin: "0 0 0 230px"}}>
-        <button className="logout" style={{width: "55px"}}>
-          수정
-        </button>
-        <button className="logout" style={{width: "55px", marginLeft: "5px"}}>
+       
+        <button className="logout" style={{width: "55px", marginLeft: "5px"}}
+        onclick={()=>{
+          deleteComment();
+        }}>
           삭제
         </button>
       </div>
@@ -37,3 +53,5 @@ export default function SingleTweet({tweet}) {
     </div>
   );
 }
+
+  
