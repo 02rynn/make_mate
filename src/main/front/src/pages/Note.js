@@ -7,19 +7,17 @@ import SockJS from "sockjs-client";
 import axios from "axios";
 import {over} from "stompjs";
 import MsgModal from "../components/MsgModal";
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
-import Card from 'react-bootstrap/Card';
-
+import Button from "react-bootstrap/Button";
+import Modal from "react-bootstrap/Modal";
+import Card from "react-bootstrap/Card";
 
 var stompClient = null;
 
 function Note() {
-
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
+
   //noteModal 창
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -28,7 +26,6 @@ function Note() {
     setOpen(true);
   };
 
-  
   useEffect(() => {
     axios
       .get("http://localhost:8080/test/" + userId)
@@ -39,8 +36,10 @@ function Note() {
         // tempMap.set(key[0], response.data[key[0]]);
         // tempMap.set(key[1], response.data[key[1]]);
         // setPrivateChats(tempMap);
-        privateChats.set(key[0], response.data[key[0]]);
-        privateChats.set(key[1], response.data[key[1]]);
+        for (let i = 0; i < key.length; i++) {
+          privateChats.set(key[i], response.data[key[i]]);
+        }
+
         console.log(response.data[key[0]]);
         console.log(privateChats);
         console.log(response.data);
@@ -169,6 +168,17 @@ function Note() {
       setUserData({...userData, message: ""});
     }
   };
+  const newMessage = () => {
+    var chatMessage = {
+      senderName: userData.username,
+      receiverName: userData.receivername,
+      message: userData.message,
+      status: "MESSAGE",
+    };
+    stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
+    setUserData({...userData, message: ""});
+    window.location.replace("/note");
+  };
   const handleOk = () => {
     setModalText("The modal will be closed after two seconds");
     setConfirmLoading(true);
@@ -224,8 +234,13 @@ function Note() {
 
   return (
     <div>
-      <Card style={{border:'20px solid #001529',marginTop:'2%',borderRadius:'2%'}}>
-        <Card.Body style={{border:'10px solid #FF7F27'}}>
+      <Card
+        style={{
+          border: "20px solid #001529",
+          marginTop: "2%",
+          borderRadius: "2%",
+        }}>
+        <Card.Body style={{border: "10px solid #FF7F27"}}>
           <div
             style={{
               display: "flex",
@@ -268,22 +283,39 @@ function Note() {
                     <Modal.Header closeButton>
                       <Modal.Title>쪽지함</Modal.Title>
                     </Modal.Header>
+                    <label>
+                      받는 사람
+                      <input id="reciverName" onChange={handleReciver}></input>
+                    </label>
                     <Modal.Body>
-                      <input type="text" 
-                            style={{width:'100%',
-                                    border:'1px solid black',
-                                    minHeight:'150px'}}/>
+                      <input
+                        type="text"
+                        onChange={handleMessage}
+                        style={{
+                          width: "100%",
+                          border: "1px solid black",
+                          minHeight: "150px",
+                        }}
+                      />
                     </Modal.Body>
                     <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose} style={{backgroundColor:'#001529'}}>
-                      닫기
-                    </Button>
-                    <Button variant="primary" onClick={handleClose} style={{backgroundColor:'#FF7F27', border:'1px solid #FF7F27'}}>
-                      쪽지 보내기
-                    </Button>
+                      <Button
+                        variant="secondary"
+                        onClick={handleClose}
+                        style={{backgroundColor: "#001529"}}>
+                        닫기
+                      </Button>
+                      <button
+                        variant="primary"
+                        onClick={newMessage}
+                        style={{
+                          backgroundColor: "#FF7F27",
+                          border: "1px solid #FF7F27",
+                        }}>
+                        쪽지 보내기
+                      </button>
                     </Modal.Footer>
                   </Modal>
-
                 </h3>
               </div>
               <div className="msgItems">
@@ -334,22 +366,21 @@ function Note() {
                 style={{
                   display: "flex",
                   width: "100%",
-                  borderBottom: "0.5px solid #ededed"
+                  borderBottom: "0.5px solid #ededed",
                 }}>
                 <h4 style={{fontWeight: "bolder", marginLeft: "10px"}}>쪽지</h4>
-
-                <Button 
+                <Button
                   variant="primary"
                   style={{
-                    marginLeft:'79%',
-                    backgroundColor:'#FF7F27',
-                    border:'1px solid #001529'
+                    marginLeft: "79%",
+                    backgroundColor: "#FF7F27",
+                    border: "1px solid #001529",
                   }}
                   onClick={() => {
                     setModal(true);
-                  }} 
-                  >쪽지보내기
-                </Button>{' '}
+                  }}>
+                  쪽지보내기
+                </Button>{" "}
                 <div style={{clear: "both"}}></div>
               </div>
               {modal === true ? (
@@ -423,11 +454,8 @@ function Note() {
               </div>
             </div>
           </div>
-          </Card.Body>
-        
-        </Card>
-    
-      
+        </Card.Body>
+      </Card>
     </div>
   );
 }

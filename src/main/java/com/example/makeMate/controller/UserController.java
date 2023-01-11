@@ -29,6 +29,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @RestController
@@ -261,6 +262,22 @@ public class UserController {
 		System.out.println(userId.getClass());
 
 		return imgRepository.findUSERUPLOADPATHByID(userId);
+
+	}
+	
+	@GetMapping("/search/{userId}")
+	public UserEntity findUser(@PathVariable String userId) {
+		System.out.println(userId);
+
+		return userRepository.findByloginId(userId);
+
+	}
+	@Transactional
+	@PostMapping("/search/{userId}")
+	public int blockUser(@PathVariable String userId) {
+		System.out.println(userId);
+
+		return userRepository.update_status(userId);
 
 	}
 }
