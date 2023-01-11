@@ -48,11 +48,11 @@ function Article(props) {
           justifyContent: "center",
         }}>
 
-          {userId == props.name ?   <ReviewBtn ></ReviewBtn> : null}
+          {/* {userId == props.name ?   <ReviewBtn ></ReviewBtn> : null} */}
 
        
    
-        {/* <button
+        <button
           className="withdrawal_check_btn"
           style={{margin: "8px 5px"}}
           disabled={isDisabled}
@@ -74,7 +74,7 @@ function Article(props) {
             //setReview의 값이 후기쓰기 -> 클릭 -> 후기 모달창 띄우기
           }}>
           {review}
-        </button> */}
+        </button>
        
         <Modal
           isOpen={isModalOpen}
@@ -110,46 +110,46 @@ function Article(props) {
   );
 }
 
-function ReviewBtn(props){
+// function ReviewBtn(props){
 
-  const [condition, setCondition] = useState(props.recruitment === 1 ? 1 : 0);
-  const [review, setReview] = useState(
-    props.recruitment === 1 ? "후기작성하기" : "메이트 모집완료로 변경"
-  );
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [finishMSG, setFinishMSG] = useState("");
+//   const [condition, setCondition] = useState(props.recruitment === 1 ? 1 : 0);
+//   const [review, setReview] = useState(
+//     props.recruitment === 1 ? "후기작성하기" : "메이트 모집완료로 변경"
+//   );
+//   const [isDisabled, setIsDisabled] = useState(false);
+//   const [isModalOpen, setIsModalOpen] = useState(false);
+//   const [finishMSG, setFinishMSG] = useState("");
 
-  return(
-    <>
-      <button
-          className="withdrawal_check_btn"
-          style={{margin: "8px 5px"}}
-          disabled={isDisabled}
-          onClick={() => {
-            if (condition === 0 ) {
-              //버튼을 클릭하면 모집완료로 변경하시겠습니까?
+//   return(
+//     <>
+//       <button
+//           className="withdrawal_check_btn"
+//           style={{margin: "8px 5px"}}
+//           disabled={isDisabled}
+//           onClick={() => {
+//             if (condition === 0 ) {
+//               //버튼을 클릭하면 모집완료로 변경하시겠습니까?
 
-              setReview("메이트 후기 쓰기");
-              setIsModalOpen(true);
-              setFinishMSG("모집 완료로 변경하시겠습니까?");
-              // setCondition(1);
-            } else {
-              setIsModalOpen(true);
-              setReview("후기작성하기");
-              setFinishMSG("후기를 작성하시겠습니까?");
-            }
-            //버튼 누르면 -> 후기쓰기로 이름 바뀌고 -> 다시 클릭하면 모달창 띄우기
+//               setReview("메이트 후기 쓰기");
+//               setIsModalOpen(true);
+//               setFinishMSG("모집 완료로 변경하시겠습니까?");
+//               // setCondition(1);
+//             } else {
+//               setIsModalOpen(true);
+//               setReview("후기작성하기");
+//               setFinishMSG("후기를 작성하시겠습니까?");
+//             }
+//             //버튼 누르면 -> 후기쓰기로 이름 바뀌고 -> 다시 클릭하면 모달창 띄우기
 
-            //setReview의 값이 후기쓰기 -> 클릭 -> 후기 모달창 띄우기
-          }}>
-          {review}
-        </button>
+//             //setReview의 값이 후기쓰기 -> 클릭 -> 후기 모달창 띄우기
+//           }}>
+//           {review}
+//         </button>
     
     
-    </>
+//     </>
 
-  )
+//   )
 
-}
+// }
 export default Article;

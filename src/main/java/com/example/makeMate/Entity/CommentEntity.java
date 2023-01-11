@@ -28,7 +28,7 @@ public class CommentEntity {
 	@Column(name="commnet_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="comment_seq")
 	@SequenceGenerator(name = "comment_seq",sequenceName = "comment_SEQ",initialValue = 1, allocationSize = 1)
-	private int commentId;
+	private long commentId;
 	
 	
 	@Column(name="content",length = 50000)

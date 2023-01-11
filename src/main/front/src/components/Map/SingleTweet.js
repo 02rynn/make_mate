@@ -5,6 +5,7 @@ import {useState,useEffect} from 'react';
 
 export default function SingleTweet({tweet}) {
   const[urlParam, setUrlParam] = useState("");
+  const user = sessionStorage.getItem("loginId");
   console.log(urlParam);
   
   return (
@@ -22,6 +23,7 @@ export default function SingleTweet({tweet}) {
 
       {console.log(tweet.commentWriter)}
 
+        {user === tweet.commentWriter? 
       <div className="buttons_comment" style={{margin: "0 0 0 230px"}}>
         <button className="logout" style={{width: "55px"}}>
           수정
@@ -30,6 +32,8 @@ export default function SingleTweet({tweet}) {
           삭제
         </button>
       </div>
+      : null
+      }
     </div>
   );
 }
