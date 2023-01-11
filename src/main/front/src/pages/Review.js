@@ -21,7 +21,7 @@ function Review() {
         content: review,
         reviewWriter: writer,
         rate: currentValue,
-        reviewSender: userId,
+        reviewSender: sender,
       },
       headers: {"Content-Type": "application/json"},
     })
@@ -46,11 +46,16 @@ function Review() {
   const [currentValue, setCurrentValue] = React.useState(0);
   const [hoverValue, setHoverValue] = React.useState(undefined);
   const [review, setReview] = useState("");
+  const [sender, setSender] = useState();
   const writer = sessionStorage.getItem("loginId");
 
   const handleClick = (value) => {
     setCurrentValue(value);
     console.log(currentValue);
+  };
+
+  const changeSender = (e) => {
+    setSender(e.target.value);
   };
 
   const handleMouseOver = () => {
@@ -95,7 +100,9 @@ function Review() {
             marginLeft: "30%",
             border: "2px black solid",
             borderRadius: "5px",
-          }}>
+          }}
+          onChange={changeSender}
+          value={sender}>
           {users.map((data, i) => {
             return <option>{data}</option>;
           })}
