@@ -39,7 +39,6 @@ public class MsgController {
 	@ResponseBody
 	public List<MessageEntitiy> list(String user) {
 
-
 		
 		log.info("요청 들어옴{}",user);
 

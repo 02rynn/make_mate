@@ -18,8 +18,9 @@ public interface ReveiewRepository extends JpaRepository<ReviewEntity, Long> {
 	ReviewEntity save(ReviewEntity reviewEntity);
 
 	//전체 리뷰 가지고 오기
-	List<ReviewEntity> findAll();
-	
+//	@Query(value="select * from reveiw_make where review_writer=?1 or review_sender=?2")
+//	List<ReviewEntity> findAll(String reviewWriter, String reviewSender);
+//	
 	//내가 쓴 리뷰
 	@Query(value="select * from review_make where review_writer=?1",nativeQuery = true)
 	List<ReviewEntity> findMyReview(String reviewWriter);
@@ -28,7 +29,7 @@ public interface ReveiewRepository extends JpaRepository<ReviewEntity, Long> {
 	@Query(value="select * from review_make where review_Sender=?1",nativeQuery = true)
 	List<ReviewEntity> findTheirReview(String reviewSender);
 
-	@Query(value="select * from review_make where no=?1",nativeQuery = true)
-	List<ReviewEntity> findReviewByNO(int no);
+//	@Query(value="select * from review_make where no=?1",nativeQuery = true)
+//	List<ReviewEntity> findReviewByNO(int no);
 	
 }

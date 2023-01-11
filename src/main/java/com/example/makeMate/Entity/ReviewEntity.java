@@ -14,13 +14,13 @@ import lombok.Data;
 @Table(name="review_make")
 public class ReviewEntity {
 	
-	@Id
-	private long id;
 	
+//	private long id;
+	@Id
 	@Column(name="review_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="review_seq")
 	@SequenceGenerator(name = "review_seq",sequenceName = "REVIEW_SEQ",initialValue = 1, allocationSize = 1)
-	private int reviewId;
+	private long reviewId;
 	
 	@Column(name="rate")
 	private int rate;
