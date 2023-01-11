@@ -4,7 +4,10 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,17 +26,27 @@ public class ReviewController {
 	private ReveiewRepository repository;
 	//update 
 	
-//	//댓글 가져오기
-//	@GetMapping("/review/{no}")
-//	@ResponseBody
-//	public List<ReviewEntity> list(@PathVariable int no) {
-//
-//
-//		
-//		log.info("요청 들어옴{}",no);
-//
-//		return repository.findReviewByNO(no);
-//	}
+
+	@PostMapping("/review")
+	@ResponseBody
+	public ReviewEntity insert_review(@RequestBody ReviewEntity reviewEntity) {
+
+		log.info("요청 들어옴{} {} ",reviewEntity);
+
+		return repository.save(reviewEntity);
+
+	}
+	
+	//내가 쓴 리뷰
+	@GetMapping("/review/{loginId}")
+	@ResponseBody
+	public List<ReviewEntity> review_send(@PathVariable String loginId) {
+		
+		log.info("요청 들어옴{}", loginId);
+		
+		return repository.findMyReview(loginId);
+		
+	}
 
 	
 	
