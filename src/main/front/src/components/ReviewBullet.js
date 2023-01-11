@@ -1,13 +1,14 @@
 import css from "../css/MyPage.css";
 import css2 from "../css/Section.css";
 import axios from "axios";
-import {useEffect, useState} from "react";
 import {FaStar} from "react-icons/fa";
+import React, {useState, useEffect} from "react";
 
 function ReviewBullet() {
   const loginId = sessionStorage.getItem("loginId");
   const [review, setReview] = useState([]);
   const [myreview, setMyReview] = useState([]);
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/review/" + loginId)
@@ -31,6 +32,10 @@ function ReviewBullet() {
         console.log(error);
       });
   }, []);
+  const colors = {
+    orange: "#FFBA5A",
+    grey: "#a9a9a9",
+  };
 
   return (
     <>
