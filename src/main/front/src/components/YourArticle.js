@@ -3,6 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import Modal from "react-modal";
 import Article from "./Article";
 import css from "../css/Section.css";
+import YYYArticle from "./Article copy";
 import axios from "axios";
 
 function YourArticle() {
@@ -51,13 +52,13 @@ function YourArticle() {
         </p>
         {myBoard.map((data, i) => {
           return (
-            <Article
+            <YYYArticle
               id={id}
               name={data.author}
               title={data.title}
               no={data.no}
               recruitment={data.recruitment}
-              time={data.createdTime}></Article>
+              time={data.createdTime}></YYYArticle>
           );
         })}
       </div>

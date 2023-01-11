@@ -3,7 +3,7 @@ import {useNavigate, useParams} from "react-router-dom";
 import Modal from "react-modal";
 import axios from "axios";
 
-function Article(props) {
+function YYYArticle(props) {
   const navigate = useNavigate();
 
   const [condition, setCondition] = useState(props.recruitment === 1 ? 1 : 0);
@@ -47,30 +47,31 @@ function Article(props) {
           justifyContent: "center",
         }}>
         {/* {userId == props.name ? <ReviewBtn></ReviewBtn> : null} */}
+        {userId == props.isDisabled ? (
+          <button
+            className="withdrawal_check_btn"
+            style={{margin: "8px 5px"}}
+            disabled={isDisabled}
+            onClick={() => {
+              if (condition === 0) {
+                //버튼을 클릭하면 모집완료로 변경하시겠습니까?
 
-        <button
-          className="withdrawal_check_btn"
-          style={{margin: "8px 5px"}}
-          disabled={isDisabled}
-          onClick={() => {
-            if (condition === 0) {
-              //버튼을 클릭하면 모집완료로 변경하시겠습니까?
+                setReview("메이트 후기 쓰기");
+                setIsModalOpen(true);
+                setFinishMSG("모집 완료로 변경하시겠습니까?");
+                // setCondition(1);
+              } else {
+                setIsModalOpen(true);
+                setReview("후기작성하기");
+                setFinishMSG("후기를 작성하시겠습니까?");
+              }
+              //버튼 누르면 -> 후기쓰기로 이름 바뀌고 -> 다시 클릭하면 모달창 띄우기
 
-              setReview("메이트 후기 쓰기");
-              setIsModalOpen(true);
-              setFinishMSG("모집 완료로 변경하시겠습니까?");
-              // setCondition(1);
-            } else {
-              setIsModalOpen(true);
-              setReview("후기작성하기");
-              setFinishMSG("후기를 작성하시겠습니까?");
-            }
-            //버튼 누르면 -> 후기쓰기로 이름 바뀌고 -> 다시 클릭하면 모달창 띄우기
-
-            //setReview의 값이 후기쓰기 -> 클릭 -> 후기 모달창 띄우기
-          }}>
-          {review}
-        </button>
+              //setReview의 값이 후기쓰기 -> 클릭 -> 후기 모달창 띄우기
+            }}>
+            {review}
+          </button>
+        ) : null}
 
         <Modal
           isOpen={isModalOpen}
@@ -144,4 +145,4 @@ function Article(props) {
 //     </>
 //   );
 // }
-export default Article;
+export default YYYArticle;
