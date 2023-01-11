@@ -11,9 +11,9 @@ const Admin = () => {
   const [boards, setBoards] = useState("");
 
   useEffect(() => {
-    BoardService.getBoards().then((resonse) => {
-      setBoards(resonse.data);
-    });
+    if (sessionStorage.getItem("loginId") !== "admin") {
+      navigate("/404");
+    }
   }, []);
 
   const changeSearch = (event) => {
