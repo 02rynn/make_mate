@@ -7,25 +7,18 @@ import SockJS from "sockjs-client";
 import axios from "axios";
 import {over} from "stompjs";
 import MsgModal from "../components/MsgModal";
-<<<<<<< HEAD
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
-=======
-import {Button, Modal} from "antd";
->>>>>>> a0672296e508758b97b38ca25e77c36aabec31b0
 
 var stompClient = null;
 
 function Note() {
-<<<<<<< HEAD
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
-=======
->>>>>>> a0672296e508758b97b38ca25e77c36aabec31b0
   //noteModal 창
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
@@ -34,15 +27,7 @@ function Note() {
     setOpen(true);
   };
 
-<<<<<<< HEAD
   
-=======
-  const handleCancel = () => {
-    console.log("Clicked cancel button");
-    setOpen(false);
-  };
-
->>>>>>> a0672296e508758b97b38ca25e77c36aabec31b0
   useEffect(() => {
     axios
       .get("http://localhost:8080/test/" + userId)
