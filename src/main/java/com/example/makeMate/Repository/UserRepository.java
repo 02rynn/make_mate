@@ -83,5 +83,11 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 		//@Transactional
 		@Query(value="delete from user_info where loginId = ?1",nativeQuery = true)
 		public void deleteByLoginId(String loginId);
+		
+		
+		@Modifying
+		//@Transactional
+		@Query(value="update user_info set user_status=1 where loginId = ?1",nativeQuery = true)
+		public int update_status(String loginId);
 	
 }
