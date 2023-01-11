@@ -57,15 +57,15 @@ public class ReviewController {
 	}
 	
 	//내가 댓글 단 글 
-//	@GetMapping("/comment/{loginId}")
-//	@ResponseBody
-//	public List<ReviewEntity> findComment (@PathVariable String loginId) {
-//		
-//		log.info("요청 들어옴{}", loginId);
-//		
-//		return repository.findMyReview(loginId);
-//		
-//	}
+	@GetMapping("/comment/{loginId}")
+	@ResponseBody
+	public List<ReviewEntity> findComment (@PathVariable String loginId) {
+		
+		log.info("요청 들어옴{}", loginId);
+		
+		return repository.findMyReview(loginId);
+		
+	}
 
 	
 	
