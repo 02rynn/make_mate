@@ -87,9 +87,6 @@ const AdminBoard = () => {
                     })}
                   </select>
                 </div>
-                
-                
-               
                 <button className="btn btn-success" onClick={createBoard}>
                   Save
                 </button>
