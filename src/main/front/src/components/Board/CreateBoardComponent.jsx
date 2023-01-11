@@ -83,15 +83,15 @@ const CreateBoardComponent = () => {
       <div className="container">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3"
-                style={{marginTop:'3%', border:'1px solid #FF7F27'}}>
+                style={{marginTop:'3%', border:'1px solid #001529'}}>
             <h2 className="text-center"
-                style={{marginTop:'2%', backgroundColor:'#FF7F27', color:'white'}}
+                style={{marginTop:'2%', backgroundColor:'#001529', color:'white', fontWeight:'550', border:'1px solid #001529'}}
             >글 작성하기</h2>
             <div className="card-body">
               <div className="form-group">
-                <label> 카테고리 </label>
+                <label style={{fontWeight:'600'}}> 카테고리 </label>
                 <select
-                  style={{border:'1px solid #FF7F27'}}
+                  style={{border:'1px solid #001529'}}
                   name=" category"
                   className="form-control"
                   onChange={changeCategory}
@@ -106,9 +106,9 @@ const CreateBoardComponent = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label style={{ marginTop:'2%'}}> 제목 </label>
+                <label style={{ marginTop:'2%', fontWeight:'600'}}> 제목 </label>
                 <input
-                  style={{border:'1px solid #FF7F27'}}
+                  style={{border:'1px solid #001529'}}
                   type="text"
                   placeholder="제목"
                   name="title"
@@ -118,9 +118,9 @@ const CreateBoardComponent = () => {
                 />
               </div>
               <div className="form-group">
-                <label style={{ marginTop:'2%'}}> 내용 </label>
+                <label style={{ marginTop:'2%', fontWeight:'600'}}> 내용 </label>
                 <textarea
-                  style={{minHeight:'200px', border:'1px solid #FF7F27'}}
+                  style={{minHeight:'200px', border:'1px solid #001529'}}
                   placeholder="내용을 입력해주세요"
                   name="contents"
                   className="form-control"
@@ -131,11 +131,11 @@ const CreateBoardComponent = () => {
                 <div style={{marginTop:'2%'}}>
                     <input
                       placeholder="주소를 입력해주세요"
-                      style={{border: "1px solid #FF7F27",width:'80%'}}
+                      style={{border: "1px solid #001529",width:'80%'}}
                       onChange={handleSearchAddress}></input>
                     <button
                       onClick={SearchMap}
-                      style={{backgroundColor: "#FF7F27", borderRadius:'10%', marginLeft:'1%'}}>
+                      style={{backgroundColor: "#FF7F27", borderRadius:'10%', marginLeft:'1%', border:'1px solid #001529'}}>
                       검색
                     </button>
                   </div>
@@ -147,7 +147,7 @@ const CreateBoardComponent = () => {
                       width: "100%",
                       height: "450px",
                       borderRadius:'5%',
-                      border:'1px solid #FF7F27',
+                      border:'1px solid #001529',
                       marginTop:'1%'
                     }}
                     level={3} // 지도의 확대 레벨
@@ -160,12 +160,12 @@ const CreateBoardComponent = () => {
               </div>
 
               <button className="btn btn-success" 
-                      style={{backgroundColor:'#FF7F27', border:'1px solid #FF7F27', marginTop:'3%'}} 
+                      style={{backgroundColor:'#FF7F27', border:'1px solid #001529', marginTop:'3%'}} 
                       onClick={createBoard}>
                 저장
               </button>
               <button
-                style={{backgroundColor:'#FF7F27', border:'1px solid #FF7F27', marginLeft: "10px" , marginTop:'3%'}}
+                style={{backgroundColor:'#FF7F27', border:'1px solid #001529', marginLeft: "10px" , marginTop:'3%'}}
                 className="btn btn-danger"
                 onClick={() => navigate("/")}>
                 뒤로가기
