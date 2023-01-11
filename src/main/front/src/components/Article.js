@@ -47,7 +47,7 @@ function Article(props) {
           justifyContent: "center",
         }}>
         {/* {userId == props.name ? <ReviewBtn></ReviewBtn> : null} */}
-        {userId === props.id ? (
+        
           <button
             className="withdrawal_check_btn"
             style={{margin: "8px 5px"}}
@@ -71,7 +71,7 @@ function Article(props) {
             }}>
             {review}
           </button>
-        ) : null}
+       
 
         <Modal
           isOpen={isModalOpen}
