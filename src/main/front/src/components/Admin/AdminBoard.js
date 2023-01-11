@@ -52,11 +52,11 @@ const AdminBoard = () => {
       <div className="container">
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h3 className="text-center">게시판을 선택해주세요</h3>
+            <h3 className="text-center">게시판 추가 삭제</h3>
             <div className="card-body">
               <form>
                 <div className="form-group">
-                  <label> Type </label>
+                  <label> 게시판 선택 </label>
                   <select
                     name=" category"
                     className="form-control"
@@ -72,33 +72,30 @@ const AdminBoard = () => {
                   </select>
                 </div>
                 <div className="form-group">
-                  <label> Title </label>
-                  <input
-                    type="text"
-                    placeholder="title"
-                    name="title"
+                  <label> 게시판 추가 / 삭제 </label>
+                  <select
+                    name=" category"
                     className="form-control"
-                    value={inputTitle}
-                    onChange={changeTitleHandler}
-                  />
+                    onChange={changeCategory}
+                    value={inputCategory}>
+                    {category.map((data, i) => {
+                      return (
+                        <option value={data.categoryCode}>
+                          {data.categoryName}
+                        </option>
+                      );
+                    })}
+                  </select>
                 </div>
-                <div className="form-group">
-                  <label> Contents </label>
-                  <textarea
-                    placeholder="contents"
-                    name="contents"
-                    className="form-control"
-                    value={inputContent}
-                    onChange={changeContentsHandler}
-                  />
-                </div>
-
+                
+                
+               
                 <button className="btn btn-success" onClick={createBoard}>
                   Save
                 </button>
                 <button
                   className="btn btn-danger"
-                  onClick={() => navigate("/")}
+                  onClick={() => navigate("/admin")}
                   style={{marginLeft: "10px"}}>
                   Cancel
                 </button>
