@@ -47,6 +47,25 @@ public class ReviewController {
 		return repository.findMyReview(loginId);
 		
 	}
+	
+	//내가 받은 후기
+	@GetMapping("/myreview/{loginId}")
+	@ResponseBody
+	public List<ReviewEntity> selectMyReview(@PathVariable String loginId){
+		log.info("내가 받은 후기 요청 들어옴{}", loginId);
+		return repository.findTheirReview(loginId);
+	}
+	
+	//내가 댓글 단 글 
+//	@GetMapping("/comment/{loginId}")
+//	@ResponseBody
+//	public List<ReviewEntity> findComment (@PathVariable String loginId) {
+//		
+//		log.info("요청 들어옴{}", loginId);
+//		
+//		return repository.findMyReview(loginId);
+//		
+//	}
 
 	
 	
