@@ -64,7 +64,9 @@ function Signup() {
 
 
   const checkId = ()=>{
+    console.log(loginId);
     axios({
+      headers:{"Content-Type":'text/plain'},
       method:"post",
       url:"http://localhost:3000/signup/checkId",
       data:loginId
