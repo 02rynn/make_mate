@@ -62,11 +62,14 @@ function Signup() {
     console.log("로그인 아이디");
   };
 
-  const checkId = () => {
+
+  const checkId = ()=>{
+    console.log(loginId);
     axios({
-      method: "post",
-      url: "http://localhost:3000/signup/checkId",
-      data: loginId,
+      headers:{"Content-Type":'text/plain'},
+      method:"post",
+      url:"http://localhost:3000/signup/checkId",
+      data:loginId
     })
       .then((response) => {
         console.log("아이디 확인중 ");
