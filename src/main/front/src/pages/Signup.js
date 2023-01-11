@@ -71,19 +71,19 @@ function Signup() {
       url:"http://localhost:3000/signup/checkId",
       data:loginId
     })
-    .then((response)=>{
-      console.log("아이디 확인중 ")
-      console.log(response.data);
-      if(response.data === 1){
-        alert("사용 가능한 아이디 입니다.")
-      }else{
-        alert("이미 사용중인 아이디 입니다.")
-      }
-    })
-    .catch((e)=>{
-      console.error(e.response.data);
-    })
-  }
+      .then((response) => {
+        console.log("아이디 확인중 ");
+        console.log(response.data);
+        if (response.data === 1) {
+          alert("사용 가능한 아이디 입니다.");
+        } else {
+          alert("이미 사용중인 아이디 입니다.");
+        }
+      })
+      .catch((e) => {
+        console.error(e.response.data);
+      });
+  };
 
   const onChangePassword = (e) => {
     const currentPW = e.target.value;
@@ -102,7 +102,7 @@ function Signup() {
 
   useEffect(() => {
     if (passwordConfirm == "") {
-    //  console.log("불일치");
+      //  console.log("불일치");
       setIsColor(true);
       setPasswordConfirmMessage("");
     } else if (password == passwordConfirm) {
@@ -112,30 +112,26 @@ function Signup() {
     } else if (password !== passwordConfirm) {
       setIsColor(false);
       setPasswordConfirmMessage("비밀번호가 일치하지 않습니다");
-     
     }
     console.log(passwordConfirm);
   }, [onChangePasswordConfirm, onChangePassword]);
 
-
-
-  
   //데이터 스프링으로 전송
   const onFinish = (values) => {
     console.log("onfinish");
     console.log("Received values of form: ", values);
 
-    if(password !== passwordConfirm){
-      console.log('비밀번호 일치하지 않는답')
-      alert("비밀번호가 일치하지 않습니다.")
-     // e.preventdefault();
-      return
+    if (password !== passwordConfirm) {
+      console.log("비밀번호 일치하지 않는답");
+      alert("비밀번호가 일치하지 않습니다.");
+      // e.preventdefault();
+      return;
     }
     axios({
       method: "post",
-      url: "http://localhost:8080/signup", 
+      url: "http://localhost:8080/signup",
       data: values,
-    //  headers: {"Content-Type": "multipart/form-data"},
+      //  headers: {"Content-Type": "multipart/form-data"},
     })
       .catch((e) => {
         console.error(e.response.data);
@@ -146,7 +142,7 @@ function Signup() {
         alert("회원가입을 축하합니다");
         console.log(modalmodal);
 
-             // navigate("/login");
+        navigate("/login");
       });
   };
 
@@ -156,7 +152,7 @@ function Signup() {
     console.log("radio checked", e.target.value);
     setValue(e.target.value);
   };
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            
+
   //프로필 사진 업로드
   const [fileImage, setFileImage] = useState(null);
 
@@ -184,10 +180,6 @@ function Signup() {
   //   });
   // };
 
-
- 
-  
-  
   return (
     <div>
       <Card
@@ -269,8 +261,11 @@ function Signup() {
                 type="primary"
                 htmlType="button"
                 className="ld-check-button"
-                onClick={(e) => { //아이디 인풋값을 서버로 보내서 => 만약 있다면 alert
-                {checkId()}
+                onClick={(e) => {
+                  //아이디 인풋값을 서버로 보내서 => 만약 있다면 alert
+                  {
+                    checkId();
+                  }
                 }}
                 style={{backgroundColor: "#ff7f27", marginLeft: "10px"}}>
                 중복확인
@@ -292,14 +287,14 @@ function Signup() {
               },
               overlay: {borderRadius: "15%", margin: "0 auto"},
             }}> */}
-  
-            {/* <Form>
+
+          {/* <Form>
               <Form.Item>
                 <Input></Input>             
             </Form.Item>
             </Form>
             {/* <button onClick={setModalIsOpen(false)}>닫기</button> */}
-          {/* </Modal> */} 
+          {/* </Modal> */}
 
           {/* 비밀번호 , 재확인     */}
           <Form.Item
@@ -313,8 +308,7 @@ function Signup() {
                 message: "Please input your Password!",
               },
               {
-                pattern:
-                  /[a-zA-Z\\\\d`~.!@#$%^&*()-_=+]{8,24}$/,
+                pattern: /[a-zA-Z\\\\d`~.!@#$%^&*()-_=+]{8,24}$/,
                 message:
                   "영문자, 특수문자, 숫자 조합으로 8~26자리  입력해주세요",
               },
@@ -329,7 +323,6 @@ function Signup() {
               placeholder="Password"
               onChange={(e) => {
                 onChangePassword(e);
-                
               }}
             />
           </Form.Item>
@@ -345,8 +338,7 @@ function Signup() {
                 message: "Please check your Password2!",
               },
               {
-                pattern:
-                  /[a-zA-Z\\\\d`~.!@#$%^&*()-_=+]{8,24}$/,
+                pattern: /[a-zA-Z\\\\d`~.!@#$%^&*()-_=+]{8,24}$/,
                 message:
                   "영문자, 특수문자, 숫자 조합으로 8~26자리  입력해주세요",
               },
@@ -360,7 +352,7 @@ function Signup() {
               }}
             />
           </Form.Item>
-          <p style={{color: isColor? 'red' : 'blue'}}>
+          <p style={{color: isColor ? "red" : "blue"}}>
             {passwordConfirmMessage}
           </p>
 
@@ -441,7 +433,7 @@ function Signup() {
           </Form.Item>
 
           {/*프로필사진  */}
-          
+
           {/* <Form.Item
             label="프로필 사진"
             name="profile_path"
@@ -506,9 +498,7 @@ function Signup() {
               className="login-form-button"
               style={{backgroundColor: "#ff7f27"}}
               onClick={(e) => {
-               
                 console.log("before submit");
-
               }}>
               Sign up
             </Button>
@@ -518,6 +508,5 @@ function Signup() {
     </div>
   );
 }
-
 
 export default Signup;

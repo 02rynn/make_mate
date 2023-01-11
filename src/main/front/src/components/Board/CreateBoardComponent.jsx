@@ -82,12 +82,16 @@ const CreateBoardComponent = () => {
     <div>
       <div className="container">
         <div className="row">
-          <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h3 className="text-center">새글을 작성해주세요</h3>
+          <div className="card col-md-6 offset-md-3 offset-md-3"
+                style={{marginTop:'3%', border:'1px solid #001529'}}>
+            <h2 className="text-center"
+                style={{marginTop:'2%', backgroundColor:'#001529', color:'white', fontWeight:'550', border:'1px solid #001529'}}
+            >글 작성하기</h2>
             <div className="card-body">
               <div className="form-group">
-                <label> Type </label>
+                <label style={{fontWeight:'600'}}> 카테고리 </label>
                 <select
+                  style={{border:'1px solid #001529'}}
                   name=" category"
                   className="form-control"
                   onChange={changeCategory}
@@ -102,10 +106,11 @@ const CreateBoardComponent = () => {
                 </select>
               </div>
               <div className="form-group">
-                <label> Title </label>
+                <label style={{ marginTop:'2%', fontWeight:'600'}}> 제목 </label>
                 <input
+                  style={{border:'1px solid #001529'}}
                   type="text"
-                  placeholder="title"
+                  placeholder="제목"
                   name="title"
                   className="form-control"
                   value={inputTitle}
@@ -113,15 +118,27 @@ const CreateBoardComponent = () => {
                 />
               </div>
               <div className="form-group">
-                <label> Contents </label>
+                <label style={{ marginTop:'2%', fontWeight:'600'}}> 내용 </label>
                 <textarea
-                  placeholder="contents"
+                  style={{minHeight:'200px', border:'1px solid #001529'}}
+                  placeholder="내용을 입력해주세요"
                   name="contents"
                   className="form-control"
                   value={inputContent}
                   onChange={changeContentsHandler}></textarea>
                 {/* <MapSearch/>   */}
                 <div>
+                <div style={{marginTop:'2%'}}>
+                    <input
+                      placeholder="주소를 입력해주세요"
+                      style={{border: "1px solid #001529",width:'80%'}}
+                      onChange={handleSearchAddress}></input>
+                    <button
+                      onClick={SearchMap}
+                      style={{backgroundColor: "#FF7F27", borderRadius:'10%', marginLeft:'1%', border:'1px solid #001529'}}>
+                      검색
+                    </button>
+                  </div>
                   <Map // 지도를 표시할 Container
                     center={state.center}
                     isPanto={state.isPanto}
@@ -129,6 +146,9 @@ const CreateBoardComponent = () => {
                       // 지도의 크기
                       width: "100%",
                       height: "450px",
+                      borderRadius:'5%',
+                      border:'1px solid #001529',
+                      marginTop:'1%'
                     }}
                     level={3} // 지도의 확대 레벨
                   >
@@ -136,28 +156,19 @@ const CreateBoardComponent = () => {
                       <div>{searchAddress}</div>
                     </MapMarker>
                   </Map>
-                  <div>
-                    <input
-                      placeholder="주소를 입력해주세요"
-                      style={{border: "1px solid orange"}}
-                      onChange={handleSearchAddress}></input>
-                    <button
-                      onClick={SearchMap}
-                      style={{backgroundColor: "orange"}}>
-                      검색
-                    </button>
-                  </div>
                 </div>
               </div>
 
-              <button className="btn btn-success" onClick={createBoard}>
-                Save
+              <button className="btn btn-success" 
+                      style={{backgroundColor:'#FF7F27', border:'1px solid #001529', marginTop:'3%'}} 
+                      onClick={createBoard}>
+                저장
               </button>
               <button
+                style={{backgroundColor:'#FF7F27', border:'1px solid #001529', marginLeft: "10px" , marginTop:'3%'}}
                 className="btn btn-danger"
-                onClick={() => navigate("/")}
-                style={{marginLeft: "10px"}}>
-                Cancel
+                onClick={() => navigate("/")}>
+                뒤로가기
               </button>
             </div>
           </div>
