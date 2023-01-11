@@ -15,6 +15,7 @@ import com.example.makeMate.Entity.ReviewEntity;
 import com.example.makeMate.Repository.CommentRepository;
 import com.example.makeMate.Repository.ReveiewRepository;
 
+import jakarta.transaction.Transactional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -38,12 +39,13 @@ public class CommentController {
 		return repository.findCommentByNo(no);
 	}
 	
+	@Transactional
 	@PostMapping("/comment/{no}/{comment}/{userId}")
 	@ResponseBody
 	public CommentEntity save(@PathVariable int no,@PathVariable String comment ,@PathVariable String userId) {
 
 		CommentEntity entity = new CommentEntity();
-		entity.setCommentId(1);
+		entity.setCommentId(2313);
 		entity.setNo(no);
 		entity.setCommentWriter(userId);
 		entity.setContent(comment);

@@ -7,6 +7,7 @@ import {useSelector, useDispatch} from "react-redux";
 import Comment from "../Map/Test.js";
 import {useEffect} from "react";
 import axios from "axios";
+import SingleTweet from "../Map/SingleTweet";
 
 const ReadBoardComponent = () => {
   const navigate = useNavigate();
@@ -24,6 +25,24 @@ const ReadBoardComponent = () => {
   let loginId = useSelector((state) => {
     return state.loginId;
   });
+
+  const [state, setState] = useState({
+    tweets: comment,
+  });
+  const addTweet = () => {
+    const userId = sessionStorage.getItem("loginId");
+    let value = document.querySelector("#new-tweet-content").value;
+    let copy = [...comment];
+    copy.push({commentWriter: userId, content: value});
+
+    setComment(copy);
+    axios
+      .post("http://localhost:8080/comment/" + no + "/" + value + "/" + userId)
+      .then((response) => {
+        document.querySelector("#new-tweet-content").value = "";
+      })
+      .catch((error) => console.log(error));
+  };
 
   useEffect(() => {
     axios
@@ -115,7 +134,36 @@ const ReadBoardComponent = () => {
         {author == loginId_session ? <Buttons></Buttons> : null}
       </div>
       <div style={{marginTop: "20px"}}></div>
-      <Comment comment={comment}></Comment>
+      {/* <Comment comment={comment}></Comment> */}
+      <div id="root">
+        <div>
+          <div
+            id="writing-area"
+            style={{
+              marginLeft: "40px",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}>
+            <textarea
+              className="text_comment"
+              id="new-tweet-content"></textarea>
+            <button
+              id="submit"
+              className="logout"
+              onClick={addTweet}
+              style={{width: "100px"}}>
+              {" "}
+              댓글입력
+            </button>
+          </div>
+          <ul id="tweets">
+            {comment?.map((tweet) => {
+              return <SingleTweet tweet={tweet} />;
+            })}
+          </ul>
+        </div>
+      </div>
     </div>
   );
 };
