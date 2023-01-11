@@ -17,7 +17,7 @@ const ReadBoardComponent = () => {
   const author = location.state.author;
   const address = location.state.address;
   const loginId_session = sessionStorage.getItem("loginId");
-  
+  const[urlParam, setUrlParam] = useState("");
   let loginId = useSelector((state) => {
     return state.loginId;
   });
@@ -38,19 +38,32 @@ const ReadBoardComponent = () => {
               textAlign: "left",
               marginLeft: "10px",
             }}>
-            2023-01-10
+           {createdTime}
           </p>
-          <p
+          {/* <p
             style={{
               fontSize: "10px",
               color: "darkgray",
               textAlign: "left",
               marginLeft: "5px",
             }}>
-            혜링
-          </p>
-          <p style={{fontSize: "8px", color: "darkgray"}}>{createdTime}</p>
-          <p style={{fontSize: "8px", color: "darkgray"}}>{author}</p>
+            {author}
+          </p> */}
+
+          <a id='id' onClick={(e)=>{
+                        console.log(document.getElementById('id').innerText);
+                       setUrlParam(document.getElementById('id').innerText);
+                    }} href={'/yourpage/'+urlParam}  style={{
+                      fontSize: "10px",
+                      color: "darkgray",
+                      textAlign: "left",
+                      marginLeft: "5px",
+                      textDecoration:'none'
+                    }}> {author}</a>
+
+
+          {/* <p style={{fontSize: "8px", color: "darkgray"}}>{createdTime}</p> */}
+          {/* <p style={{fontSize: "8px", color: "darkgray"}}>{author}</p> */}
         </div>
         <MapShow address={address}/>        
 

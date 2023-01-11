@@ -7,27 +7,42 @@ import SockJS from "sockjs-client";
 import axios from "axios";
 import {over} from "stompjs";
 import MsgModal from "../components/MsgModal";
+<<<<<<< HEAD
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
+=======
+import {Button, Modal} from "antd";
+>>>>>>> a0672296e508758b97b38ca25e77c36aabec31b0
 
 var stompClient = null;
 
 function Note() {
+<<<<<<< HEAD
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   
+=======
+>>>>>>> a0672296e508758b97b38ca25e77c36aabec31b0
   //noteModal 창
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState('Content of the modal');
+  const [modalText, setModalText] = useState("Content of the modal");
   const showModal = () => {
     setOpen(true);
   };
 
+<<<<<<< HEAD
   
+=======
+  const handleCancel = () => {
+    console.log("Clicked cancel button");
+    setOpen(false);
+  };
+
+>>>>>>> a0672296e508758b97b38ca25e77c36aabec31b0
   useEffect(() => {
     axios
       .get("http://localhost:8080/test/" + userId)
@@ -134,6 +149,10 @@ function Note() {
     const {value} = event.target;
     setUserData({...userData, message: value});
   };
+  const handleReciver = (event) => {
+    const {value} = event.target;
+    setUserData({...userData, receivername: value});
+  };
   // const sendValue = () => {
   //   if (stompClient) {
   //     var chatMessage = {
@@ -163,6 +182,14 @@ function Note() {
       stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
       setUserData({...userData, message: ""});
     }
+  };
+  const handleOk = () => {
+    setModalText("The modal will be closed after two seconds");
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 1000);
   };
 
   ///맨 처음 소켓 연결

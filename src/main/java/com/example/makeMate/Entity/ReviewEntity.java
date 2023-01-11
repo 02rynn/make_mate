@@ -30,5 +30,8 @@ public class ReviewEntity {
 	
 	@Column(name="review_writer")	
 	private String reviewWriter;
+	
+	@Column(name="review_sender")
+	private String reviewSender;
 
 }
