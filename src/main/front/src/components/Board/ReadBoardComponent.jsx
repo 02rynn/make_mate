@@ -52,9 +52,7 @@ const ReadBoardComponent = () => {
           <p style={{fontSize: "8px", color: "darkgray"}}>{createdTime}</p>
           <p style={{fontSize: "8px", color: "darkgray"}}>{author}</p>
         </div>
-        <MapShow address={address}/>
-        <Comment/>
-        
+        <MapShow address={address}/>        
 
 
 
