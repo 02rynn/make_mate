@@ -2,8 +2,12 @@ import axios from "axios";
 import React, {useState, useEffect} from "react";
 import {FaStar} from "react-icons/fa";
 import Card from "react-bootstrap/Card";
+import {useParams} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 
-function Review() {
+function ReviewRRR() {
+  let {id} = useParams();
+  let navi = useNavigate();
   const userId = sessionStorage.getItem("loginId");
   const colors = {
     orange: "#FFBA5A",
@@ -21,7 +25,7 @@ function Review() {
         content: review,
         reviewWriter: writer,
         rate: currentValue,
-        reviewSender: sender,
+        reviewSender: id,
       },
       headers: {"Content-Type": "application/json"},
     })
@@ -30,17 +34,9 @@ function Review() {
       })
       .then((response) => {
         console.log(response);
+        navi("/mypage/reviewbullet");
       });
   };
-  useEffect(() => {
-    axios
-      .get("http://localhost:8080/getChatUser/" + userId)
-      .then((response) => {
-        setuser(response.data);
-        console.log(response.data);
-      })
-      .catch((error) => console.log(error));
-  }, []);
 
   const stars = Array(5).fill(0);
   const [currentValue, setCurrentValue] = React.useState(0);
@@ -94,19 +90,7 @@ function Review() {
             })}
           </div>
         </Card.Title>
-        <select
-          style={{
-            width: "40%",
-            marginLeft: "30%",
-            border: "2px black solid",
-            borderRadius: "5px",
-          }}
-          onChange={changeSender}
-          value={sender}>
-          {users.map((data, i) => {
-            return <option>{data}</option>;
-          })}
-        </select>
+        <p>{id}</p>
 
         <Card.Body>
           <div className="reviewContainer" style={styles.container}>
@@ -155,4 +139,4 @@ const styles = {
   },
 };
 
-export default Review;
+export default ReviewRRR;

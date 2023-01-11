@@ -1,12 +1,10 @@
 import React from "react";
 import css from "../../css/Section.css";
 import css12 from "../../css/comment.css";
-import {useState,useEffect} from 'react';
-import axios from 'axios';
-import finalPropsSelectorFactory from "react-redux/es/connect/selectorFactory";
+import {useState, useEffect} from "react";
 
 export default function SingleTweet({tweet}) {
-  const[urlParam, setUrlParam] = useState("");
+  const [urlParam, setUrlParam] = useState("");
   const user = sessionStorage.getItem("loginId");
   console.log(urlParam);
   console.log({tweet});
@@ -30,11 +28,17 @@ export default function SingleTweet({tweet}) {
       </div>
       {/* <div className="wrtier comment_content">{tweet.commentWriter}</div> */}
       <div>
-      <a id='id'  className="wrtier comment_content" onClick={(e)=>{
-          console.log(document.getElementById('id').innerText);
-          setUrlParam(document.getElementById('id').innerText);
-          }} href={'/yourpage/'+urlParam}>{tweet.commentWriter}</a>
-      </div>  
+        <a
+          id="id"
+          className="wrtier comment_content"
+          onClick={(e) => {
+            console.log(document.getElementById("id").innerText);
+            setUrlParam(document.getElementById("id").innerText);
+          }}
+          href={"/yourpage/" + tweet.commentWriter}>
+          {tweet.commentWriter}
+        </a>
+      </div>
 
       {console.log(tweet.commentWriter)}
 

@@ -65,7 +65,7 @@ function YourProfile() {
             {id}님이 댓글 단 글
           </a>
           <br />
-          <a className="section_menu" href="">
+          <a className="section_menu" href={"/review/" + id}>
             메이트 후기
           </a>
           <br />
