@@ -15,7 +15,7 @@ import lombok.Data;
 public class ReviewEntity {
 	
 	
-//	private long id;
+
 	@Id
 	@Column(name="review_id")
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator ="review_seq")

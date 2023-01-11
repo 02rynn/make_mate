@@ -183,4 +183,22 @@ public class MsgController {
 		
 		return map;
 	}
+	@ResponseBody
+	@GetMapping("/getChatUser/{user}")
+	public List<String> ssdasd(@PathVariable String user){
+		
+		Map<String,List<Message>> map = new HashMap<>();
+		
+		//유저 메세지 리스트 상대방을 담는 리스트 
+		List<String> connectedUserList = msgRepository.findConnectedUserList(user);
+		List<Message> arr = new ArrayList<>();
+//		System.out.println(connectedUserList); 확인
+	
+		List<String> newList = connectedUserList.stream().distinct().collect(Collectors.toList());
+
+//		System.out.println(newList);확인
+		
+		return newList;
+	}
+	
 }
