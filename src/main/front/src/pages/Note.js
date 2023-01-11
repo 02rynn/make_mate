@@ -7,33 +7,24 @@ import SockJS from "sockjs-client";
 import axios from "axios";
 import {over} from "stompjs";
 import MsgModal from "../components/MsgModal";
-import { Button, Modal } from 'antd';
-
+import {Button, Modal} from "antd";
 
 var stompClient = null;
 
 function Note() {
-  
   //noteModal 창
   const [open, setOpen] = useState(false);
   const [confirmLoading, setConfirmLoading] = useState(false);
-  const [modalText, setModalText] = useState('Content of the modal');
+  const [modalText, setModalText] = useState("Content of the modal");
   const showModal = () => {
     setOpen(true);
   };
-  const handleOk = () => {
-    setModalText('The modal will be closed after two seconds');
-    setConfirmLoading(true);
-    setTimeout(() => {
-      setOpen(false);
-      setConfirmLoading(false);
-    }, 2000);
-  };
+
   const handleCancel = () => {
-    console.log('Clicked cancel button');
+    console.log("Clicked cancel button");
     setOpen(false);
   };
-  
+
   useEffect(() => {
     axios
       .get("http://localhost:8080/test/" + userId)
@@ -140,6 +131,10 @@ function Note() {
     const {value} = event.target;
     setUserData({...userData, message: value});
   };
+  const handleReciver = (event) => {
+    const {value} = event.target;
+    setUserData({...userData, receivername: value});
+  };
   // const sendValue = () => {
   //   if (stompClient) {
   //     var chatMessage = {
@@ -169,6 +164,14 @@ function Note() {
       stompClient.send("/app/private-message", {}, JSON.stringify(chatMessage));
       setUserData({...userData, message: ""});
     }
+  };
+  const handleOk = () => {
+    setModalText("The modal will be closed after two seconds");
+    setConfirmLoading(true);
+    setTimeout(() => {
+      setOpen(false);
+      setConfirmLoading(false);
+    }, 1000);
   };
 
   ///맨 처음 소켓 연결
@@ -254,14 +257,30 @@ function Note() {
               onClick={showModal}>
               <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z" />
             </svg>
-                <Modal
-                  title="쪽지함"
-                  open={open}
-                  onOk={handleOk}
-                  confirmLoading={confirmLoading}
-                  onCancel={handleCancel}>
-                  <input type="text" style={{border:'1px solid black', width:'100%',minHeight:'200px'}}/>
-                </Modal>
+            <Modal
+              title="쪽지함"
+              open={open}
+              onOk={handleOk}
+              confirmLoading={confirmLoading}
+              onCancel={handleCancel}>
+              <label>받는 사람 </label>
+              <input
+                value={userData.receivername}
+                onChange={handleReciver}
+                style={{
+                  border: "1px solid black",
+                }}></input>
+              <input
+                type="text"
+                value={userData.message}
+                onChange={handleMessage}
+                style={{
+                  border: "1px solid black",
+                  width: "100%",
+                  minHeight: "200px",
+                }}
+              />
+            </Modal>
           </h3>
         </div>
         <div className="msgItems">
