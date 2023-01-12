@@ -45,8 +45,8 @@ class ImgTest extends Component {
           <img></img>
           <input type="file" onChange={this.fileChange} name="file" />
           <button type="button" onClick={()=>{
+            alert('프로필 사진을 업로드하였습니다.')
             this.upload();
-            
             }}>
             Upload
           </button>
