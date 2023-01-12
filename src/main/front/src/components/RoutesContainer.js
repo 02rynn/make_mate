@@ -35,6 +35,7 @@ import DeleteBoard from "./Board/DeleteBoard";
 import AdminStop from "./Admin/AdminStop";
 import AdminBoard from "./Admin/AdminBoard";
 import ReviewRRR from "../pages/Review copy";
+import BoardList from "../pages/BoardList";
 
 function RoutesContainer() {
   return (
@@ -62,6 +63,7 @@ function RoutesContainer() {
         {/* <Route path="/bulletinBoard/mate" element={<MateBoard />}></Route> */}
         <Route path="/bulletinBoard/study" element={<MJBoard />}></Route>
         <Route path="/bulletinBoard/hobby" element={<JHBoard />}></Route>
+        <Route path="board" element={<BoardList/>}/>
         {/* <Route path = "/create-board" element = {<CreateBoardComponent/>}></Route>
               <Route path = "/read-board/:no" element = {<ReadBoardComponent/>}></Route> */}
         {/* <Route path = "/update-board/:no" element = {<UpdateBoardComponent />}></Route> */}
