@@ -26,3 +26,25 @@
     font-size: 1.5rem;
     color: #282c34;
     }
+
+    .scroll__container{
+        position: fixed;
+        right: 1%;
+        bottom: 3%;
+        z-index: 1;
+    
+    }
+    #top{
+        font-weight: bold;
+        font-size: 15px;
+        padding :15px 10px;
+        background-color: #001529;
+        color:white;
+        border: 1px solid #001529;
+        border-radius: 50%;
+        outline: none;
+        cursor: pointer;
+    }
+    #top:hover{
+        color : #FF7F27;
+    }

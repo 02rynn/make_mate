@@ -14,6 +14,36 @@ import GJBoard from "./GJBoard";
 import HRBoard from "./HRBoard";
 
 function Main() {
+
+  //scroll 기능
+  const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })}
+
+  const [showButton, setShowButton] = useState(false);
+
+  useEffect(() => {
+    const handleShowButton = () => {
+        if (window.scrollY > 500) {
+            setShowButton(true)
+        } else {
+            setShowButton(false)
+        }
+    }
+
+
+    window.addEventListener("scroll", handleShowButton)
+    return () => {
+        window.removeEventListener("scroll", handleShowButton)
+    }
+}, [])
+
+
+
+
+
   const [imgPath, setImgPath] = useState();
   const userId = sessionStorage.getItem("id");
   useEffect(() => {
@@ -194,6 +224,15 @@ function Main() {
             </Footer>
           </Layout>
         </Layout>
+      </div>
+
+
+      <div className="scroll__container">
+        <button id="top" 
+                onClick={scrollToTop} 
+                type="button" >
+          Top
+        </button>
       </div>
     </div>
   );
