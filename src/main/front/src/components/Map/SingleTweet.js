@@ -2,6 +2,7 @@ import React from "react";
 import css from "../../css/Section.css";
 import css12 from "../../css/comment.css";
 import {useState, useEffect} from "react";
+import axios from "axios";
 
 export default function SingleTweet({tweet}) {
   const [urlParam, setUrlParam] = useState("");
@@ -31,6 +32,7 @@ export default function SingleTweet({tweet}) {
         <a
           id="id"
           className="wrtier comment_content"
+          style={{marginRight:'550px'}}
           onClick={(e) => {
             console.log(document.getElementById("id").innerText);
             setUrlParam(document.getElementById("id").innerText);

@@ -37,6 +37,7 @@ public class CommentController {
 		return repository.findCommentByLoginId(loginId);
 	}
 	
+	//게시판 별 댓글  insert
 	@Transactional
 	@PostMapping("/comment/{no}/{comment}/{userId}")
 	@ResponseBody
@@ -55,6 +56,39 @@ public class CommentController {
 
 		return repository.save(entity);
 	}
+	
+	//니가 단 댓글
+	@GetMapping("/yourcomment/{Id}")
+	@ResponseBody
+	public List<CommentEntity> yourlist(@PathVariable String Id) {
+		
+		log.info("너의 댓글 가져오기 요청 들어옴{}",Id);
+
+		return repository.findCommentByLoginId(Id);
+	}
+	
+	//게시판별 댓글 가져오기
+	@GetMapping("/getcomment/{no}")
+	@ResponseBody
+	public List<CommentEntity> commentlist(@PathVariable int no) {
+		
+		log.info("게시판 댓글  가져오기 요청 들어옴{}",no);
+
+		return repository.findCommentByNo(no);
+	}
+	
+	
+	
+	//댓글 삭제하기
+//	@PostMapping("/delete/comm")
+//	@ResponseBody
+//	public CommentEntity delete(@PathVariable int no) {
+//
+//		
+//		log.info("댓글삭제요청 들어옴");
+//		
+//		return repository.delete_comment(no);
+//	}
 
 	
 	

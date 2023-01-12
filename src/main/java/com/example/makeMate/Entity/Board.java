@@ -59,7 +59,7 @@ public class Board {
     private String author;
     
     @Column(name = "recruitment")
-    private int recruitment;
+    private Integer recruitment;
     
     @Column(name = "address")
     private String address;

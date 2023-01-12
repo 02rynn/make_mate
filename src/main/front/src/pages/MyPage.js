@@ -9,6 +9,7 @@ function MyPage () {
 
     let navigate = useNavigate();
     let loginId = useSelector((state)=>{return state.loginId});
+    let loginId2 = sessionStorage.getItem("loginId");
     const[urlParam, setUrlParam] = useState("");
     //const dispatch = useDispatch();
     //로그인이 안되어있다면 이용불가
@@ -41,8 +42,7 @@ function MyPage () {
                         <img src={logo} style={{marginLeft:'10px'}}/>
                     </div>
                     <div className='userInfo'>
-                    <h6 style={{fontWeight:'bold'}}>{loginId}</h6>
-                    <p style={{marginLeft:'5px'}}>정혜린/닉네임</p>
+                    <h6 style={{fontWeight:'bold'}}>{loginId2}</h6>
                     </div>
                 </div>
             </section>
