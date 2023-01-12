@@ -9,12 +9,20 @@ export default function SingleTweet({tweet}) {
   const user = sessionStorage.getItem("loginId");
   console.log(urlParam);
   console.log({tweet});
+  console.log(tweet.commentId);
+
+  const [no, setNo] = useState();
+
+  const setdelNo = (e) => {
+    setNo(e.target.value);
+  };
 
   const deleteComment = () => {
     axios
-      .post("http://localhost:8080/delete/comm")
+      .post("http://localhost:8080/delete/comm/" + tweet.commentId)
       .then((response) => {
-        console.log(response.data);
+        alert("삭제 되었습니다");
+        window.location.reload();
       })
       .catch((error) => {
         console.log(error);
@@ -48,7 +56,10 @@ export default function SingleTweet({tweet}) {
           <button
             className="logout"
             style={{width: "55px", marginLeft: "5px"}}
-            onclick={() => {
+            value={tweet.commentId}
+            onClick={(e) => {
+              setdelNo(e);
+              // console.log(e.target.value);
               deleteComment();
             }}>
             삭제

@@ -1,7 +1,6 @@
 import React, {Component} from "react";
 import axios from "axios";
-import Modal from "react-modal"
-
+import Modal from "react-modal";
 
 class ImgTest extends Component {
   constructor(props) {
@@ -12,6 +11,7 @@ class ImgTest extends Component {
   }
 
   fileUpload(file) {
+    console.log("@@@@@@@@@@@@@@@@");
     const userId = sessionStorage.getItem("id");
     const url = "http://localhost:8080/upload/" + userId;
     const formData = new FormData();
@@ -25,9 +25,10 @@ class ImgTest extends Component {
   }
 
   upload = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     this.fileUpload(this.state.file).then((response) => {
-      console.log(response.data); //여기로 IMAGEPATH 넘어옴
+      console.log(response.data);
+      //여기로 IMAGEPATH 넘어옴
     });
   };
   fileChange = (e) => {
@@ -36,31 +37,31 @@ class ImgTest extends Component {
 
   ////여기 위로 이미지 파일 업로드 함수
   render() {
-  
     return (
       <div>
         {/* <h1>파일 업로드</h1> */}
         <form method="post" encType="multipart/form-data">
-          <br/>
+          <br />
           <img></img>
-          <input 
-            style={{border:'1px solid #001529'}}
+          <input
+            style={{border: "1px solid #001529"}}
             type="file"
-            onChange={this.fileChange} 
-            name="file" />
-          <button 
-            style={{marginLeft:'1%', 
-                    backgroundColor:'#FF7F27',
-                    borderRadius:'5px'
-                  }}
-            type="button"  
-            onClick={()=>{
-            alert('프로필 사진을 업로드하였습니다.')
-            this.upload();
+            onChange={this.fileChange}
+            name="file"
+          />
+          <button
+            style={{
+              marginLeft: "1%",
+              backgroundColor: "#FF7F27",
+              borderRadius: "5px",
+            }}
+            type="button"
+            onClick={() => {
+              alert("프로필 사진을 업로드하였습니다.");
+              this.upload();
             }}>
             Upload
           </button>
-          
         </form>
       </div>
     );
