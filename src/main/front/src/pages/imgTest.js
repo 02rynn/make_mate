@@ -25,9 +25,10 @@ class ImgTest extends Component {
   }
 
   upload = (e) => {
-    e.preventDefault();
+    // e.preventDefault();
     this.fileUpload(this.state.file).then((response) => {
       console.log(response.data); //여기로 IMAGEPATH 넘어옴
+      console.log("update 요청중");
     });
   };
   fileChange = (e) => {
@@ -56,6 +57,7 @@ class ImgTest extends Component {
             type="button"  
             onClick={()=>{
             alert('프로필 사진을 업로드하였습니다.')
+            window.location.href = "/";
             this.upload();
             }}>
             Upload
