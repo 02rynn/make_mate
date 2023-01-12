@@ -2,6 +2,7 @@ import React from "react";
 import css from "../../css/Section.css";
 import css12 from "../../css/comment.css";
 import {useState, useEffect} from "react";
+import axios from "axios";
 
 export default function SingleTweet({tweet}) {
   const [urlParam, setUrlParam] = useState("");
@@ -9,18 +10,17 @@ export default function SingleTweet({tweet}) {
   console.log(urlParam);
   console.log({tweet});
 
-  const deleteComment = ()=>{
+  const deleteComment = () => {
     axios
-    .post("http://localhost:8080/delete/comm")
-    .then((response)=> {
-      console.log(response.data);
-      
-  })
-  .catch((error)=>{
-      console.log(error);
-  })
-  }
-  
+      .post("http://localhost:8080/delete/comm")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="tweet section_container " style={{marginTop: "5px"}}>
       <div className="comment">
@@ -42,20 +42,18 @@ export default function SingleTweet({tweet}) {
 
       {console.log(tweet.commentWriter)}
 
-        {user === tweet.commentWriter? 
-      <div className="buttons_comment" style={{margin: "0 0 0 230px"}}>
-       
-        <button className="logout" style={{width: "55px", marginLeft: "5px"}}
-        onclick={()=>{
-          deleteComment();
-        }}>
-          삭제
-        </button>
-      </div>
-      : null
-      }
+      {user === tweet.commentWriter ? (
+        <div className="buttons_comment" style={{margin: "0 0 0 230px"}}>
+          <button
+            className="logout"
+            style={{width: "55px", marginLeft: "5px"}}
+            onclick={() => {
+              deleteComment();
+            }}>
+            삭제
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
-
-  
