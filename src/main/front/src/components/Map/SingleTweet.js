@@ -46,7 +46,6 @@ export default function SingleTweet({tweet}) {
 
         {user === tweet.commentWriter? 
       <div className="buttons_comment" style={{margin: "0 0 0 230px"}}>
-       
         <button className="logout" style={{width: "55px", marginLeft: "5px"}}
         onclick={()=>{
           deleteComment();

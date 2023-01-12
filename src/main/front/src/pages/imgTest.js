@@ -41,12 +41,22 @@ class ImgTest extends Component {
       <div>
         {/* <h1>파일 업로드</h1> */}
         <form method="post" encType="multipart/form-data">
-          <h6>프로필 사진</h6>
+          <br/>
           <img></img>
-          <input type="file" onChange={this.fileChange} name="file" />
-          <button type="button" onClick={()=>{
+          <input 
+            style={{border:'1px solid #001529'}}
+            type="file"
+            onChange={this.fileChange} 
+            name="file" />
+          <button 
+            style={{marginLeft:'1%', 
+                    backgroundColor:'#FF7F27',
+                    borderRadius:'5px'
+                  }}
+            type="button"  
+            onClick={()=>{
+            alert('프로필 사진을 업로드하였습니다.')
             this.upload();
-            
             }}>
             Upload
           </button>
