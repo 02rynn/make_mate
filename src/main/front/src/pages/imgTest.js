@@ -45,8 +45,7 @@ class ImgTest extends Component {
           <img></img>
           <input
             style={{border: "1px solid #001529"}}
-            type="file"
-<<<<<<< HEAD
+            type="file" 
             onChange={this.fileChange} 
             name="file" />
           <button 
@@ -59,21 +58,6 @@ class ImgTest extends Component {
             alert('프로필 사진을 업로드하였습니다.')
             window.location.href = "/";
             this.upload();
-=======
-            onChange={this.fileChange}
-            name="file"
-          />
-          <button
-            style={{
-              marginLeft: "1%",
-              backgroundColor: "#FF7F27",
-              borderRadius: "5px",
-            }}
-            type="button"
-            onClick={() => {
-              alert("프로필 사진을 업로드하였습니다.");
-              this.upload();
->>>>>>> 2c44c115ed1eb1d5b48a35678b3d481b0481e6df
             }}>
             Upload
           </button>
