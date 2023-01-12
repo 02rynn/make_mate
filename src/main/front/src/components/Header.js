@@ -23,32 +23,12 @@ function Header () {
                 <img src={logo} style={{width: "60%", marginLeft: "-35%"}} />
                 </Navbar.Brand>
                 <Nav className="me-auto" style={{marginLeft:'10%'}}>
-                <NavDropdown title="게시판" id="basic-nav-dropdown">
-                <NavDropdown.Item
-                    onClick={() => {
-                        navigate("bulletinBoard/study");
-                    }}>
-                    스터디 게시판
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                    onClick={() => {
-                    navigate("bulletinBoard/hobby");
-                    }}>
-                    취미 게시판
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                    onClick={() => {
-                    navigate("bulletinBoard/sports");
-                    }}>
-                    운동 게시판
-                </NavDropdown.Item>
-                <NavDropdown.Item
-                    onClick={() => {
-                    navigate("bulletinBoard/mate");
-                    }}>
-                    밥메이트 게시판
-                </NavDropdown.Item>
-                </NavDropdown>
+                <Nav.Link
+                onClick={() => {
+                    navigate("board");
+                }}>
+                게시판
+                </Nav.Link>
                 <Nav.Link
                 onClick={() => {
                     navigate("login");
