@@ -60,7 +60,7 @@ const AdminBoard = () => {
           "/" +
           categoryCode
       )
-      .then((response) => {})
+      .then((response) => { alert(inputCategory + "가 추가 되었습니다")})
       .catch((error) => console.log(error));
   };
 

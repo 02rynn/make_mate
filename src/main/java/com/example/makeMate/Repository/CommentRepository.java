@@ -36,4 +36,7 @@ public interface CommentRepository extends JpaRepository<CommentEntity, Long> {
 	@Query(value="select * from comment_make where comment_writer = ?1",nativeQuery = true)
 	public List<CommentEntity> findCommentByLoginId(String commentWriter);
 	
+	//댓글가져오기
+	@Query(value = "select * from comment_make where no=?1",nativeQuery = true)
+	public List<CommentEntity> findCommentByNo(int no);
 }

@@ -77,7 +77,7 @@ function Main() {
   return (
     <div className="mainContainer">
       <div className="sideBar">
-        <Layout>
+        <Layout >
           <Sider
             breakpoint="lg"
             collapsedWidth="0"
@@ -154,7 +154,7 @@ function Main() {
             <Content
               style={{
                 margin: "24px 16px 0",
-                height: "100rem",
+                height: "100%",
               }}>
               <div
                 style={{

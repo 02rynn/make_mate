@@ -31,14 +31,16 @@ const UpdateBoardComponent = () => {
   };
   return (
     <div>
-      <div className="container">
+      <div className="container" style={{marginTop: "3%"}}>
         <div className="row">
           <div className="card col-md-6 offset-md-3 offset-md-3">
-            <h3 className="text-center">게시물 수정</h3>
+            <h3 className="text-center" style={{marginTop: "3%"}}>
+              게시물 수정
+            </h3>
             <div className="card-body">
               <form>
                 <div className="form-group">
-                  <label> Type </label>
+                  <label> 카테고리 </label>
                   <select
                     placeholder="type"
                     name="type"
@@ -48,10 +50,10 @@ const UpdateBoardComponent = () => {
                   </select>
                 </div>
                 <div className="form-group">
-                  <label> Title </label>
+                  <label style={{marginTop: "2%"}}> 제목 </label>
                   <input
                     type="text"
-                    placeholder="title"
+                    placeholder="제목을 입력해주세용가리"
                     name="title"
                     className="form-control"
                     value={inputTitle}
@@ -59,23 +61,35 @@ const UpdateBoardComponent = () => {
                   />
                 </div>
                 <div className="form-group">
-                  <label> Contents </label>
+                  <label style={{marginTop: "2%"}}> 내용 </label>
                   <textarea
-                    placeholder="contents"
+                    placeholder="내용을 입력해주세요플레"
+                    style={{minHeight: "150px"}}
                     name="content"
                     className="form-control"
                     value={inputContent}
                     onChange={changeContentsHandler}
                   />
                 </div>
-
-                <button className="btn btn-success" onClick={updateBoard}>
+                <button
+                  className="btn btn-success"
+                  onClick={updateBoard}
+                  style={{
+                    marginTop: "3%",
+                    backgroundColor: "#FF7F27",
+                    border: "1px solid #FF7F27",
+                  }}>
                   Save
                 </button>
                 <button
                   className="btn btn-danger"
                   onClick={() => navigate("/")}
-                  style={{marginLeft: "10px"}}>
+                  style={{
+                    marginLeft: "10px",
+                    marginTop: "3%",
+                    backgroundColor: "#001529",
+                    border: "1px solid #001529",
+                  }}>
                   Cancel
                 </button>
               </form>

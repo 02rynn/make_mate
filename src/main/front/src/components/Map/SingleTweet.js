@@ -31,6 +31,7 @@ export default function SingleTweet({tweet}) {
         <a
           id="id"
           className="wrtier comment_content"
+          style={{marginRight: "550px"}}
           onClick={(e) => {
             console.log(document.getElementById("id").innerText);
             setUrlParam(document.getElementById("id").innerText);
