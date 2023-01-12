@@ -2,6 +2,7 @@ import React from "react";
 import css from "../../css/Section.css";
 import css12 from "../../css/comment.css";
 import {useState, useEffect} from "react";
+import axios from "axios";
 
 export default function SingleTweet({tweet}) {
   const [urlParam, setUrlParam] = useState("");
@@ -44,7 +45,6 @@ export default function SingleTweet({tweet}) {
 
         {user === tweet.commentWriter? 
       <div className="buttons_comment" style={{margin: "0 0 0 230px"}}>
-       
         <button className="logout" style={{width: "55px", marginLeft: "5px"}}
         onclick={()=>{
           deleteComment();

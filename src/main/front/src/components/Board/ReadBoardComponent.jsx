@@ -147,12 +147,13 @@ const ReadBoardComponent = () => {
             }}>
             <textarea
               className="text_comment"
-              id="new-tweet-content"></textarea>
+              id="new-tweet-content"
+              />
             <button
               id="submit"
               className="logout"
               onClick={addTweet}
-              style={{width: "100px"}}>
+              style={{width: "100px", marginLeft:'1%'}}>
               {" "}
               댓글입력
             </button>
@@ -176,6 +177,7 @@ function Buttons() {
     <>
       <div className=" button_container">
         <button
+          style={{width:'100px'}}
           type="submit"
           className="logout"
           onClick={() => {
@@ -184,6 +186,11 @@ function Buttons() {
           수정{" "}
         </button>
         <button
+          style={{backgroundColor:' #001529',
+                  marginTop:'3%',
+                  marginLeft:'2%',
+                  width:'100px'
+                }}
           type="submit"
           className="logout"
           onClick={() => {
