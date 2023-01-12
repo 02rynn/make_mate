@@ -15,13 +15,16 @@
 // }
 // export default test;
 
-import React from "react";
+import React , {Component} from "react";
 import SingleTweet from "./SingleTweet";
 import css from "../../css/Section.css";
 import css12 from "../../css/comment.css";
 import {useSelector, useDispatch} from "react-redux";
 import axios from "axios";
 import {useEffect} from "react";
+
+
+
 const loginId_session = sessionStorage.getItem("loginId");
 
 class Test extends React.Component {
@@ -32,8 +35,25 @@ class Test extends React.Component {
     this.state = {
       tweets: props.comment,
     };
+
     this.addTweet = this.addTweet.bind(this);
-    // this.no = props.comment.no;//
+  
+  }
+
+  componentDidMount(){
+    console.log("mount");
+    axios
+    .get(
+      "http://localhost:8080/getcomment/" +
+        this.state.tweets[0].no 
+    )
+    .then((response) => {
+      console.log("게시판 댓글가져오기");
+    })
+    .catch((error) => console.log(error));
+
+   
+    
   }
 
   addTweet() {
@@ -46,7 +66,7 @@ class Test extends React.Component {
           writer: userId,
           date: new Date().toISOString().slice(0, 10),
           content: value,
-        }
+        },
       ],
     });
     axios
@@ -58,8 +78,13 @@ class Test extends React.Component {
           "/" +
           userId
       )
-      .then((response) => {})
+      .then((response) => {
+        console.log("댓글달기")
+        
+      })
       .catch((error) => console.log(error));
+
+    
   }
 
   render() {

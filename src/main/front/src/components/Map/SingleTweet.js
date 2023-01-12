@@ -10,18 +10,17 @@ export default function SingleTweet({tweet}) {
   console.log(urlParam);
   console.log({tweet});
 
-  const deleteComment = ()=>{
+  const deleteComment = () => {
     axios
-    .post("http://localhost:8080/delete/comm")
-    .then((response)=> {
-      console.log(response.data);
-      
-  })
-  .catch((error)=>{
-      console.log(error);
-  })
-  }
-  
+      .post("http://localhost:8080/delete/comm")
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="tweet section_container " style={{marginTop: "5px"}}>
       <div className="comment">
@@ -32,6 +31,7 @@ export default function SingleTweet({tweet}) {
         <a
           id="id"
           className="wrtier comment_content"
+          style={{marginRight: "550px"}}
           onClick={(e) => {
             console.log(document.getElementById("id").innerText);
             setUrlParam(document.getElementById("id").innerText);
@@ -43,19 +43,18 @@ export default function SingleTweet({tweet}) {
 
       {console.log(tweet.commentWriter)}
 
-        {user === tweet.commentWriter? 
-      <div className="buttons_comment" style={{margin: "0 0 0 230px"}}>
-        <button className="logout" style={{width: "55px", marginLeft: "5px"}}
-        onclick={()=>{
-          deleteComment();
-        }}>
-          삭제
-        </button>
-      </div>
-      : null
-      }
+      {user === tweet.commentWriter ? (
+        <div className="buttons_comment" style={{margin: "0 0 0 230px"}}>
+          <button
+            className="logout"
+            style={{width: "55px", marginLeft: "5px"}}
+            onclick={() => {
+              deleteComment();
+            }}>
+            삭제
+          </button>
+        </div>
+      ) : null}
     </div>
   );
 }
-
-  

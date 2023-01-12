@@ -42,6 +42,7 @@ const Admin = () => {
       .post("http://localhost:8080/search/" + boards.loginId)
       .then((response) => {
         console.log(response.data);
+        alert(boards.loginId+" 님이 정지되었습니다.")
       })
       .catch((error) => console.log(error));
 
