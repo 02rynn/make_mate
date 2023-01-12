@@ -35,6 +35,8 @@ public class ImageUpLoaderController {
 	@PostMapping(value = "/upload/{userId}")
 	public Map<String, Object> upload(@PathVariable String userId ,@RequestParam("file") MultipartFile multipartFile) {
 
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@");
 		int no = Integer.parseInt(userId);
 //		  
 //		  UserImage userImage = new UserImage();

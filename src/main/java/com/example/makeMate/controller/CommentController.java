@@ -80,15 +80,15 @@ public class CommentController {
 	
 	
 	//댓글 삭제하기
-//	@PostMapping("/delete/comm")
-//	@ResponseBody
-//	public CommentEntity delete(@PathVariable int no) {
-//
-//		
-//		log.info("댓글삭제요청 들어옴");
-//		
-//		return repository.delete_comment(no);
-//	}
+	@Transactional
+	@PostMapping("/delete/comm/{no}")
+	@ResponseBody
+	public int delete(@PathVariable int no) {
+
+		
+		log.info("댓글삭제요청 들어옴");
+		return repository.delete_comment(no);
+	}
 
 	
 	

@@ -66,7 +66,7 @@ class Test extends React.Component {
           writer: userId,
           date: new Date().toISOString().slice(0, 10),
           content: value,
-        }
+        },
       ],
     });
     axios
