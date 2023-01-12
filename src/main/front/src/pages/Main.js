@@ -220,7 +220,8 @@ function Main() {
               style={{
                 textAlign: "center",
               }}>
-              Human Design ©2022 Created by TDOUCI5
+              Human Design ©2022 Created by TDOUCI5<br/>
+              <span style={{fontSize:'8px'}}>게시판 개설 문의: flsgp123@naver.com으로 이메일 주세요!</span>
             </Footer>
           </Layout>
         </Layout>

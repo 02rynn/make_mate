@@ -17,6 +17,7 @@ function Note() {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const [urlParam, setUrlParam] = useState("");
 
   //noteModal 창
   const [open, setOpen] = useState(false);
@@ -415,7 +416,25 @@ function Note() {
                         }`}
                         key={index}>
                         {chat.senderName !== userData.username && (
-                          <div className="avatar">{chat.senderName}</div>
+                          <div className="avatar">
+                             <a
+            id="id"
+            onClick={(e) => {
+              console.log(document.getElementById("id").innerText);
+              setUrlParam(document.getElementById("id").innerText);
+            }}
+            href={"/yourpage/" + urlParam}
+            style={{
+              fontSize: "10px",
+              color: "darkgray",
+              textAlign: "left",
+              marginLeft: "5px",
+              textDecoration: "none",
+            }}>
+            {" "}
+{chat.senderName}            
+          </a>
+                            </div>
                         )}
                         <div className="message-data">{chat.message}</div>
                         {chat.senderName === userData.username && (

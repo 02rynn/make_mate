@@ -60,7 +60,7 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 
 		//비밀번호 변경
 		@Modifying
-		//@Transactional
+		@Transactional
 		@Query(value="update user_info set password=?1 where loginId = ?2",nativeQuery = true)
 		public void update_password(String password, String loginId);
 		
@@ -74,13 +74,13 @@ public interface UserRepository extends JpaRepository<UserEntity, Long> { //enti
 		
 		//이메일 변경
 		@Modifying
-		//@Transactional
+		@Transactional
 		@Query(value="update user_info set email=?1 where loginId = ?2",nativeQuery = true)
 		public void update_email(String email, String loginId);
 		
 		//회원탈퇴
 		@Modifying
-		//@Transactional
+		@Transactional
 		@Query(value="delete from user_info where loginId = ?1",nativeQuery = true)
 		public void deleteByLoginId(String loginId);
 		

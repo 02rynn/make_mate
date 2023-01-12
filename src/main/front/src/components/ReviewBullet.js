@@ -74,9 +74,8 @@ function ReviewBullet() {
             {myreview.map((data, i) => {
               return (
                 <div className="article_box">
-                  {data.content}
-                  {data.reviewWriter}
-                  <span>평점: {data.rate}점</span>
+                <p>{data.content}</p>  
+                <span>평점: {data.rate}점</span>
                 </div>
               );
             })}

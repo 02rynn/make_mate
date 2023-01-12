@@ -54,7 +54,10 @@ function Login() {
       .then((response) => {
         /*여기서 이제 데이터로 넘어온 값으로 아이디 비번체크*/
         console.log(response.data);
-
+        if(response.data.userStatus===1){
+          alert("정지된 회원입니다")
+          return
+        }
         if (response.data.loginId == null || response.data.password == null) {
           //     로그인으로 가든, 메시지를 띄우든 해라 ...
           alert(" 비밀번호 혹은 아이디가 일치하지 않습니다.");
